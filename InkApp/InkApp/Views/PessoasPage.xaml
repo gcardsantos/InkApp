@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:c="clr-namespace:InkApp.Converters"
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="InkApp.Views.PessoasPage"
+             Title="{Binding Title}"
+             NavigationPage.HasNavigationBar="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <StackLayout>
+            <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}"/>
+            
+            <Frame CornerRadius="10" HasShadow="True" HorizontalOptions="FillAndExpand" Padding="10" Margin="3">
+                <SearchBar x:Name="searchBar"  SearchCommand="{Binding SearchBarCommand}" SearchCommandParameter="{Binding Path=Text, Source={x:Reference searchBar}}" Placeholder="Filtrar" BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
+            </Frame>
+            
+            <ListView x:Name="ListViewPessoas" ItemsSource="{Binding PeopleVisible}" SelectedItem="{Binding Item}"
+                      RefreshControlColor="White" SeparatorColor="White"
+                      SeparatorVisibility="None" RowHeight="100">
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" EventArgsConverter="{StaticResource itemTappedEventArgsConverter}"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout BackgroundColor="Transparent" Padding="4" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Frame HasShadow="True" CornerRadius="10" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                            <abstractions:CircleImage Source="{Binding Image}" HorizontalOptions="StartAndExpand" Scale="1.5"/>
+                                            <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="Start" Padding="10, -5, 0, 0">
+                                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" Margin="2" TextColor="Black"/>
+                                                    <Label Text="{Binding Local}" FontSize="17" HorizontalOptions="CenterAndExpand" LineBreakMode="TailTruncation" TextColor="Black"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell.View>                            
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage> 

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InkApp.Views.MainPage"
+             NavigationPage.HasNavigationBar="False"
+             Title="InkApp"
+             >
+
+    <ScrollView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label FontFamily="{DynamicResource FontLobster}" Text="InkApp" TextColor="Black" FontSize="44" HorizontalOptions="Center"/>
+            <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="10">
+                <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}" FontSize="Large"
+                    TextColor="Black"
+                    Title="Cidade:">
+                    <Picker.Items>
+                        <x:String>MG / Belo Horizonte</x:String>
+                        <x:String>PR / Curitiba</x:String>
+                        <x:String>RS / Santa Maria</x:String>
+                        <x:String>RS / Porto Alegre</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <RelativeLayout HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="40" HeightRequest="40" IsVisible="{Binding BtnEnabled}">
+                    <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Lupa}" TextColor="Black" Scale="1.5" Margin="13"/>
+                    <Button BackgroundColor="Transparent" Command="{Binding NavigateToPessoasPageCommand}" FontSize="Micro"/>
+                </RelativeLayout>
+                <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Black" />
+            </StackLayout>
+            <StackLayout Padding="20, 100, 20, 20">
+                <Label Text="Deseja ser divulgado?" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding BtnEnabled}"/>
+                <Label Text="Entre em contato conosco" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding BtnEnabled}"/>
+                <Button VerticalOptions="End" HorizontalOptions="Center" Text="Solicitar" Command="{Binding NavigateToAboutPageCommand}" IsVisible="{Binding BtnEnabled}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+            </StackLayout>
+        
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
