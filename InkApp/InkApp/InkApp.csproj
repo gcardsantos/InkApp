@@ -8,6 +8,7 @@
     <PackageReference Include="InstagramApiSharp" Version="1.4.0" />
     <PackageReference Include="Microsoft.Azure.Mobile.Client" Version="4.1.2-prerelease.481290" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.1.1.1-beta" />
+    <PackageReference Include="Xamarin.Firebase.Ads" Version="60.1142.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.394984-pre10" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1233-pre" />
   </ItemGroup>

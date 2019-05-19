@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:InkApp.Views"
              x:Class="InkApp.Views.MainPage"
              NavigationPage.HasNavigationBar="False"
              Title="InkApp"
@@ -33,7 +34,7 @@
                 <Label Text="Entre em contato conosco" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding BtnEnabled}"/>
                 <Button VerticalOptions="End" HorizontalOptions="Center" Text="Solicitar" Command="{Binding NavigateToAboutPageCommand}" IsVisible="{Binding BtnEnabled}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
             </StackLayout>
-        
+            <local:AdMobView AdUnitId="{Binding AdUnitId}" VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -3,7 +3,6 @@ using Microsoft.WindowsAzure.MobileServices;
 
 namespace InkApp
 {
-
     [DataTable("Pessoas")]
     public class Pessoa
     {

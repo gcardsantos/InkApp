@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Gms.Ads;
 using Android.OS;
 using Android.Views;
 using Prism;
@@ -16,8 +17,8 @@ namespace InkApp.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
+            MobileAds.Initialize(ApplicationContext, "ca-app-pub-2004861149074108~5008996630");
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
-            global::Xamarin.Forms.Forms.Init(this, bundle);
             this.Window.AddFlags(WindowManagerFlags.Fullscreen | WindowManagerFlags.TurnScreenOn);
             ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);

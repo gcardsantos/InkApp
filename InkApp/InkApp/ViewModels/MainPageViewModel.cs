@@ -18,7 +18,7 @@ namespace InkApp.ViewModels
     {
         private INavigationService _navigationService;
         private IInstaApi api;
-        
+        public string AdUnitId { get; set; } = "ca-app-pub-3940256099942544/6300978111";
         //bool para exibir o picker
         private bool _picker;
         public bool PickerVisible { get { return _picker; } set { SetProperty(ref _picker, value); } }
