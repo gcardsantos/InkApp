@@ -5,6 +5,14 @@
              x:Class="InkApp.App">
     <Application.Resources>
         <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <Style TargetType="NavigationPage">
+                <Setter Property="HasNavigationBar" Value="True" />
+                <Setter Property="BarTextColor" Value="White" />
+                <Setter Property="BarBackgroundColor" Value="Black" />
+            </Style>
+        </ResourceDictionary>
+
         <OnPlatform x:Key="MaterialButton" x:TypeArguments="x:String">
             <On Platform="iOS" Value="Material Design Icons" />
             <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
@@ -15,7 +23,7 @@
             <On Platform="Android" Value="Lobster-Regular.ttf#Lobster-Regular" />
             <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
         </OnPlatform>
-
+        
         
         <x:String x:Key="Instagram">&#xF2FE;</x:String>
         <x:String x:Key="Whats">&#xF5A3;</x:String>

@@ -11,10 +11,11 @@ using InstagramApiSharp.API;
 using InstagramApiSharp.Classes;
 using InstagramApiSharp.API.Builder;
 using Xamarin.Forms;
+using InkApp.Views;
 
 namespace InkApp.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    public class HomePageViewModel : ViewModelBase
     {
         private INavigationService _navigationService;
         private IInstaApi api;
@@ -45,7 +46,7 @@ namespace InkApp.ViewModels
 
         public DelegateCommand NavigateToPessoasPageCommand { get; private set; }
         public DelegateCommand NavigateToAboutPageCommand { get; private set; }
-        public MainPageViewModel(INavigationService navigationService)
+        public HomePageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             BtnEnabled = false;
@@ -59,7 +60,7 @@ namespace InkApp.ViewModels
 
         private async void NavitageToAboutPageAsync()
         {
-            await _navigationService.NavigateAsync("PessoasPage");
+            await _navigationService.NavigateAsync(nameof(MainMasterDetailPage)+ "/" + nameof(NavigationPage) + "/" + nameof(PessoasPage));
         }
 
         private async Task LogInstaAsync()

@@ -7,7 +7,7 @@ namespace InkApp.Models
 {
     public class InstagramItem
     {
-        public string Text { get; set; }
+        public Pessoa People { get; set; }
         public string ImageLow { get; set; }
         public string ImageHigh { get; set; }
     }
