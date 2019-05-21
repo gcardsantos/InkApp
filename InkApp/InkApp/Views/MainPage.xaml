@@ -3,15 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:InkApp.Views"
              x:Class="InkApp.Views.MainPage"
-             NavigationPage.HasNavigationBar="False"
              Title="InkApp"
              >
-
     <ScrollView>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
             <Label FontFamily="{DynamicResource FontLobster}" Text="InkApp" TextColor="Black" FontSize="44" HorizontalOptions="Center"/>
             <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="10">
-                <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}" FontSize="Large"
+                <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}" FontSize="Large" HeightRequest="100"
                     TextColor="Black"
                     Title="Cidade:">
                     <Picker.Items>
@@ -34,7 +32,6 @@
                 <Label Text="Entre em contato conosco" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding BtnEnabled}"/>
                 <Button VerticalOptions="End" HorizontalOptions="Center" Text="Solicitar" Command="{Binding NavigateToAboutPageCommand}" IsVisible="{Binding BtnEnabled}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
             </StackLayout>
-            <local:AdMobView AdUnitId="{Binding AdUnitId}" VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

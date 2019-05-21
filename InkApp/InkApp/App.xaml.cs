@@ -23,7 +23,7 @@ namespace InkApp
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync(new System.Uri("/MainDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -34,6 +34,8 @@ namespace InkApp
             containerRegistry.RegisterForNavigation<DetailsPage, DetailsPageViewModel>();
             containerRegistry.RegisterForNavigation<ImagePage, ImagePageViewModel>();
             containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
+            containerRegistry.RegisterForNavigation<MainDetailPage, MainDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<CustomTabbedPage, CustomTabbedPageViewModel>();
         }
     }
 }
