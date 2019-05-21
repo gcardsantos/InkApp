@@ -57,8 +57,8 @@ namespace InkApp.ViewModels
 
         public DetailsPageViewModel(INavigationService navigationService):base(navigationService)
         {
-            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.White;
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
+            //((NavigationPage)Application.Current.MainPage).BarTextColor = Color.White;
+            //((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
             
             Feed = new ObservableCollection<InstagramItem>();
             BtnWhats = new DelegateCommand(OpenWhatsApp);
@@ -99,7 +99,7 @@ namespace InkApp.ViewModels
                         {
                             if(item.Images.Count > 0 && item.Videos.Count == 0)
                             {
-                                Feed.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri });
+                                Feed.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p });
                             }                            
                         }
                     }

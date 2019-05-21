@@ -2,14 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:InkApp.Views"
-             x:Class="InkApp.Views.MainPage"
-             Title="InkApp"
+             x:Class="InkApp.Views.HomePage"
+             NavigationPage.HasNavigationBar="True"
+             Title=""
              >
+
     <ScrollView>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
             <Label FontFamily="{DynamicResource FontLobster}" Text="InkApp" TextColor="Black" FontSize="44" HorizontalOptions="Center"/>
             <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="10">
-                <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}" FontSize="Large" HeightRequest="100"
+                <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}" FontSize="Large"
                     TextColor="Black"
                     Title="Cidade:">
                     <Picker.Items>

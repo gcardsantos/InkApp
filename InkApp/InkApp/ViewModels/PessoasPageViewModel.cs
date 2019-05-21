@@ -16,6 +16,7 @@ namespace InkApp.ViewModels
     public class PessoasPageViewModel : ViewModelBase
     {
         private INavigationService _navigationService;
+        
         private IInstaApi api;
 
         private ObservableCollection<Pessoa> _pessoas;
@@ -35,8 +36,6 @@ namespace InkApp.ViewModels
 
         public PessoasPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.White;
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
             _navigationService = navigationService;
             Pessoas = new ObservableCollection<Pessoa>();
             PeopleVisible = new ObservableCollection<Pessoa>();

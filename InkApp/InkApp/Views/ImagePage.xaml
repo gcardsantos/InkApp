@@ -2,14 +2,22 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:local="clr-namespace:InkApp.Gestos"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="InkApp.Views.ImagePage"
              BackgroundColor="Transparent">
     <ContentPage.Content>
-        <ScrollView>
-            <Image x:Name="ImageVar" Aspect="AspectFit"></Image>
-        </ScrollView>        
+        <RelativeLayout Padding="20">
+            <Button x:Name="btnBack" Text="Back"/>
+            <local:PinchToZoomContainer>
+                <local:PinchToZoomContainer.Content>
+                    <Image x:Name="ImageVar" Aspect="AspectFit"></Image>
+                </local:PinchToZoomContainer.Content>
+            </local:PinchToZoomContainer>
+            <Button x:Name="btnNext" Text="Next"/>
+        </RelativeLayout>           
+        
     </ContentPage.Content>
     
 </ContentPage>

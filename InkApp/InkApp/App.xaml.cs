@@ -19,23 +19,24 @@ namespace InkApp
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
 
+        public static double ScreenWidth;
+        public static double ScreenHeight;
+
         protected override async void OnInitialized()
         {
             InitializeComponent();
-
-            await NavigationService.NavigateAsync(new System.Uri("/MainDetailPage/NavigationPage/MainPage", System.UriKind.Absolute));
+            await NavigationService.NavigateAsync("MainMasterDetailPage/NavigationPage/HomePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<PessoasPage, PessoasPageViewModel>();
             containerRegistry.RegisterForNavigation<DetailsPage, DetailsPageViewModel>();
             containerRegistry.RegisterForNavigation<ImagePage, ImagePageViewModel>();
             containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
-            containerRegistry.RegisterForNavigation<MainDetailPage, MainDetailPageViewModel>();
-            containerRegistry.RegisterForNavigation<CustomTabbedPage, CustomTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<MainMasterDetailPage, MainMasterDetailPageViewModel>();
         }
     }
 }
