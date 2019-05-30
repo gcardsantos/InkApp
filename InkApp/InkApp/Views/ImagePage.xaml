@@ -10,12 +10,13 @@
     <ContentPage.Content>
         <RelativeLayout Padding="20">
             <Button x:Name="btnBack" Text="Back"/>
-            <local:PinchToZoomContainer>
-                <local:PinchToZoomContainer.Content>
+            <local:PinchGesture>
+                <local:PinchGesture.Content>
                     <Image x:Name="ImageVar" Aspect="AspectFit"></Image>
-                </local:PinchToZoomContainer.Content>
-            </local:PinchToZoomContainer>
+                </local:PinchGesture.Content>
+            </local:PinchGesture>
             <Button x:Name="btnNext" Text="Next"/>
+            <Button x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked"/>
         </RelativeLayout>           
         
     </ContentPage.Content>

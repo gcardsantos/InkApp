@@ -13,7 +13,7 @@ namespace InkApp.Views
         private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var imagem = e.CurrentSelection[0] as InstagramItem;
-            await Navigation.PushModalAsync(new ImagePage(imagem.ImageHigh));
+            await Navigation.PushModalAsync(new ImagePage(imagem));
         }
     }
 }
