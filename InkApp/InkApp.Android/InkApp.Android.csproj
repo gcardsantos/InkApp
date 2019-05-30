@@ -30,7 +30,8 @@
     <AndroidSigningKeyStore>C:\Users\Gabriel\AppData\Local\Xamarin\Mono for Android\Keystore\InkApp\InkApp.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>inkapp</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>Gabriel Cardoso</AndroidSigningKeyAlias>
-    <AndroidSigningKeyPass>inkapp</AndroidSigningKeyPass>
+    <AndroidSigningKeyPass>
+    </AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,9 +69,11 @@
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <EnableProguard>true</EnableProguard>
-    <AndroidSupportedAbis>x86;x86_64;arm64-v8a</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <MandroidI18n />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
