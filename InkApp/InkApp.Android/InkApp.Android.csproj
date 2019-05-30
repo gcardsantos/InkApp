@@ -26,6 +26,11 @@
     <JavaOptions />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\gabri\AppData\Local\Xamarin\Mono for Android\Keystore\InkApp\InkApp.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>inkapp</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>Gabriel</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>inkapp</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
