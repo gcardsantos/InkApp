@@ -6,18 +6,23 @@ using Xamarin.Forms.Internals;
 
 namespace InkApp.Gestos
 {
-    public class PinchToZoomContainer : ContentView
+    public class PinchGesture : ContentView
     {
+        double x, y;
+
         double currentScale = 1;
         double startScale = 1;
         double xOffset = 0;
         double yOffset = 0;
 
-        public PinchToZoomContainer()
+        public PinchGesture()
         {
             var pinchGesture = new PinchGestureRecognizer();
             pinchGesture.PinchUpdated += OnPinchUpdated;
+            var panGesture = new PanGestureRecognizer();
+            panGesture.PanUpdated += OnPanUpdated;
             GestureRecognizers.Add(pinchGesture);
+            GestureRecognizers.Add(panGesture);
         }
 
         void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
@@ -55,6 +60,23 @@ namespace InkApp.Gestos
             {
                 xOffset = Content.TranslationX;
                 yOffset = Content.TranslationY;
+            }
+        }
+
+        void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            switch (e.StatusType)
+            {
+
+                case GestureStatus.Running:
+                    Content.TranslationX = Math.Max(Math.Min(0, x + e.TotalX), -Math.Abs(Content.Width - App.ScreenWidth));
+                    Content.TranslationY = Math.Max(Math.Min(0, y + e.TotalY), -Math.Abs(Content.Height - App.ScreenHeight));
+                    break;
+
+                case GestureStatus.Completed:
+                    x = Content.TranslationX;
+                    y = Content.TranslationY;
+                    break;
             }
         }
     }
