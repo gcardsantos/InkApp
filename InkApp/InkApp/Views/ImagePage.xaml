@@ -16,6 +16,7 @@
                 </local:PinchGesture.Content>
             </local:PinchGesture>
             <Button x:Name="btnNext" Text="Next"/>
+            <Button x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked"/>
         </RelativeLayout>           
         
     </ContentPage.Content>

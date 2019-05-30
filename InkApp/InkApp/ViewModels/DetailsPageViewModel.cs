@@ -2,6 +2,7 @@
 using InkApp.Models;
 using InstagramApiSharp;
 using InstagramApiSharp.API;
+using InstagramApiSharp.Classes.Models;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -17,9 +18,7 @@ namespace InkApp.ViewModels
         private INavigationService _navigationService;
         private IInstaApi api;
         private ObservableCollection<InstagramItem> _feed;
-
         //baixa resolução  / alta resolução
-
         public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
         //------regiao do profile info
@@ -94,7 +93,7 @@ namespace InkApp.ViewModels
                     if (collection.Succeeded)
                     {
                         Feed.Clear();
-
+                        
                         foreach (var item in collection.Value)
                         {
                             if(item.Images.Count > 0 && item.Videos.Count == 0)
