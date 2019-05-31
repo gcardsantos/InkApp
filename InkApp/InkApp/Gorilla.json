@@ -1,0 +1,11 @@
+{
+  "navigationPage": {
+    "all": true
+  },
+
+  "knownAssemblies": [
+    { "name": "Prism" },
+    { "name": "Prism.Forms" },
+    { "name": "Prism.Dryloc.Forms" }
+  ]
+}

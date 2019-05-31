@@ -7,6 +7,7 @@ using Xamarin.Forms.Xaml;
 using InkApp.Data;
 using System.IO;
 using System;
+using DLToolkit.Forms.Controls;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace InkApp
@@ -30,6 +31,7 @@ namespace InkApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
+            FlowListView.Init();
             await NavigationService.NavigateAsync("TopMasterDetailPage/NavigationPage/HomePage");
         }
 

@@ -24,7 +24,7 @@ namespace InkApp.ViewModels
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-            
+
         }
 
         public void OnNavigatedFromAsync(INavigationParameters parameters)

@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
-             xmlns:c="clr-namespace:InkApp.Converters"
+             xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.DetailsPage"
              Title="{Binding Title}"
@@ -35,9 +34,9 @@
                         <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="13"/>
                         <Button Command="{Binding BtnIg}" FontSize="Micro" BackgroundColor="Transparent"/>
                     </RelativeLayout>
-                    <RelativeLayout Grid.Column="2" Grid.Row="1" Padding="10"  WidthRequest="20" HeightRequest="20">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="13, 33, 0, 0"/>
-                        <Button Command="{Binding BtnWhats}" BackgroundColor="Transparent"/>
+                    <RelativeLayout Grid.Column="2" Grid.Row="1" Padding="10" VerticalOptions="Start" WidthRequest="20" HeightRequest="20">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="13, 23, 0, 0"/>
+                        <Button Command="{Binding BtnWhats}" BackgroundColor="Transparent" Margin="13, 23, 0, 0"/>
                     </RelativeLayout>
                     <RelativeLayout Grid.Column="2"  Grid.Row="2" Padding="10" VerticalOptions="Center" WidthRequest="20" HeightRequest="20">
                         <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="13"/>
@@ -48,19 +47,17 @@
                 
             </Frame>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Black"/>
-            <CollectionView ItemsSource="{Binding Feed}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="3"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
+            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="200" SeparatorVisibility="None" HasUnevenRows="false"
+			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
+                <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Frame CornerRadius="0" HasShadow="True" Padding="5">
                             <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="125"/>
+                                    <ColumnDefinition Width="200"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="125"/>
+                                    <RowDefinition Height="200"/>
                                 </Grid.RowDefinitions>
                                 <Image Grid.RowSpan="3" Aspect="AspectFill">
                                     <Image.Source>
@@ -70,8 +67,9 @@
                             </Grid>
                         </Frame>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </fl:FlowListView.FlowColumnTemplate>
+            </fl:FlowListView>
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>

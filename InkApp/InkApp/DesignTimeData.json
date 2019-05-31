@@ -1,0 +1,384 @@
+
+{
+  "AchievementsView.xaml": {
+    "Achievements": [
+      {
+        "$id": "1",
+        "Name": "Xamarin",
+        "Icon": "iconXamarin",
+        "Url": "https://docs.microsoft.com/en-us/xamarin/xamarin-forms/",
+        "IsAchieved": true
+      },
+      {
+        "$id": "2",
+        "Name": "Xamarin University",
+        "Icon": "iconXamarinUniversity",
+        "Url": "https://university.xamarin.com",
+        "IsAchieved": false
+      },
+      {
+        "$id": "3",
+        "Name": "AppCenter",
+        "Icon": "iconAppCenter",
+        "Url": "https://appcenter.ms",
+        "IsAchieved": true
+      },
+      {
+        "$id": "4",
+        "Name": "Azure",
+        "Icon": "iconAzure",
+        "Url": "https://azure.microsoft.com/en-us/",
+        "IsAchieved": true
+      },
+      {
+        "$id": "5",
+        "Name": "Azure Functions",
+        "Icon": "iconAzureFunctions",
+        "Url": "https://azure.microsoft.com/en-us/services/functions/",
+        "IsAchieved": false
+      },
+      {
+        "$id": "6",
+        "Name": "Mono",
+        "Icon": "iconMono",
+        "HasDarkImage": true,
+        "Url": "https://github.com/mono",
+        "IsAchieved": true
+      },
+      {
+        "$id": "7",
+        "Name": "MvvmCross",
+        "Icon": "iconMvvmCross",
+        "HasDarkImage": true,
+        "Url": "https://www.mvvmcross.com/",
+        "IsAchieved": true
+      },
+      {
+        "$id": "8",
+        "Name": "Prism",
+        "Icon": "iconPrism",
+        "HasDarkImage": true,
+        "Url": "http://prismlibrary.github.io/docs/xamarin-forms/Getting-Started.html",
+        "IsAchieved": true
+      },
+      {
+        "$id": "9",
+        "Name": "Telerik",
+        "Icon": "iconProgressTelerik",
+        "Url": "https://www.telerik.com/xamarin-ui",
+        "IsAchieved": false
+      },
+      {
+        "$id": "10",
+        "Name": "VS Code",
+        "Icon": "iconVSCode",
+        "Url": "https://code.visualstudio.com",
+        "IsAchieved": true
+      },
+      {
+        "$id": "11",
+        "Name": "Visual Studio",
+        "Icon": "iconVSIDE",
+        "Url": "https://www.visualstudio.com",
+        "IsAchieved": true
+      },
+      {
+        "$id": "12",
+        "Name": "VS for Mac",
+        "Icon": "iconVSMac",
+        "Url": "https://www.visualstudio.com/vs/mac/",
+        "IsAchieved": true
+      },
+      {
+        "$id": "13",
+        "Name": "VSTS",
+        "Icon": "iconVSTS",
+        "Url": "https://www.visualstudio.com/vso/",
+        "IsAchieved": false
+      },
+      {
+        "$id": "14",
+        "Name": "GitHub",
+        "Icon": "iconGithub",
+        "HasDarkImage": true,
+        "Url": "https://github.com",
+        "IsAchieved": true
+      },
+      {
+        "$id": "15",
+        "Name": "Infragistics",
+        "Icon": "iconInfragistics",
+        "Url": "https://www.infragistics.com/products/xamarin",
+        "IsAchieved": false
+      },
+      {
+        "$id": "16",
+        "Name": "GrapeCity",
+        "Icon": "iconGrapeCity",
+        "HasDarkImage": true,
+        "Url": "https://www.grapecity.com/en/componentone-xamarin",
+        "IsAchieved": false
+      },
+      {
+        "$id": "17",
+        "Name": "Syncfusion",
+        "Icon": "iconSyncfusion",
+        "Url": "https://www.syncfusion.com/",
+        "IsAchieved": false
+      },
+      {
+        "$id": "18",
+        "Name": "Steema",
+        "Icon": "iconSteema",
+        "Url": "https://www.steema.com/product/forms",
+        "IsAchieved": false
+      },
+      {
+        "$id": "19",
+        "Name": "GrialKit",
+        "Icon": "iconGrial",
+        "Url": "https://grialkit.com/"
+      },
+      {
+        "$id": "20",
+        "Name": "Gorilla Player",
+        "Icon": "iconGorilla",
+        "Url": "https://grialkit.com/gorilla-player/"
+      },
+      {
+        "$id": "21",
+        "Name": "MFractor",
+        "Icon": "iconMfractor",
+        "Url": "https://mfractor.com",
+        "IsAchieved": false
+      },
+      {
+        "$id": "22",
+        "Name": "Unity3D",
+        "Icon": "iconUnity3d",
+        "HasDarkImage": true,
+        "Url": "https://unity3d.com",
+        "IsAchieved": false
+      },
+      {
+        "$id": "23",
+        "Name": "MonoGame",
+        "Icon": "iconMonoGame",
+        "Url": "https://docs.microsoft.com/en-us/xamarin/graphics-games/monogame/index",
+        "IsAchieved": false
+      },
+      {
+        "$id": "24",
+        "Name": "SkiaSharp",
+        "Icon": "iconSkia",
+        "HasDarkImage": true,
+        "Url": "https://docs.microsoft.com/en-us/xamarin/graphics-games/skiasharp/index",
+        "IsAchieved": false
+      },
+      {
+        "$id": "25",
+        "Name": "CocosSharp",
+        "Icon": "iconCocos2d",
+        "Url": "https://docs.microsoft.com/en-us/xamarin/graphics-games/cocossharp/index",
+        "IsAchieved": false
+      },
+      {
+        "$id": "26",
+        "Name": "UrhoSharp",
+        "Icon": "iconUrho",
+        "Url": "https://docs.microsoft.com/en-us/xamarin/graphics-games/urhosharp/index",
+        "IsAchieved": false
+      },
+      {
+        "$id": "27",
+        "Name": "MvvmLight",
+        "Icon": "iconMvvmLight",
+        "Url": "http://mvvmlight.net",
+        "IsAchieved": false
+      },
+      {
+        "$id": "28",
+        "Name": "ReactiveUI",
+        "Icon": "iconReactiveUI",
+        "Url": "https://reactiveui.net/",
+        "IsAchieved": false
+      },
+      {
+        "$id": "29",
+        "Name": "WebAssembly",
+        "Icon": "iconWebAssembly",
+        "Url": "http://webassembly.org/",
+        "IsAchieved": false
+      },
+      {
+        "$id": "30",
+        "Name": "Monkey",
+        "Icon": "iconMonkey",
+        "Url": "https://docs.microsoft.com/en-us/xamarin/xamarin-forms/",
+        "IsAchieved": false
+      }
+
+    ]
+  },
+
+  "CameraView.xaml": {
+    "Filename": "ConferenceVision_datestamp.jpg",
+    "EncodingId": 411,
+    "CanCapture": true,
+    "CanCancel": true,
+    "ThumbnailImagePath": null,
+    "HasLastMemory": true,
+    "HasAchievement": true,
+    "SaveCommand": null,
+    "ResetCommand": null
+  },
+
+  "HomeView.xaml": {
+    "Memories": [],
+
+    "HasNoMemories": true,
+    "PickPhotoCommand": null,
+  },
+
+  "MenuView.xaml": {
+    "MenuItems": [
+      { "Title": "Home" },
+      { "Title": "Achievements" },
+      { "Title": "My Profile" },
+      { "Title": "About" }
+    ]
+  },
+
+  "ImageDetailView.xaml": {
+    "ImageSource": "iconMonkey",
+    "DarkIcon": null,
+    "HasNoAchievements": false,
+    "Achievements": [
+      {
+        "DarkIcon": "iconMonkey",
+      },
+      {
+        "DarkIcon": "iconVSIDE",
+      },
+      {
+        "DarkIcon": "iconVSMac",
+      },
+
+      {
+        "DarkIcon": "iconGrial",
+      },
+
+      {
+        "DarkIcon": "iconMfractor",
+      }
+    ],
+    "HasNoVisionResults": true,
+    "GetVisionResultsCommand": null,
+    "IsProcessingVision": false,
+    "VisionNotes":"This is a cool shoot",
+    "VisionTags":"Logo, Red, Gorilla"
+  },
+
+  "ImageTrainingView.xaml": {
+    "AvailableAchievementsSource": [
+      {
+        "Data": { "$ref": "1" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "2" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "3" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "4" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "5" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "6" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "7" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "8" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "9" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "10" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "11" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "12" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "13" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "14" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "15" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "16" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "17" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "18" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "19" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "20" },
+        "Selected": true,
+      },
+      {
+        "Data": { "$ref": "21" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "22" },
+        "Selected": false,
+      },
+      {
+        "Data": { "$ref": "23" },
+        "Selected": false,
+      }
+    ],
+    "SendToVisionCommand": null
+  },
+
+  "HomeworkView.xaml": {
+    "$file$MarkdownContent#./Resources/Activity_StartHere.md": null 
+  }
+
+}

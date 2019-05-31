@@ -4,20 +4,29 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:b="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              x:Class="InkApp.Views.SavePhotosPage">
-    <ScrollView>
-        <ListView ItemsSource="{Binding Photos}" SelectedItem="{Binding Item}"
-                      RefreshControlColor="White" SeparatorColor="White"
-                      SeparatorVisibility="None" RowHeight="100">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.View>
-                            <Image Source="{Binding ImageLow}"/>
-                        </ViewCell.View>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </ScrollView>
+
+    <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Photos}" RowHeight="200" SeparatorVisibility="None" HasUnevenRows="false"
+			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
+        <fl:FlowListView.FlowColumnTemplate>
+            <DataTemplate>
+                <Frame CornerRadius="0" HasShadow="True" Padding="5">
+                    <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.RowSpan="3" Aspect="AspectFill">
+                            <Image.Source>
+                                <UriImageSource Uri="{Binding ImageLow}"/>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </fl:FlowListView.FlowColumnTemplate>
+    </fl:FlowListView>
 </ContentPage>

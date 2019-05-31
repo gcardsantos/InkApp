@@ -9,6 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="DesignTimeData.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
     <PackageReference Include="InstagramApiSharp" Version="1.4.0" />
     <PackageReference Include="Microsoft.Azure.Mobile.Client" Version="4.1.2-prerelease.481290" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
