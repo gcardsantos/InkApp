@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="InkApp.Views.RequestPage"
+             Title="Solicitação">
+    
+    <StackLayout Orientation="Vertical" VerticalOptions="Center" Padding="10">
+        <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10">
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="Nome: " FontSize="Medium" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
+                <Entry Text="{Binding NameText}" VerticalOptions="CenterAndExpand" WidthRequest="200"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10">
+            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                <Label Text="Usuário Instagram: " FontSize="Medium" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
+                <Entry Text="{Binding UserText}" VerticalOptions="CenterAndExpand" WidthRequest="200"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10">
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="Facebook Link: " FontSize="Medium" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
+                <Entry Text="{Binding FaceText}" VerticalOptions="CenterAndExpand" WidthRequest="200"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10">
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="Telefone: " FontSize="Medium" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
+                <Entry Text="{Binding NumberText}" VerticalOptions="CenterAndExpand" WidthRequest="200"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Sobre você: " FontSize="Medium" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
+                <Entry Text="{Binding AboutText}" VerticalOptions="CenterAndExpand" WidthRequest="200"/>
+            </StackLayout>
+        </Frame>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Text="Cancelar" Command="{Binding CancelCommand}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+            <Button Text="Enviar" Command="{Binding SendCommand}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

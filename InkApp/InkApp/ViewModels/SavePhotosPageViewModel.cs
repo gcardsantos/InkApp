@@ -1,6 +1,7 @@
 ﻿using InkApp.Models;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace InkApp.ViewModels
 {
-    public class SavePhotosPageViewModel : BindableBase
+    public class SavePhotosPageViewModel : ViewModelBase
     {
         private object _item;
         public object Item { get { return _item; } set { SetProperty(ref _item, value); } }
@@ -16,12 +17,15 @@ namespace InkApp.ViewModels
         private ObservableCollection<InstagramItem> _photos;
         public ObservableCollection<InstagramItem> Photos { get { return _photos; } set { SetProperty(ref _photos, value); } }
 
-        public DelegateCommand command;
-        public SavePhotosPageViewModel()
+        public DelegateCommand command { get; }
+        
+
+        public SavePhotosPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             StartValue();
             command = new DelegateCommand(DeletePhoto);
         }
+        
 
         public async void StartValue()
         {

@@ -32,7 +32,7 @@
             <StackLayout Padding="20, 100, 20, 20">
                 <Label Text="Deseja ser divulgado?" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding BtnEnabled}"/>
                 <Label Text="Entre em contato conosco" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding BtnEnabled}"/>
-                <Button VerticalOptions="End" HorizontalOptions="Center" Text="Solicitar" Command="{Binding NavigateToAboutPageCommand}" IsVisible="{Binding BtnEnabled}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                <Button VerticalOptions="End" HorizontalOptions="Center" Text="Solicitar" Command="{Binding NavigateToRequestPageCommand}" IsVisible="{Binding BtnEnabled}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
             </StackLayout>
         </StackLayout>
     </ScrollView>

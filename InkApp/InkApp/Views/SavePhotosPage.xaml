@@ -6,12 +6,9 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.SavePhotosPage">
     <ScrollView>
-        <ListView x:Name="ListViewPhotos" ItemsSource="{Binding Photos}" SelectedItem="{Binding Item}"
+        <ListView ItemsSource="{Binding Photos}" SelectedItem="{Binding Item}"
                       RefreshControlColor="White" SeparatorColor="White"
                       SeparatorVisibility="None" RowHeight="100">
-            <ListView.Behaviors>
-                <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" EventArgsConverter="{StaticResource itemTappedEventArgsConverter}"/>
-            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

@@ -30,7 +30,7 @@ namespace InkApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync("MainMasterDetailPage/NavigationPage/HomePage");
+            await NavigationService.NavigateAsync("TopMasterDetailPage/NavigationPage/HomePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -41,8 +41,9 @@ namespace InkApp
             containerRegistry.RegisterForNavigation<DetailsPage, DetailsPageViewModel>();
             containerRegistry.RegisterForNavigation<ImagePage, ImagePageViewModel>();
             containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
-            containerRegistry.RegisterForNavigation<MainMasterDetailPage, MainMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<SavePhotosPage, SavePhotosPageViewModel>();
+            containerRegistry.RegisterForNavigation<TopMasterDetailPage, TopMasterDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<RequestPage, RequestPageViewModel>();
         }
 
         public static PhotoDatabase Database

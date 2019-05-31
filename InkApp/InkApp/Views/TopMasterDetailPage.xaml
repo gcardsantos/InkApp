@@ -3,13 +3,13 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                   prism:ViewModelLocator.AutowireViewModel="True"
-                  x:Class="InkApp.Views.MainMasterDetailPage">
+                  x:Class="InkApp.Views.TopMasterDetailPage">
 
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <StackLayout Padding="20">
                 <!-- TODO: // Update the Layout and add some real menu items  -->
-                <Button Text="Tattoos salvas" Command="{Binding NavigateToPhotos}"/>
+                <Button Text="ViewA" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/SavePhotosPage"/>
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>

@@ -64,7 +64,7 @@ namespace InkApp.ViewModels
             await _navigationService.NavigateAsync("DetailsPage", navigationParams, false);
         }
 
-        public override void OnNavigatedFrom(INavigationParameters parameters)
+        public override void OnNavigatedFromAsync(INavigationParameters parameters)
         {
             if(parameters.GetNavigationMode() == NavigationMode.Back)
             {

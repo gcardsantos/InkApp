@@ -2,9 +2,9 @@
 
 namespace InkApp.Views
 {
-    public partial class MainMasterDetailPage : MasterDetailPage
+    public partial class RequestPage : ContentPage
     {
-        public MainMasterDetailPage()
+        public RequestPage()
         {
             InitializeComponent();
         }

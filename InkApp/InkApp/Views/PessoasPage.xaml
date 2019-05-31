@@ -31,7 +31,7 @@
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <ViewCell Tapped="ViewCell_Tapped">
                             <ViewCell.View>
                                 <StackLayout BackgroundColor="Transparent" Padding="4" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Frame HasShadow="True" CornerRadius="10" HorizontalOptions="FillAndExpand">

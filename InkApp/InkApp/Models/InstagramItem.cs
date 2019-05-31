@@ -9,9 +9,11 @@ namespace InkApp.Models
     public class InstagramItem
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-        public Pessoa People { get; set; }
+        public int Id { get; set; }        
         public string ImageLow { get; set; }
         public string ImageHigh { get; set; }
+        public string Username { get; set; }
+        [Ignore]
+        public Pessoa People { get; set; }
     }
 }

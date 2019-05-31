@@ -67,7 +67,7 @@ namespace InkApp.ViewModels
 
         private void OpenFace()
         {
-            Device.OpenUri(new Uri("https://www.facebook.com/" + _pessoa.Facebook));
+            Device.OpenUri(new Uri("https://m.facebook.com/" + _pessoa.Facebook));
         }
 
         private void OpenWhatsApp()
@@ -98,7 +98,7 @@ namespace InkApp.ViewModels
                         {
                             if(item.Images.Count > 0 && item.Videos.Count == 0)
                             {
-                                Feed.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p });
+                                Feed.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p, Username = p.Username });
                             }                            
                         }
                     }
@@ -116,7 +116,7 @@ namespace InkApp.ViewModels
                 }
             }
         }
-        public override void OnNavigatedFrom(INavigationParameters parameters)
+        public override void OnNavigatedFromAsync(INavigationParameters parameters)
         {
             if(parameters.GetNavigationMode() == NavigationMode.Back)
             {

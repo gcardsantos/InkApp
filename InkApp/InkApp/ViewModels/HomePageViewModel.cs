@@ -17,7 +17,6 @@ namespace InkApp.ViewModels
 {
     public class HomePageViewModel : ViewModelBase
     {
-        private INavigationService _navigationService;
         private IInstaApi api;
         public string AdUnitId { get; set; } = "ca-app-pub-3940256099942544/6300978111";
         //bool para exibir o picker
@@ -43,24 +42,34 @@ namespace InkApp.ViewModels
         public object City { get { return _city; } set { SetProperty(ref _city, value); } }
 
 
-
+        public DelegateCommand NavigateToRequestPageCommand { get; private set; }
         public DelegateCommand NavigateToPessoasPageCommand { get; private set; }
         public DelegateCommand NavigateToAboutPageCommand { get; private set; }
         public HomePageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
+            StartValues();
+        }
+
+        public void StartValues()
+        {
             BtnEnabled = false;
             Login = true;
             PickerVisible = false;
-            _navigationService = navigationService;
-            LogInstaAsync();
+            _ = LogInstaAsync();
             NavigateToPessoasPageCommand = new DelegateCommand(NavigateToPessoasPage);
+            NavigateToRequestPageCommand = new DelegateCommand(NavigateToRequestPage);
             NavigateToAboutPageCommand = new DelegateCommand(NavitageToAboutPageAsync);
+        }
+
+        private async void NavigateToRequestPage()
+        {
+            await NavigationService.NavigateAsync("RequestPage");
         }
 
         private async void NavitageToAboutPageAsync()
         {
-            await _navigationService.NavigateAsync(nameof(MainMasterDetailPage)+ "/" + nameof(NavigationPage) + "/" + nameof(PessoasPage));
+            await NavigationService.NavigateAsync(nameof(TopMasterDetailPage)+ "/" + nameof(NavigationPage) + "/" + nameof(PessoasPage));
         }
 
         private async Task LogInstaAsync()
@@ -129,7 +138,7 @@ namespace InkApp.ViewModels
                         IsBusy = false;
                         Visible = false;
                         BtnEnabled = true;
-                        await _navigationService.NavigateAsync("PessoasPage", navigationParams, false);
+                        await NavigationService.NavigateAsync("PessoasPage", navigationParams, false);
                     }
                 }
             }

@@ -23,7 +23,7 @@ namespace InkApp.ViewModels
             NavigationService = navigationService;
         }
 
-        public virtual void OnNavigatedFrom(INavigationParameters parameters)
+        public virtual void OnNavigatedFromAsync(INavigationParameters parameters)
         {
 
         }
@@ -41,6 +41,11 @@ namespace InkApp.ViewModels
         public virtual void Destroy()
         {
 
+        }
+
+        public virtual void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            
         }
     }
 }

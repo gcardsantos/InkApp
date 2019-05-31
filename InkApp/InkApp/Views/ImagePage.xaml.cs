@@ -19,7 +19,7 @@ namespace InkApp.Views
         }
         private void BtnSave_Clicked(object sender, EventArgs e)
         {
-            App.Database.SaveItemAsync(item as InstagramItem);
+            App.Database.SaveItemAsync(item);                
         }
 
     }
