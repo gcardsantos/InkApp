@@ -5,6 +5,7 @@
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:c="clr-namespace:InkApp.Converters"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.PessoasPage"
              Title="{Binding Title}"
@@ -24,10 +25,11 @@
             </Frame>
             
             <ListView x:Name="ListViewPessoas" ItemsSource="{Binding PeopleVisible}" SelectedItem="{Binding Item}"
-                      RefreshControlColor="White" SeparatorColor="White"
+                      RefreshControlColor="White" SeparatorColor="White" CachingStrategy="RecycleElement"
                       SeparatorVisibility="None" RowHeight="100">
                 <ListView.Behaviors>
                     <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" EventArgsConverter="{StaticResource itemTappedEventArgsConverter}"/>
+                    <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -51,6 +53,18 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                       Color="#2196F3" VerticalOptions="Center" 
+                                       HorizontalOptions="Center"/>
+                    </Grid>
+                </ListView.Footer>
             </ListView>
         </StackLayout>
     </ScrollView>

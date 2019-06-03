@@ -27,9 +27,12 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <AndroidKeyStore>false</AndroidKeyStore>
-    <AndroidSigningKeyStore>C:\Users\Gabriel\AppData\Local\Xamarin\Mono for Android\Keystore\InkApp\InkApp.keystore</AndroidSigningKeyStore>
-    <AndroidSigningStorePass>inkapp</AndroidSigningStorePass>
-    <AndroidSigningKeyAlias>Gabriel Cardoso</AndroidSigningKeyAlias>
+    <AndroidSigningKeyStore>
+    </AndroidSigningKeyStore>
+    <AndroidSigningStorePass>
+    </AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>
+    </AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>
     </AndroidSigningKeyPass>
   </PropertyGroup>
@@ -74,6 +77,7 @@
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <MandroidI18n />
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -108,6 +112,9 @@
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.1" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1233-pre" />
+    <PackageReference Include="Xamarin.Forms.Extended.InfiniteScrolling">
+      <Version>1.0.0-preview2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

@@ -7,17 +7,22 @@
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              x:Class="InkApp.Views.SavePhotosPage">
 
-    <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Photos}" RowHeight="200" SeparatorVisibility="None" HasUnevenRows="false"
-			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
-        <fl:FlowListView.FlowColumnTemplate>
+    <CollectionView ItemsSource="{Binding Photos}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
+        <CollectionView.Behaviors>
+            
+        </CollectionView.Behaviors>
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Orientation="Vertical" Span="3"/>
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
             <DataTemplate>
                 <Frame CornerRadius="0" HasShadow="True" Padding="5">
                     <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="125"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="125"/>
                         </Grid.RowDefinitions>
                         <Image Grid.RowSpan="3" Aspect="AspectFill">
                             <Image.Source>
@@ -27,6 +32,6 @@
                     </Grid>
                 </Frame>
             </DataTemplate>
-        </fl:FlowListView.FlowColumnTemplate>
-    </fl:FlowListView>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

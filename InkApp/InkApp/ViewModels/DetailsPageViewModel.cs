@@ -1,4 +1,5 @@
 ﻿
+using DLToolkit.Forms.Controls;
 using InkApp.Models;
 using InstagramApiSharp;
 using InstagramApiSharp.API;
@@ -6,10 +7,15 @@ using InstagramApiSharp.Classes.Models;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Extended;
 
 namespace InkApp.ViewModels
 {
@@ -17,9 +23,9 @@ namespace InkApp.ViewModels
     {
         private INavigationService _navigationService;
         private IInstaApi api;
-        private ObservableCollection<InstagramItem> _feed;
+        private InfiniteScrollCollection<InstagramItem> _feed;
         //baixa resolução  / alta resolução
-        public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
+        public InfiniteScrollCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
         //------regiao do profile info
         private string _sobre;
@@ -49,20 +55,53 @@ namespace InkApp.ViewModels
         private bool _visible;
         public bool Visible { get { return _visible; } set { SetProperty(ref _visible, value); } }
 
+
         public DelegateCommand<object> PhotoTappedCommand { get; private set; }
         public DelegateCommand BtnIg { get; private set; }
+        public DelegateCommand BtnLocal { get; private set; }
         public DelegateCommand BtnWhats { get; private set; }
         public DelegateCommand BtnFace { get; private set; }
+        public DelegateCommand LoadingCommand { get; private set; }
 
         public DetailsPageViewModel(INavigationService navigationService):base(navigationService)
         {
-            //((NavigationPage)Application.Current.MainPage).BarTextColor = Color.White;
-            //((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
-            
-            Feed = new ObservableCollection<InstagramItem>();
             BtnWhats = new DelegateCommand(OpenWhatsApp);
             BtnFace = new DelegateCommand(OpenFace);
             BtnIg = new DelegateCommand(OpenInstagram);
+            BtnLocal = new DelegateCommand(OpenLocal);
+            LoadingCommand = new DelegateCommand(LoadMoreData);
+            Feed = new InfiniteScrollCollection<InstagramItem>()
+            {
+                OnLoadMore = async () => 
+                {
+                    IsBusy = true;
+                    var items = await GetMedia(_pessoa);
+                    IsBusy = false;
+                    return items;
+                }
+            };
+            GetData(_pessoa);
+        }
+
+        private async void LoadMoreData()
+        {
+            IsBusy = false;
+            await GetData(new Pessoa() { Username = "" });
+        }
+
+        private void OpenLocal()
+        {
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    Device.OpenUri(
+                      new Uri(string.Format("http://maps.apple.com/?q={0}", WebUtility.UrlEncode(Local))));
+                    break;
+                case Device.Android:
+                    Device.OpenUri(
+                      new Uri(string.Format("geo:0,0?q={0}", WebUtility.UrlEncode(Local))));
+                    break;
+            }
         }
 
         private void OpenFace()
@@ -81,7 +120,23 @@ namespace InkApp.ViewModels
         }
 
 
-        public async void GetData(Pessoa p)
+        public async Task<List<InstagramItem>> GetMedia(Pessoa p)
+        {
+            var collection = await api.UserProcessor.GetUserMediaAsync(p.Username, PaginationParameters.MaxPagesToLoad(2));
+            List<InstagramItem> items = new List<InstagramItem>();
+
+            foreach (var item in collection.Value)
+            {
+                if (item.Images.Count > 0 && item.Videos.Count == 0)
+                {
+                    items.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p, Username = p.Username });
+                }
+            }
+
+            return items;
+        }
+
+        public async Task GetData(Pessoa p = null)
         {
             if (!IsBusy)
             {
@@ -134,14 +189,8 @@ namespace InkApp.ViewModels
                 Sobre = _pessoa.Sobre;
                 api = parameters["api"] as IInstaApi;
                 Title = _pessoa.Name;
-                GetData(_pessoa);
+                //_ = GetData(_pessoa);
             }            
-        }
-
-
-        private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
 
         public override void Destroy()

@@ -209,6 +209,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1233-pre" />
+    <PackageReference Include="Xamarin.Forms.Extended.InfiniteScrolling">
+      <Version>1.0.0-preview2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InkApp\InkApp.csproj">

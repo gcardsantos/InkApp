@@ -4,51 +4,51 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:extend="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.DetailsPage"
              Title="{Binding Title}"
              NavigationPage.HasNavigationBar="True">
 
     <ScrollView Padding="10">
-        <StackLayout>
+        <StackLayout Orientation="Vertical">
             <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}"/>
-            <Frame BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" Padding="10">
-                <Grid VerticalOptions="Fill">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="0.6*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <abstractions:CircleImage Grid.Row="1" BorderColor="Black" Source="{Binding ProfileImage}"/>
-                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding Title}" FontSize="Large" FontAttributes="Bold" TextColor="Black" VerticalOptions="Start"/>
-                    <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalOptions="Center">
+            <Frame BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" Padding="10" Visual="Material">
+                <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="25, 25, 25, 0">
+                        <abstractions:CircleImage BorderColor="Black" Source="{Binding ProfileImage}" Scale="2"/>
+                        <Label Text="{Binding Title}" FontSize="Large" FontAttributes="Bold" TextColor="Black" Margin="0, 19, 0, 0"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                         <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" Margin="2" TextColor="Black"/>
                         <Label Text="{Binding Local}" FontSize="15" TextColor="Black"/>
                     </StackLayout>
-                    <RelativeLayout Grid.Column="2" Grid.Row="0" Padding="10" VerticalOptions="Center" WidthRequest="20" HeightRequest="20">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="13"/>
-                        <Button Command="{Binding BtnIg}" FontSize="Micro" BackgroundColor="Transparent"/>
-                    </RelativeLayout>
-                    <RelativeLayout Grid.Column="2" Grid.Row="1" Padding="10" VerticalOptions="Start" WidthRequest="20" HeightRequest="20">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="13, 23, 0, 0"/>
-                        <Button Command="{Binding BtnWhats}" BackgroundColor="Transparent" Margin="13, 23, 0, 0"/>
-                    </RelativeLayout>
-                    <RelativeLayout Grid.Column="2"  Grid.Row="2" Padding="10" VerticalOptions="Center" WidthRequest="20" HeightRequest="20">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="13"/>
-                        <Button Command="{Binding BtnFace}"  BackgroundColor="Transparent"/>
-                    </RelativeLayout>
-                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Start"/>
-                </Grid>
-                
+                    <StackLayout Orientation="Horizontal">
+                        <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="15">
+                            <Button Command="{Binding BtnLocal}" FontSize="Micro" BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black"  Scale="1.5" Margin="14, 10"/>
+                        </RelativeLayout>
+                        <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="15">
+                            <Button Command="{Binding BtnIg}" FontSize="Micro" BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="14, 10"/>
+                        </RelativeLayout>
+                        <RelativeLayout Padding="10" VerticalOptions="Start" WidthRequest="15" HeightRequest="15">
+                            <Button Command="{Binding BtnWhats}" BackgroundColor="Transparent"  BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="14, 10"/>
+                        </RelativeLayout>
+                        <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="15">
+                            <Button Command="{Binding BtnFace}"  BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="14, 10"/>
+                        </RelativeLayout>
+                    </StackLayout>
+                    <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center"/>
+                </StackLayout>
             </Frame>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Black"/>
             <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="200" SeparatorVisibility="None" HasUnevenRows="false"
 			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
+                <fl:FlowListView.Behaviors>
+                    <extend:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+                </fl:FlowListView.Behaviors>
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Frame CornerRadius="0" HasShadow="True" Padding="5">
@@ -68,6 +68,18 @@
                         </Frame>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
+                <fl:FlowListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                       Color="Black" VerticalOptions="Center" 
+                                       HorizontalOptions="Center"/>
+                    </Grid>
+                </fl:FlowListView.Footer>
             </fl:FlowListView>
             
         </StackLayout>
