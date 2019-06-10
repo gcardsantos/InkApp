@@ -23,9 +23,10 @@ namespace InkApp.ViewModels
     {
         private INavigationService _navigationService;
         private IInstaApi api;
-        private InfiniteScrollCollection<InstagramItem> _feed;
+        private int indexPage = 2;
+        private FlowObservableCollection<InstagramItem> _feed;
         //baixa resolução  / alta resolução
-        public InfiniteScrollCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
+        public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
         //------regiao do profile info
         private string _sobre;
@@ -55,6 +56,9 @@ namespace InkApp.ViewModels
         private bool _visible;
         public bool Visible { get { return _visible; } set { SetProperty(ref _visible, value); } }
 
+        private bool _loadMoreBusy;
+        public bool LoadMoreBusy { get { return _loadMoreBusy; } set { SetProperty(ref _loadMoreBusy, value); } }
+
 
         public DelegateCommand<object> PhotoTappedCommand { get; private set; }
         public DelegateCommand BtnIg { get; private set; }
@@ -70,23 +74,17 @@ namespace InkApp.ViewModels
             BtnIg = new DelegateCommand(OpenInstagram);
             BtnLocal = new DelegateCommand(OpenLocal);
             LoadingCommand = new DelegateCommand(LoadMoreData);
-            Feed = new InfiniteScrollCollection<InstagramItem>()
-            {
-                OnLoadMore = async () => 
-                {
-                    IsBusy = true;
-                    var items = await GetMedia(_pessoa);
-                    IsBusy = false;
-                    return items;
-                }
-            };
-            GetData(_pessoa);
+            LoadMoreBusy = true;
         }
 
         private async void LoadMoreData()
         {
+            IsBusy = true;
+            LoadMoreBusy = false;
+            indexPage += 2;
+            GetMedia(_pessoa);
+            LoadMoreBusy = true;
             IsBusy = false;
-            await GetData(new Pessoa() { Username = "" });
         }
 
         private void OpenLocal()
@@ -120,20 +118,22 @@ namespace InkApp.ViewModels
         }
 
 
-        public async Task<List<InstagramItem>> GetMedia(Pessoa p)
+        public async void GetMedia(Pessoa p)
         {
-            var collection = await api.UserProcessor.GetUserMediaAsync(p.Username, PaginationParameters.MaxPagesToLoad(2));
-            List<InstagramItem> items = new List<InstagramItem>();
-
-            foreach (var item in collection.Value)
+            var collection = await api.UserProcessor.GetUserMediaAsync(p.Username, PaginationParameters.MaxPagesToLoad(indexPage));
+            collection.Value.RemoveRange(0, Feed.Count);
+            if(collection.Value.Count > 0)
             {
-                if (item.Images.Count > 0 && item.Videos.Count == 0)
+                List<InstagramItem> items = new List<InstagramItem>();
+                foreach (var item in collection.Value)
                 {
-                    items.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p, Username = p.Username });
+                    if (item.Images.Count > 0 && item.Videos.Count == 0 && !Feed.Any(f => f.ImageLow.Equals(item.Images[1].Uri)))
+                    {
+                        Feed.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p, Username = p.Username });
+                    }
                 }
             }
 
-            return items;
         }
 
         public async Task GetData(Pessoa p = null)
@@ -189,7 +189,8 @@ namespace InkApp.ViewModels
                 Sobre = _pessoa.Sobre;
                 api = parameters["api"] as IInstaApi;
                 Title = _pessoa.Name;
-                //_ = GetData(_pessoa);
+                Feed = new FlowObservableCollection<InstagramItem>();
+                _ = GetData(_pessoa);
             }            
         }
 

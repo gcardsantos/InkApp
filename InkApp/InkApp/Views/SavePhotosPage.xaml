@@ -8,9 +8,6 @@
              x:Class="InkApp.Views.SavePhotosPage">
 
     <CollectionView ItemsSource="{Binding Photos}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
-        <CollectionView.Behaviors>
-            
-        </CollectionView.Behaviors>
         <CollectionView.ItemsLayout>
             <GridItemsLayout Orientation="Vertical" Span="3"/>
         </CollectionView.ItemsLayout>

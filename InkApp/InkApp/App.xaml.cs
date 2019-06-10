@@ -30,6 +30,7 @@ namespace InkApp
         
         protected override async void OnInitialized()
         {
+            AdMaiora.RealXaml.Client.AppManager.Init(this);
             InitializeComponent();
             FlowListView.Init();
             await NavigationService.NavigateAsync("TopMasterDetailPage/NavigationPage/HomePage");

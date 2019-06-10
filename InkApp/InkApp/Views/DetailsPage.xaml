@@ -26,13 +26,13 @@
                     <StackLayout Orientation="Horizontal">
                         <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="15">
                             <Button Command="{Binding BtnLocal}" FontSize="Micro" BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black"  Scale="1.5" Margin="14, 10"/>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black"  Scale="1.5" Margin="13, 10"/>
                         </RelativeLayout>
                         <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="15">
                             <Button Command="{Binding BtnIg}" FontSize="Micro" BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="14, 10"/>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="15, 10"/>
                         </RelativeLayout>
-                        <RelativeLayout Padding="10" VerticalOptions="Start" WidthRequest="15" HeightRequest="15">
+                        <RelativeLayout Padding="10" VerticalOptions="Start"  WidthRequest="15" HeightRequest="15">
                             <Button Command="{Binding BtnWhats}" BackgroundColor="Transparent"  BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
                             <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="14, 10"/>
                         </RelativeLayout>
@@ -41,14 +41,12 @@
                             <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="14, 10"/>
                         </RelativeLayout>
                     </StackLayout>
-                    <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center"/>
+                    <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center"/>
                 </StackLayout>
             </Frame>
             <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="200" SeparatorVisibility="None" HasUnevenRows="false"
-			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
-                <fl:FlowListView.Behaviors>
-                    <extend:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
-                </fl:FlowListView.Behaviors>
+			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowItemAppearing="FlowListView_FlowItemAppearing" FlowLastTappedItem="{Binding LastTappedItem}"
+                FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Frame CornerRadius="0" HasShadow="True" Padding="5">
@@ -68,19 +66,11 @@
                         </Frame>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
-                <fl:FlowListView.Footer>
-                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
-                        <Grid.Triggers>
-                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                                <Setter Property="HeightRequest" Value="0" />
-                            </Trigger>
-                        </Grid.Triggers>
-                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+            </fl:FlowListView>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                        Color="Black" VerticalOptions="Center" 
                                        HorizontalOptions="Center"/>
-                    </Grid>
-                </fl:FlowListView.Footer>
-            </fl:FlowListView>
+            <Button Command="{Binding LoadingCommand}" Text="Carregar Mais" IsVisible="True"/>
             
         </StackLayout>
     </ScrollView>
