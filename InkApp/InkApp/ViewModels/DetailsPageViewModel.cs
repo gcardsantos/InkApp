@@ -23,9 +23,9 @@ namespace InkApp.ViewModels
     {
         private INavigationService _navigationService;
         private IInstaApi api;
-        private InfiniteScrollCollection<InstagramItem> _feed;
+        private FlowObservableCollection<InstagramItem> _feed;
         //baixa resolução  / alta resolução
-        public InfiniteScrollCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
+        public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
         //------regiao do profile info
         private string _sobre;
@@ -70,23 +70,12 @@ namespace InkApp.ViewModels
             BtnIg = new DelegateCommand(OpenInstagram);
             BtnLocal = new DelegateCommand(OpenLocal);
             LoadingCommand = new DelegateCommand(LoadMoreData);
-            Feed = new InfiniteScrollCollection<InstagramItem>()
-            {
-                OnLoadMore = async () => 
-                {
-                    IsBusy = true;
-                    var items = await GetMedia(_pessoa);
-                    IsBusy = false;
-                    return items;
-                }
-            };
-            GetData(_pessoa);
+            Feed = new FlowObservableCollection<InstagramItem>();
         }
 
         private async void LoadMoreData()
         {
             IsBusy = false;
-            await GetData(new Pessoa() { Username = "" });
         }
 
         private void OpenLocal()
@@ -120,57 +109,59 @@ namespace InkApp.ViewModels
         }
 
 
-        public async Task<List<InstagramItem>> GetMedia(Pessoa p)
-        {
-            var collection = await api.UserProcessor.GetUserMediaAsync(p.Username, PaginationParameters.MaxPagesToLoad(2));
-            List<InstagramItem> items = new List<InstagramItem>();
-
-            foreach (var item in collection.Value)
-            {
-                if (item.Images.Count > 0 && item.Videos.Count == 0)
-                {
-                    items.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p, Username = p.Username });
-                }
-            }
-
-            return items;
-        }
-
-        public async Task GetData(Pessoa p = null)
+        public async Task GetMediaAsync(Pessoa p)
         {
             if (!IsBusy)
             {
                 IsBusy = true;
-                Exception Error = null;
-                try
+                var data = await App.Api.GetMediaAsync(p);
+
+                if (data != null)
                 {
-                    var collection = await api.UserProcessor.GetUserMediaAsync(p.Username, PaginationParameters.MaxPagesToLoad(2));
-                    if (collection.Succeeded)
-                    {
-                        Feed.Clear();
-                        
-                        foreach (var item in collection.Value)
-                        {
-                            if(item.Images.Count > 0 && item.Videos.Count == 0)
-                            {
-                                Feed.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p, Username = p.Username });
-                            }                            
-                        }
-                    }
-                    Visible = false;
+                    var lis = data.Where(n => Feed.Any(e => e.ImageLow.Equals(n.ImageLow)));
+                    foreach (var x in lis)
+                        Feed.Add(x);
                 }
-                catch(Exception ex)
-                {
-                    Error = ex;
-                    Visible = true;
-                }
-                finally
-                {
-                    if(Error == null)
-                        IsBusy = false;
-                }
+                IsBusy = false;
             }
+            
         }
+
+        //public async Task GetData(Pessoa p = null)
+        //{
+        //    if (!IsBusy)
+        //    {
+        //        IsBusy = true;
+        //        Exception Error = null;
+        //        try
+        //        {
+        //            var collection = await App.Api.UserProcessor.GetUserMediaAsync(p.Username, PaginationParameters.MaxPagesToLoad(2));
+        //            if (collection.Succeeded)
+        //            {
+        //                Feed.Clear();
+                        
+        //                foreach (var item in collection.Value)
+        //                {
+        //                    if(item.Images.Count > 0 && item.Videos.Count == 0)
+        //                    {
+        //                        Feed.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p, Username = p.Username });
+        //                    }                            
+        //                }
+        //            }
+        //            Visible = false;
+        //        }
+        //        catch(Exception ex)
+        //        {
+        //            Error = ex;
+        //            Visible = true;
+        //        }
+        //        finally
+        //        {
+        //            if(Error == null)
+        //                IsBusy = false;
+        //        }
+        //    }
+        //}
         public override void OnNavigatedFromAsync(INavigationParameters parameters)
         {
             if(parameters.GetNavigationMode() == NavigationMode.Back)
@@ -187,8 +178,8 @@ namespace InkApp.ViewModels
                 ProfileImage = _pessoa.Image;
                 Local = _pessoa.Local;
                 Sobre = _pessoa.Sobre;
-                api = parameters["api"] as IInstaApi;
                 Title = _pessoa.Name;
+                _ = GetMediaAsync(_pessoa);
                 //_ = GetData(_pessoa);
             }            
         }

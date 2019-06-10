@@ -18,7 +18,12 @@
                               TextColor="White"
                               BackgroundColor="Black" 
                               Command="{Binding OnNavigateCommand}" 
-CommandParameter="NavigationPage/PessoasPage"/>
+                              CommandParameter="NavigationPage/PessoasPage"/>
+                <Button Text="Feed"  
+                              TextColor="White"
+                              BackgroundColor="Black" 
+                              Command="{Binding OnNavigateCommand}"
+                              CommandParameter="NavigationPage/FeedPage"/>
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>

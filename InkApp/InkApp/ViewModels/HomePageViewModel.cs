@@ -17,7 +17,6 @@ namespace InkApp.ViewModels
 {
     public class HomePageViewModel : ViewModelBase
     {
-        private IInstaApi api;
         public string AdUnitId { get; set; } = "ca-app-pub-3940256099942544/6300978111";
         //bool para exibir o picker
         private bool _picker;
@@ -53,10 +52,9 @@ namespace InkApp.ViewModels
 
         public void StartValues()
         {
-            BtnEnabled = false;
+            BtnEnabled = true;
             Login = true;
-            PickerVisible = false;
-            _ = LogInstaAsync();
+            PickerVisible = true;
             NavigateToPessoasPageCommand = new DelegateCommand(NavigateToPessoasPage);
             NavigateToRequestPageCommand = new DelegateCommand(NavigateToRequestPage);
             NavigateToAboutPageCommand = new DelegateCommand(NavitageToAboutPageAsync);
@@ -72,37 +70,6 @@ namespace InkApp.ViewModels
             await NavigationService.NavigateAsync(nameof(TopMasterDetailPage)+ "/" + nameof(NavigationPage) + "/" + nameof(PessoasPage));
         }
 
-        private async Task LogInstaAsync()
-        {
-            IsBusy = true;
-
-            var userSession = new UserSessionData
-            {
-                UserName = "tatuapp",
-                Password = "inkapp"
-            };
-
-            try
-            {
-                api = InstaApiBuilder.CreateBuilder()
-                .SetUser(userSession)
-                .SetRequestDelay(RequestDelay.FromSeconds(1, 3))
-                .Build();
-                await api.LoginAsync();
-                BtnEnabled = true;
-                Visible = false;
-            }
-            catch (Exception)
-            {
-                Visible = true;
-            }
-            finally
-            {
-                IsBusy = false;
-                Login = false;
-                PickerVisible = true;
-            }
-        }
         private async void NavigateToPessoasPage()
         {
             if (City == null)
@@ -120,11 +87,10 @@ namespace InkApp.ViewModels
                     var Repository = new Repository();
                     var city = City.ToString().Replace(" / ", "/").Split('/');
                     var pessoas = await Repository.GetPessoas(city[1], city[0]);
-                    await GetPhotoAsync(pessoas);
+                    GetPhoto(pessoas);
                     navigationParams.Add("pessoas", pessoas);
                     navigationParams.Add("city", city[1]);
                     navigationParams.Add("estado", city[0]);
-                    navigationParams.Add("api", api);
                 }
                 catch (Exception ex)
                 {
@@ -145,24 +111,16 @@ namespace InkApp.ViewModels
 
         }
 
-        public async Task GetPhotoAsync(List<Pessoa> pessoa)
+        public void GetPhoto(List<Pessoa> pessoa)
         {
-            foreach (var p in pessoa)
-            {
-                try
-                {
-                    if (api.IsUserAuthenticated)
-                    {
-                        var info = await api.UserProcessor.GetUserAsync(p.Username);
-                        p.Image = info.Value.ProfilePicture;
-                    }
-                }
-                catch (Exception)
-                {
-
-                }
-
-            }
+            pessoa.ForEach(n => App.Api.GetUserAsync(n));
         }
+
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            
+        }
+
     }
 }
