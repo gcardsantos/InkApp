@@ -9,6 +9,7 @@ using System.IO;
 using System;
 using DLToolkit.Forms.Controls;
 using InkApp.Services;
+using Plugin.Connectivity;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace InkApp
@@ -33,16 +34,20 @@ namespace InkApp
         
         protected override async void OnInitialized()
         {
+            CheckConnection();
             AdMaiora.RealXaml.Client.AppManager.Init(this);
             InitializeComponent();
             FlowListView.Init();
             Api = new InstagramParser();
-            await NavigationService.NavigateAsync("TopMasterDetailPage/NavigationPage/HomePage");
+            await NavigationService.NavigateAsync(new System.Uri("/NavigationPage/TabPage?selectedTab=HomePage", System.UriKind.Absolute));
+
         }
+
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<CustomNavigationPage>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<PessoasPage, PessoasPageViewModel>();
             containerRegistry.RegisterForNavigation<DetailsPage, DetailsPageViewModel>();
@@ -52,6 +57,16 @@ namespace InkApp
             containerRegistry.RegisterForNavigation<TopMasterDetailPage, TopMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<RequestPage, RequestPageViewModel>();
             containerRegistry.RegisterForNavigation<FeedPage, FeedPageViewModel>();
+            containerRegistry.RegisterForNavigation<ErrorConectionPage, ErrorConectionPageViewModel>();
+            containerRegistry.RegisterForNavigation<TabPage, TabPageViewModel>();
+        }
+
+        private async void CheckConnection()
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                await NavigationService.NavigateAsync("ErrorConectionPage");
+            else
+                return;
         }
 
         public static PhotoDatabase Database

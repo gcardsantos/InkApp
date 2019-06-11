@@ -1,4 +1,5 @@
-﻿using InkApp.Models;
+﻿using DLToolkit.Forms.Controls;
+using InkApp.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -11,31 +12,37 @@ namespace InkApp.ViewModels
 {
     public class SavePhotosPageViewModel : ViewModelBase
     {
-        private object _item;
-        public object Item { get { return _item; } set { SetProperty(ref _item, value); } }
+        public DelegateCommand LoadingCommand { get; private set; }
+        public DelegateCommand<object> PhotoTappedCommand { get; private set; }
 
-        private ObservableCollection<InstagramItem> _photos;
-        public ObservableCollection<InstagramItem> Photos { get { return _photos; } set { SetProperty(ref _photos, value); } }
+        private FlowObservableCollection<InstagramItem> _feed;
+        public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
-        public DelegateCommand command { get; }
-        
+        private object _lastItemTapped;
+        public object LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
+
+        private bool _busy;
+        public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
+
 
         public SavePhotosPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             StartValue();
-            command = new DelegateCommand(DeletePhoto);
+            PhotoTappedCommand = new DelegateCommand<object>(OpenPhoto);
         }
-        
 
         public async void StartValue()
         {
             List<InstagramItem> list = await App.Database.GetItemsAsync();
-            Photos = new ObservableCollection<InstagramItem>(list);
+            Feed = new FlowObservableCollection<InstagramItem>(list);
         }
 
-        public async void DeletePhoto()
+        public async void OpenPhoto(object obj)
         {
-            await App.Database.DeleteItemAsync(Item as InstagramItem);
+            NavigationParameters np = new NavigationParameters();
+            np.Add("photo", obj);
+
+            await NavigationService.NavigateAsync("ImagePage", np);
         }
     }
 }

@@ -11,7 +11,9 @@ namespace InkApp.ViewModels
 {
     public class ImagePageViewModel : ViewModelBase
     {
-        public DelegateCommand PhotoCommand;
+        public DelegateCommand PhotoCommand { get; set; }
+
+        public DelegateCommand DeleteCommand { get; }
 
         public InstagramItem item;
         public InstagramItem Item { get { return item; } set { SetProperty(ref item, value); } }
@@ -22,12 +24,20 @@ namespace InkApp.ViewModels
         public ImagePageViewModel(INavigationService navigationService) :base(navigationService)
         {
             PhotoCommand = new DelegateCommand(SavePhoto);
+            DeleteCommand = new DelegateCommand(DeletePhoto);
+        }
+
+        private void DeletePhoto()
+        {
+            App.Database.DeleteItemAsync(Item);
         }
 
         private void SavePhoto()
         {
             App.Database.SaveItemAsync(Item);
         }
+
+
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {

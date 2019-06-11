@@ -2,47 +2,50 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-             xmlns:extend="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.DetailsPage"
-             Title="{Binding Title}"
-             NavigationPage.HasNavigationBar="True">
+             Title="{Binding Title}">
 
     <ScrollView Padding="10">
         <StackLayout Orientation="Vertical">
             
             <Frame BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" Padding="10" Visual="Material">
-                <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="25, 25, 25, 0">
-                        <abstractions:CircleImage BorderColor="Black" Source="{Binding ProfileImage}" Scale="2"/>
-                        <Label Text="{Binding Title}" FontSize="Large" FontAttributes="Bold" TextColor="Black" Margin="0, 19, 0, 0"/>
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                    <ff:CachedImage Source="{Binding ProfileImage}" Aspect="AspectFit" WidthRequest="150" HeightRequest="150">
+                        <ff:CachedImage.Transformations>
+                            <fftransformations:CircleTransformation/>
+                        </ff:CachedImage.Transformations>
+                    </ff:CachedImage>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
+                    
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" Margin="0" TextColor="Black"/>
+                            <Label Text="{Binding Local}" FontSize="14" TextColor="Black"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                            <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="35">
+                                <Button Command="{Binding BtnLocal}" FontSize="Micro" BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black"  Scale="1.5" Margin="20, 10"/>
+                            </RelativeLayout>
+                            <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="35">
+                                <Button Command="{Binding BtnIg}" FontSize="Micro" BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="20, 10"/>
+                            </RelativeLayout>
+                            <RelativeLayout Padding="10" VerticalOptions="Start"  WidthRequest="15" HeightRequest="35">
+                                <Button Command="{Binding BtnWhats}" BackgroundColor="Transparent"  BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="20, 10"/>
+                            </RelativeLayout>
+                            <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="35">
+                                <Button Command="{Binding BtnFace}"  BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="20, 10"/>
+                            </RelativeLayout>
+                        </StackLayout>
+                        <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center"/>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" Margin="2" TextColor="Black"/>
-                        <Label Text="{Binding Local}" FontSize="15" TextColor="Black"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="15">
-                            <Button Command="{Binding BtnLocal}" FontSize="Micro" BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black"  Scale="1.5" Margin="13, 10"/>
-                        </RelativeLayout>
-                        <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="15">
-                            <Button Command="{Binding BtnIg}" FontSize="Micro" BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="15, 10"/>
-                        </RelativeLayout>
-                        <RelativeLayout Padding="10" VerticalOptions="Start"  WidthRequest="15" HeightRequest="15">
-                            <Button Command="{Binding BtnWhats}" BackgroundColor="Transparent"  BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="14, 10"/>
-                        </RelativeLayout>
-                        <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="15">
-                            <Button Command="{Binding BtnFace}"  BackgroundColor="Transparent" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="14, 10"/>
-                        </RelativeLayout>
-                    </StackLayout>
-                    <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center"/>
                 </StackLayout>
             </Frame>
             <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}" FontSize="Large"/>

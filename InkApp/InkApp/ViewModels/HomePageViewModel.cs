@@ -1,21 +1,14 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using InkApp.Models;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InstagramApiSharp.API;
-using InstagramApiSharp.Classes;
-using InstagramApiSharp.API.Builder;
 using Xamarin.Forms;
 using InkApp.Views;
+using Prism;
 
 namespace InkApp.ViewModels
 {
-    public class HomePageViewModel : ViewModelBase
+    public class HomePageViewModel : ViewModelBase, IActiveAware
     {
         public string AdUnitId { get; set; } = "ca-app-pub-3940256099942544/6300978111";
         //bool para exibir o picker
@@ -38,12 +31,26 @@ namespace InkApp.ViewModels
         public bool BtnEnabled { get { return _btnEnabled; } set { SetProperty(ref _btnEnabled, value); } }
 
         private object _city;
+
+        public event EventHandler IsActiveChanged;
+
         public object City { get { return _city; } set { SetProperty(ref _city, value); } }
 
 
         public DelegateCommand NavigateToRequestPageCommand { get; private set; }
         public DelegateCommand NavigateToPessoasPageCommand { get; private set; }
         public DelegateCommand NavigateToAboutPageCommand { get; private set; }
+
+        private bool _isActive;
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set { SetProperty(ref _isActive, value, RaiseIsActiveChanged); }
+        }
+        protected virtual void RaiseIsActiveChanged()
+        {
+            IsActiveChanged?.Invoke(this, EventArgs.Empty);
+        }
         public HomePageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
@@ -87,7 +94,7 @@ namespace InkApp.ViewModels
                     var Repository = new Repository();
                     var city = City.ToString().Replace(" / ", "/").Split('/');
                     var pessoas = await Repository.GetPessoas(city[1], city[0]);
-                    GetPhoto(pessoas);
+                    pessoas.ForEach(async n => await App.Api.GetUserAsync(n));
                     navigationParams.Add("pessoas", pessoas);
                     navigationParams.Add("city", city[1]);
                     navigationParams.Add("estado", city[0]);
@@ -109,11 +116,6 @@ namespace InkApp.ViewModels
                 }
             }
 
-        }
-
-        public void GetPhoto(List<Pessoa> pessoa)
-        {
-            pessoa.ForEach(n => App.Api.GetUserAsync(n));
         }
 
 

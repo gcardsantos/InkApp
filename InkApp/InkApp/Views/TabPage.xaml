@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+            xmlns:local="clr-namespace:InkApp.Views"
+            prism:ViewModelLocator.AutowireViewModel="True"
+            x:Class="InkApp.Views.TabPage"
+            NavigationPage.HasNavigationBar="False"
+            BackgroundColor="White"
+            BarTextColor="White"
+            BarBackgroundColor="Black">
+    
+    <TabbedPage.Children>
+        <local:FeedPage>
+            <local:FeedPage.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource MaterialButton}" Glyph="{StaticResource Feed}"/>
+            </local:FeedPage.IconImageSource>
+        </local:FeedPage>
+        <local:HomePage>
+            <local:HomePage.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource MaterialButton}" Glyph="{StaticResource Home}"/>
+            </local:HomePage.IconImageSource>
+        </local:HomePage>
+        <local:SavePhotosPage>
+            <local:SavePhotosPage.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource MaterialButton}" Glyph="{StaticResource SavePhotos}"/>
+            </local:SavePhotosPage.IconImageSource>
+        </local:SavePhotosPage>
+    </TabbedPage.Children>
+</TabbedPage>

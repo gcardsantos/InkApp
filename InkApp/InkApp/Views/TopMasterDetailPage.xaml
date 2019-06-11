@@ -3,17 +3,34 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                   prism:ViewModelLocator.AutowireViewModel="True"
-                  x:Class="InkApp.Views.TopMasterDetailPage">
+                  x:Class="InkApp.Views.TopMasterDetailPage"
+                  MasterBehavior="SplitOnPortrait">
 
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
-            <StackLayout Padding="20">
-                <!-- TODO: // Update the Layout and add some real menu items  -->
-                <Button Text="Home" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/HomePage"/>
-                <Button Text="Photos" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/SavePhotosPage"/>
-                <Button Text="Feed" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/FeedPage"/>
+            <StackLayout Orientation="Vertical" Padding="20" HorizontalOptions="Start">
+                <Frame HeightRequest="200" BorderColor="WhiteSmoke">
+                    <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" FontSize="72" HorizontalOptions="Center"/>
+                </Frame>
+                <Frame BorderColor="WhiteSmoke" CornerRadius="10" HeightRequest="30">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Home}" FontSize="Medium" TextColor="Black"/>
+                        <Button Text="Home" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/HomePage" BackgroundColor="Transparent" Padding="1"/>
+                    </StackLayout>
+                </Frame>
+                <Frame BorderColor="WhiteSmoke" CornerRadius="10" HeightRequest="30">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource SavePhotos}" FontSize="Medium" TextColor="Black" />
+                        <Button  Text="Photos" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/SavePhotosPage" BackgroundColor="Transparent" Padding="1"/>
+                    </StackLayout>
+                </Frame>
+                <Frame BorderColor="WhiteSmoke" CornerRadius="10" HeightRequest="30">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Feed}" FontSize="Medium" TextColor="Black"/>
+                        <Button Text="Feed" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/FeedPage" BackgroundColor="Transparent" Padding="1"/>
+                    </StackLayout>
+                </Frame>
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>
-    
 </MasterDetailPage>

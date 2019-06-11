@@ -1,5 +1,4 @@
-﻿using InstagramApiSharp.API;
-using InstagramApiSharp.Classes.Models;
+﻿
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -16,8 +15,6 @@ namespace InkApp.ViewModels
     public class PessoasPageViewModel : ViewModelBase
     {
         private INavigationService _navigationService;
-        
-        private IInstaApi api;
 
         private ObservableCollection<Pessoa> _pessoas;
         public ObservableCollection<Pessoa> Pessoas { get { return _pessoas; } set { SetProperty(ref _pessoas, value); } }
@@ -60,7 +57,6 @@ namespace InkApp.ViewModels
         {
             var navigationParams = new NavigationParameters();
             navigationParams.Add("pessoa", Item);
-            navigationParams.Add("api", api);
             await _navigationService.NavigateAsync("DetailsPage", navigationParams, false);
         }
 
@@ -77,7 +73,6 @@ namespace InkApp.ViewModels
             if (parameters.Count > 0)
             {
                 var pessoas = parameters["pessoas"] as List<Pessoa>;
-                api = parameters["api"] as IInstaApi;
                 Title = parameters["city"] as string;
 
                 Pessoas.Clear();

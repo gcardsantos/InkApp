@@ -5,13 +5,7 @@
              x:Class="InkApp.App">
     <Application.Resources>
         <!-- Application resource dictionary -->
-        <ResourceDictionary>
-            <Style TargetType="NavigationPage">
-                <Setter Property="HasNavigationBar" Value="True" />
-                <Setter Property="BarTextColor" Value="White" />
-                <Setter Property="BarBackgroundColor" Value="Black" />
-            </Style>
-        </ResourceDictionary>
+        
 
         <OnPlatform x:Key="MaterialButton" x:TypeArguments="x:String">
             <On Platform="iOS" Value="Material Design Icons" />
@@ -30,6 +24,9 @@
         <x:String x:Key="Facebook">&#xF20D;</x:String>
         <x:String x:Key="Location">&#xF34E;</x:String>
         <x:String x:Key="Lupa">&#xF349;</x:String>
+        <x:String x:Key="Home">&#xF2dc;</x:String>
+        <x:String x:Key="SavePhotos">&#xF193;</x:String>
+        <x:String x:Key="Feed">&#xF238;</x:String>
         
         
 	</Application.Resources>

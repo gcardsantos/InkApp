@@ -4,12 +4,13 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:c="clr-namespace:InkApp.Converters"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasBackButton="True"
+             NavigationPage.HasNavigationBar="True"
              x:Class="InkApp.Views.PessoasPage"
-             Title="{Binding Title}"
-             NavigationPage.HasNavigationBar="True">
+             Title="{Binding Title}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -20,8 +21,8 @@
         <StackLayout>
             <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}"/>
             
-            <Frame CornerRadius="10" HasShadow="True" HorizontalOptions="FillAndExpand" Padding="10" Margin="3">
-                <SearchBar x:Name="searchBar"  SearchCommand="{Binding SearchBarCommand}" SearchCommandParameter="{Binding Path=Text, Source={x:Reference searchBar}}" Placeholder="Filtrar" BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
+            <Frame CornerRadius="10" BorderColor="WhiteSmoke" HasShadow="True" HorizontalOptions="FillAndExpand" Padding="10" Margin="3">
+                <SearchBar x:Name="searchBar"  SearchCommand="{Binding SearchBarCommand}" SearchCommandParameter="{Binding Path=Text, Source={x:Reference searchBar}}" Placeholder="Filtrar" BackgroundColor="White" HorizontalOptions="FillAndExpand" FontSize="13"/>
             </Frame>
             
             <ListView x:Name="ListViewPessoas" ItemsSource="{Binding PeopleVisible}" SelectedItem="{Binding Item}"
@@ -29,21 +30,24 @@
                       SeparatorVisibility="None" RowHeight="100">
                 <ListView.Behaviors>
                     <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" EventArgsConverter="{StaticResource itemTappedEventArgsConverter}"/>
-                    <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Tapped="ViewCell_Tapped">
                             <ViewCell.View>
                                 <StackLayout BackgroundColor="Transparent" Padding="4" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Frame HasShadow="True" CornerRadius="10" HorizontalOptions="FillAndExpand">
+                                    <Frame HasShadow="True" BorderColor="WhiteSmoke" CornerRadius="10" HorizontalOptions="FillAndExpand">
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                            <abstractions:CircleImage Source="{Binding Image}" HorizontalOptions="StartAndExpand" Scale="1.5"/>
-                                            <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="Start" Padding="10, -5, 0, 0">
-                                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
+                                            <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.5">
+                                                <ff:CachedImage.Transformations>
+                                                    <fftransformations:CircleTransformation/>
+                                                </ff:CachedImage.Transformations>
+                                            </ff:CachedImage>
+                                            <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="Start" Padding="10, -5, 0, 0"  Margin="10, 0, 0, 0">
+                                                <Label Text="{Binding Name}" FontSize="15" FontAttributes="Bold" TextColor="Black"/>
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" Margin="2" TextColor="Black"/>
-                                                    <Label Text="{Binding Local}" FontSize="17" HorizontalOptions="CenterAndExpand" LineBreakMode="TailTruncation" TextColor="Black"/>
+                                                    <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" Margin="0, -3" TextColor="Black"/>
+                                                    <Label Text="{Binding Local}" FontSize="12" HorizontalOptions="CenterAndExpand" LineBreakMode="TailTruncation" TextColor="Black"/>
                                                 </StackLayout>
                                             </StackLayout>
                                         </StackLayout>

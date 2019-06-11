@@ -1,15 +1,9 @@
 ﻿using DLToolkit.Forms.Controls;
 using InkApp.Models;
-using InstagramApiSharp;
-using InstagramApiSharp.API;
-using InstagramApiSharp.API.Builder;
-using InstagramApiSharp.Classes;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,10 +21,9 @@ namespace InkApp.ViewModels
         private object _lastItemTapped;
         public object LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
 
-        public List<Pessoa> PeopleAdded { get; set; }
-
         private bool _busy;
         public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
+        public List<Pessoa> PeopleAdded { get; set; }
 
         public FeedPageViewModel(INavigationService navigationService) : base(navigationService)
         {
@@ -39,6 +32,12 @@ namespace InkApp.ViewModels
             PeopleAdded = new List<Pessoa>();
             LoadingCommand = new DelegateCommand(GetMoreDataAsync);
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
+            StartValueAsync();
+        }
+
+        private void StartValueAsync()
+        {
+            Task.Run(() => { GetMoreDataAsync(); });
         }
 
         private async void OpenPhotoAsync(object obj)

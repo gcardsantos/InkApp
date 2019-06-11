@@ -1,21 +1,13 @@
 ﻿
 using DLToolkit.Forms.Controls;
 using InkApp.Models;
-using InstagramApiSharp;
-using InstagramApiSharp.API;
-using InstagramApiSharp.Classes.Models;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
-using Xamarin.Forms.Extended;
 
 namespace InkApp.ViewModels
 {
@@ -84,7 +76,7 @@ namespace InkApp.ViewModels
             await NavigationService.NavigateAsync("ImagePage", np);
         }
 
-        private async void LoadMoreData()
+        private void LoadMoreData()
         {
             IsBusy = false;
         }
