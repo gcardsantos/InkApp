@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="InkApp.Views.FeedPage"
+             Title="Feed">
+
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Padding="10">
+            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="200" SeparatorVisibility="None" HasUnevenRows="false"
+			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
+                <fl:FlowListView.FlowColumnTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="0" HasShadow="True" Padding="5">
+                            <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="200"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.RowSpan="3" Aspect="AspectFill">
+                                    <Image.Source>
+                                        <UriImageSource Uri="{Binding ImageLow}"/>
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </fl:FlowListView.FlowColumnTemplate>
+                <fl:FlowListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                       Color="Black" VerticalOptions="Center" 
+                                       HorizontalOptions="Center"/>
+                    </Grid>
+                </fl:FlowListView.Footer>
+            </fl:FlowListView>
+            <Button Text="Load More" Command="{Binding LoadingCommand}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

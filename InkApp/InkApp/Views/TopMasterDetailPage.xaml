@@ -11,6 +11,7 @@
                 <!-- TODO: // Update the Layout and add some real menu items  -->
                 <Button Text="Home" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/HomePage"/>
                 <Button Text="Photos" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/SavePhotosPage"/>
+                <Button Text="Feed" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/FeedPage"/>
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>

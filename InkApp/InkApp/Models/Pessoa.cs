@@ -18,5 +18,6 @@ namespace InkApp
         public string Cidade { get; set; }
         public string Sobre { get; set; }
         public string Facebook { get; set; }
+        public string IdInsta { get; set; }
     }
 }

@@ -8,6 +8,11 @@ using InkApp.Data;
 using System.IO;
 using System;
 using DLToolkit.Forms.Controls;
+using InstagramApiSharp.API;
+using System.Threading.Tasks;
+using InstagramApiSharp.API.Builder;
+using InstagramApiSharp.Classes;
+using InkApp.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace InkApp
@@ -23,6 +28,8 @@ namespace InkApp
         public static double ScreenWidth;
         public static double ScreenHeight;
         public static PhotoDatabase database;
+        //public static IInstaApi Api;
+        public static InstagramParser Api;
         public App() : this(null) { }
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
@@ -33,8 +40,35 @@ namespace InkApp
             AdMaiora.RealXaml.Client.AppManager.Init(this);
             InitializeComponent();
             FlowListView.Init();
+            Api = new InstagramParser();
             await NavigationService.NavigateAsync("TopMasterDetailPage/NavigationPage/HomePage");
         }
+
+        //public void Login()
+        //{
+        //    var userSession = new UserSessionData
+        //    {
+        //        UserName = "tatuapp",
+        //        Password = "inkapp"
+        //    };
+
+        //    try
+        //    {
+        //        Api = InstaApiBuilder.CreateBuilder()
+        //        .SetUser(userSession)
+        //        .SetRequestDelay(RequestDelay.FromSeconds(1, 2))
+        //        .Build();
+        //        var r = Task.Run(async () => { return await Api.LoginAsync(); }).Result;
+        //    }
+        //    catch (Exception)
+        //    {
+                
+        //    }
+        //    finally
+        //    {
+                
+        //    }
+        //}
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
@@ -47,6 +81,7 @@ namespace InkApp
             containerRegistry.RegisterForNavigation<SavePhotosPage, SavePhotosPageViewModel>();
             containerRegistry.RegisterForNavigation<TopMasterDetailPage, TopMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<RequestPage, RequestPageViewModel>();
+            containerRegistry.RegisterForNavigation<FeedPage, FeedPageViewModel>();
         }
 
         public static PhotoDatabase Database
