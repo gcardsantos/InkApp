@@ -8,7 +8,7 @@ using Prism.Ioc;
 namespace InkApp.Droid
 {
     [Activity(Label = "InkApp", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public partial/*GORILLA*/class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public partial class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -21,7 +21,8 @@ namespace InkApp.Droid
 
             ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
+          
             LoadApplication(new App(new AndroidInitializer()));
         }
     }

@@ -5,6 +5,7 @@
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:extend="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.DetailsPage"
              Title="{Binding Title}"
@@ -12,7 +13,7 @@
 
     <ScrollView Padding="10">
         <StackLayout Orientation="Vertical">
-            <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}"/>
+            
             <Frame BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" Padding="10" Visual="Material">
                 <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                     <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="25, 25, 25, 0">
@@ -44,34 +45,41 @@
                     <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center"/>
                 </StackLayout>
             </Frame>
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="200" SeparatorVisibility="None" HasUnevenRows="false"
-			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowItemAppearing="FlowListView_FlowItemAppearing" FlowLastTappedItem="{Binding LastTappedItem}"
+            <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}" FontSize="Large"/>
+            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="None" HasUnevenRows="false"
+			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
                 FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Frame CornerRadius="0" HasShadow="True" Padding="5">
                             <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="150"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="200"/>
+                                    <RowDefinition Height="150"/>
                                 </Grid.RowDefinitions>
-                                <Image Grid.RowSpan="3" Aspect="AspectFill">
-                                    <Image.Source>
-                                        <UriImageSource Uri="{Binding ImageLow}"/>
-                                    </Image.Source>
-                                </Image>
+                                <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}"/>
                             </Grid>
                         </Frame>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
-            </fl:FlowListView>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                <fl:FlowListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                        Color="Black" VerticalOptions="Center" 
                                        HorizontalOptions="Center"/>
-            <Button Command="{Binding LoadingCommand}" Text="Carregar Mais" IsVisible="True"/>
+                    </Grid>
+                </fl:FlowListView.Footer>
+            </fl:FlowListView>
             
+            <Button Command="{Binding LoadingCommand}" Text="Carregar Mais" IsVisible="True"/>
+
         </StackLayout>
     </ScrollView>
 </ContentPage>

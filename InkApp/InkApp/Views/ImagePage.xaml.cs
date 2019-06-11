@@ -8,18 +8,10 @@ using Xamarin.Forms;
 namespace InkApp.Views
 {
     public partial class ImagePage : ContentPage
-    {
-        public InstagramItem item;
-        
-        public ImagePage(InstagramItem v)
+    {        
+        public ImagePage()
         {
             InitializeComponent();
-            item = v;
-            ImageVar.Source = v.ImageHigh;
-        }
-        private void BtnSave_Clicked(object sender, EventArgs e)
-        {
-            App.Database.SaveItemAsync(item);                
         }
 
     }

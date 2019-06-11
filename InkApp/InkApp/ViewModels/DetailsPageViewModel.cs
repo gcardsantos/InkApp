@@ -22,7 +22,6 @@ namespace InkApp.ViewModels
     public class DetailsPageViewModel : ViewModelBase
     {
         private INavigationService _navigationService;
-        private IInstaApi api;
         private FlowObservableCollection<InstagramItem> _feed;
         //baixa resolução  / alta resolução
         public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
@@ -47,6 +46,9 @@ namespace InkApp.ViewModels
         private object _photo;
         public object Image { get { return _photo; } set { SetProperty(ref _photo, value); } }
 
+        private object _lastItemTapped;
+        public object LastTappedItem { get { return _photo; } set { SetProperty(ref _lastItemTapped, value); } }
+
         private Pessoa _pessoa;
 
         private bool _busy;
@@ -69,8 +71,17 @@ namespace InkApp.ViewModels
             BtnFace = new DelegateCommand(OpenFace);
             BtnIg = new DelegateCommand(OpenInstagram);
             BtnLocal = new DelegateCommand(OpenLocal);
+            PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
             LoadingCommand = new DelegateCommand(LoadMoreData);
             Feed = new FlowObservableCollection<InstagramItem>();
+        }
+
+        private async void OpenPhotoAsync(object obj)
+        {
+            var x = Feed.First(n => n.ImageLow.Equals((obj as InstagramItem).ImageLow));
+            NavigationParameters np = new NavigationParameters();
+            np.Add("photo", x);
+            await NavigationService.NavigateAsync("ImagePage", np);
         }
 
         private async void LoadMoreData()
@@ -114,13 +125,12 @@ namespace InkApp.ViewModels
             if (!IsBusy)
             {
                 IsBusy = true;
-                var data = await App.Api.GetMediaAsync(p);
+                var data = await App.Api.GetMediaAsync(p, 49);
 
                 if (data != null)
                 {
-                    var lis = data.Where(n => Feed.Any(e => e.ImageLow.Equals(n.ImageLow)));
-                    foreach (var x in lis)
-                        Feed.Add(x);
+                    //var lis = data.Where(n => Feed.Any(e => !e.ImageLow.Equals(n.ImageLow)));
+                    Feed.AddRange(data);
                 }
                 IsBusy = false;
             }

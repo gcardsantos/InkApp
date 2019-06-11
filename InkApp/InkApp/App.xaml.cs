@@ -8,10 +8,6 @@ using InkApp.Data;
 using System.IO;
 using System;
 using DLToolkit.Forms.Controls;
-using InstagramApiSharp.API;
-using System.Threading.Tasks;
-using InstagramApiSharp.API.Builder;
-using InstagramApiSharp.Classes;
 using InkApp.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -43,32 +39,6 @@ namespace InkApp
             Api = new InstagramParser();
             await NavigationService.NavigateAsync("TopMasterDetailPage/NavigationPage/HomePage");
         }
-
-        //public void Login()
-        //{
-        //    var userSession = new UserSessionData
-        //    {
-        //        UserName = "tatuapp",
-        //        Password = "inkapp"
-        //    };
-
-        //    try
-        //    {
-        //        Api = InstaApiBuilder.CreateBuilder()
-        //        .SetUser(userSession)
-        //        .SetRequestDelay(RequestDelay.FromSeconds(1, 2))
-        //        .Build();
-        //        var r = Task.Run(async () => { return await Api.LoginAsync(); }).Result;
-        //    }
-        //    catch (Exception)
-        //    {
-                
-        //    }
-        //    finally
-        //    {
-                
-        //    }
-        //}
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {

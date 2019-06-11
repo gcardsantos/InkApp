@@ -7,7 +7,7 @@
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              x:Class="InkApp.Views.SavePhotosPage">
 
-    <CollectionView ItemsSource="{Binding Photos}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
+    <CollectionView ItemsSource="{Binding Photos}" SelectionMode="Single">
         <CollectionView.ItemsLayout>
             <GridItemsLayout Orientation="Vertical" Span="3"/>
         </CollectionView.ItemsLayout>

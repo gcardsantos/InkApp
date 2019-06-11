@@ -49,12 +49,12 @@ namespace InkApp.Services
 
         }
 
-        public async System.Threading.Tasks.Task<List<InstagramItem>> GetMediaAsync(Pessoa p)
+        public async System.Threading.Tasks.Task<List<InstagramItem>> GetMediaAsync(Pessoa p, int quant)
         {
             List<InstagramItem> items = new List<InstagramItem>();
             string s = @"https://www.instagram.com/graphql/query/?query_hash=472f257a40c653c64c666ce877d59d2b&variables={";
 
-            string ss = "\"id\"" + ":\"" +p.IdInsta +"\",\"first\":100}";
+            string ss = "\"id\"" + ":\"" +p.IdInsta +"\",\"first\":"+ quant +"}";
 
             try
             {
@@ -67,7 +67,7 @@ namespace InkApp.Services
                         var json = await response.Content.ReadAsStringAsync();
                         JObject o = JObject.Parse(json);
 
-                        for (var i = 0; i < 49; i++)
+                        for (var i = 0; i < quant; i++)
                         {
                             try
                             {
@@ -78,7 +78,7 @@ namespace InkApp.Services
                                     items.Add(new InstagramItem() { ImageLow = yy, ImageHigh = xx, People = p, Username = p.Username });
                                 }
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                                 return items;
                             }

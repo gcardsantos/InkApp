@@ -3,20 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:local="clr-namespace:InkApp.Gestos"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="InkApp.Views.ImagePage"
              BackgroundColor="Transparent">
     <ContentPage.Content>
-        <RelativeLayout Padding="20">
-            <Button x:Name="btnBack" Text="Back"/>
+        <RelativeLayout Padding="20" BindingContext="{Binding Item}">
             <local:PinchGesture>
                 <local:PinchGesture.Content>
-                    <Image x:Name="ImageVar" Aspect="AspectFit"></Image>
+                    <ff:CachedImage Source="{Binding ImageHigh}"/>
                 </local:PinchGesture.Content>
             </local:PinchGesture>
-            <Button x:Name="btnNext" Text="Next"/>
-            <Button x:Name="btnSave" Text="Salvar" Clicked="BtnSave_Clicked"/>
+            <Button Text="Salvar" Command="{Binding PhotoCommand}"/>
         </RelativeLayout>           
         
     </ContentPage.Content>
