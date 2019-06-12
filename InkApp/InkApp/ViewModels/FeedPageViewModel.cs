@@ -37,7 +37,7 @@ namespace InkApp.ViewModels
 
         private void StartValueAsync()
         {
-            Task.Run(() => { GetMoreDataAsync(); });
+            GetMoreDataAsync();
         }
 
         private async void OpenPhotoAsync(object obj)
@@ -58,7 +58,7 @@ namespace InkApp.ViewModels
             try
             {
                 IsBusy = true;
-                var pessoas = Task.Run(async () => { return await repository.GetPessoas(); }).Result;
+                var pessoas =  await repository.GetPessoas();
                 pessoas.OrderBy(n => Guid.NewGuid());
                 pessoas = pessoas.Where(n => !PeopleAdded.Exists(e => e.Username.Equals(n.Username))).ToList();
                 pessoas.RemoveRange(pessoas.Count/2, pessoas.Count/2);

@@ -67,6 +67,8 @@ namespace InkApp.Services
                         var json = await response.Content.ReadAsStringAsync();
                         JObject o = JObject.Parse(json);
 
+                        string has_page = o.SelectToken("data.user.edge_owner_to_timeline_media").Value<String>();
+
                         for (var i = 0; i < quant; i++)
                         {
                             try

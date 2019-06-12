@@ -8,29 +8,31 @@
 
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
-            <StackLayout Orientation="Vertical" Padding="20" HorizontalOptions="Start">
-                <Frame HeightRequest="200" BorderColor="WhiteSmoke">
-                    <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" FontSize="72" HorizontalOptions="Center"/>
-                </Frame>
-                <Frame BorderColor="WhiteSmoke" CornerRadius="10" HeightRequest="30">
-                    <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Home}" FontSize="Medium" TextColor="Black"/>
-                        <Button Text="Home" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/HomePage" BackgroundColor="Transparent" Padding="1"/>
+            <ScrollView>
+                <StackLayout Orientation="Vertical" Padding="50" BackgroundColor="Gainsboro" VerticalOptions="Center" WidthRequest="50">
+                    <Frame HeightRequest="200" BorderColor="WhiteSmoke" HorizontalOptions="CenterAndExpand">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" FontSize="72" HorizontalOptions="Center"/>
+                    </Frame>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Home}" FontSize="Medium" TextColor="Black" Margin="0, 10"/>
+                        <Button Text="Home" Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/HomePage" BackgroundColor="Transparent" Padding="1"/>
                     </StackLayout>
-                </Frame>
-                <Frame BorderColor="WhiteSmoke" CornerRadius="10" HeightRequest="30">
-                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource SavePhotos}" FontSize="Medium" TextColor="Black" />
-                        <Button  Text="Photos" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/SavePhotosPage" BackgroundColor="Transparent" Padding="1"/>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource SavePhotos}" FontSize="Medium" TextColor="Black" Margin="0, 10"/>
+                        <Button  Text="Photos" Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/SavePhotosPage" BackgroundColor="Transparent" Padding="1"/>
                     </StackLayout>
-                </Frame>
-                <Frame BorderColor="WhiteSmoke" CornerRadius="10" HeightRequest="30">
-                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Feed}" FontSize="Medium" TextColor="Black"/>
-                        <Button Text="Feed" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/FeedPage" BackgroundColor="Transparent" Padding="1"/>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Feed}" FontSize="Medium" TextColor="Black" Margin="0, 10"/>
+                        <Button Text="Feed" Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/FeedPage" BackgroundColor="Transparent" Padding="1"/>
                     </StackLayout>
-                </Frame>
-            </StackLayout>
+                    
+                    <StackLayout Padding="20, 100, 20, 20">
+                        <Label Text="Deseja ser divulgado?" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding BtnEnabled}"/>
+                        <Label Text="Entre em contato conosco" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding BtnEnabled}"/>
+                        <Button Text="Solicitar" Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/RequestPage" BackgroundColor="White" CornerRadius="30" BorderColor="WhiteSmoke" Padding="1"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>            
         </ContentPage>
     </MasterDetailPage.Master>
 </MasterDetailPage>
