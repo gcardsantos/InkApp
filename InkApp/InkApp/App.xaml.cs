@@ -39,7 +39,8 @@ namespace InkApp
             InitializeComponent();
             FlowListView.Init();
             Api = new InstagramParser();
-            await NavigationService.NavigateAsync(new System.Uri("/NavigationPage/TabPage?selectedTab=HomePage", System.UriKind.Absolute));
+            await NavigationService.NavigateAsync("/TopMasterDetailPage/CustomNavigationPage/HomePage");
+            //await NavigationService.NavigateAsync(new System.Uri("/TopMasterDetailPage/CustomNavigationPage/HomePage", System.UriKind.Absolute));
 
         }
 

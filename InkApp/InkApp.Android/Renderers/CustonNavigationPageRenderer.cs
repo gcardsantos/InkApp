@@ -9,6 +9,7 @@ using Android.Widget;
 
 using InkApp.Droid.Renderers;
 using InkApp.Pages;
+using System.Threading.Tasks;
 
 [assembly: ExportRenderer(typeof(CustomNavigationPage), typeof(CustomNavigationPageRenderer))]
 namespace InkApp.Droid.Renderers
@@ -22,7 +23,6 @@ namespace InkApp.Droid.Renderers
 
         IPageController PageController => Element as IPageController;
         CustomNavigationPage CustomNavigationPage => Element as CustomNavigationPage;
-
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
         {
             CustomNavigationPage.IgnoreLayoutChange = true;

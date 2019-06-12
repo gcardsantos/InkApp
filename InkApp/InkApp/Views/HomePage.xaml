@@ -4,8 +4,8 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.HomePage"
-             NavigationPage.HasNavigationBar="False"
-             Title="Home"
+             NavigationPage.HasNavigationBar="True"
+             Title=""
              >
 
     <ScrollView>

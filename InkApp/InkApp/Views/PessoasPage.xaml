@@ -6,10 +6,9 @@
              xmlns:c="clr-namespace:InkApp.Converters"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             NavigationPage.HasBackButton="True"
-             NavigationPage.HasNavigationBar="True"
+             prism:ViewModelLocator.AutowireViewModel="True"             
              x:Class="InkApp.Views.PessoasPage"
+             NavigationPage.HasBackButton="True"
              Title="{Binding Title}">
 
     <ContentPage.Resources>

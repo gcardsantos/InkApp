@@ -65,8 +65,10 @@ namespace InkApp.ViewModels
                 
                 foreach (Pessoa p in pessoas)
                 {
-                    await App.Api.GetUserAsync(p);
-                    await GetDataAsync(p);
+                    var b = await App.Api.GetUserAsync(p);
+
+                    if(b)
+                        await GetDataAsync(p);
                 }
                 PeopleAdded.AddRange(pessoas);
 
