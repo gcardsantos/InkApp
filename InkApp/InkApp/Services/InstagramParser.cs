@@ -10,11 +10,11 @@ namespace InkApp.Services
 {
     public class InstagramParser
     {
-        private WebClient web;
-
+        private string last_token = "";
+        private bool has_next_page = true;
         public InstagramParser()
         {
-            web = new WebClient();
+
         }
 
         public async System.Threading.Tasks.Task<bool> GetUserAsync(Pessoa p)
@@ -52,49 +52,38 @@ namespace InkApp.Services
         public async System.Threading.Tasks.Task<List<InstagramItem>> GetMediaAsync(Pessoa p, int quant)
         {
             List<InstagramItem> items = new List<InstagramItem>();
-            string s = @"https://www.instagram.com/graphql/query/?query_hash=472f257a40c653c64c666ce877d59d2b&variables={";
-
-            string ss = "\"id\"" + ":\"" +p.IdInsta +"\",\"first\":"+ quant +"}";
-
             try
             {
-                using (HttpClient client = new HttpClient())
+                while (items.Count < (quant * 2) && has_next_page)
                 {
-                    var response = await client.GetAsync(s + ss);
-
-                    if (response.IsSuccessStatusCode)
+                    using (HttpClient client = new HttpClient())
                     {
-                        var json = await response.Content.ReadAsStringAsync();
-                        JObject o = JObject.Parse(json);
+                        string s = @"https://www.instagram.com/graphql/query/?query_hash=472f257a40c653c64c666ce877d59d2b&variables={";
 
-                        string has_page = o.SelectToken("data.user.edge_owner_to_timeline_media").Value<String>();
+                        string ss = "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + ", \"after\":\"" + last_token + "\"}";
+                        var response = await client.GetAsync(s + ss);
 
-                        for (var i = 0; i < quant; i++)
+                        if (response.IsSuccessStatusCode)
                         {
-                            try
-                            {
-                                if (o.SelectToken("data.user.edge_owner_to_timeline_media.edges[" + i + "].node.__typename").Value<string>().Equals("GraphImage"))
-                                {
-                                    var xx = o.SelectToken("data.user.edge_owner_to_timeline_media.edges[" + i + "].node.display_url").Value<string>();
-                                    var yy = o.SelectToken("data.user.edge_owner_to_timeline_media.edges[" + i + "].node.thumbnail_src").Value<string>();
-                                    items.Add(new InstagramItem() { ImageLow = yy, ImageHigh = xx, People = p, Username = p.Username });
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                return items;
-                            }
+                            var json = await response.Content.ReadAsStringAsync();
+                            JObject o = JObject.Parse(json);
 
+                            has_next_page = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.has_next_page").Value<bool>();
+                            last_token = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.end_cursor").Value<string>();
+                            var l = o.SelectToken("data.user.edge_owner_to_timeline_media.edges").Value<IEnumerable<JToken>>();
+                            var list = new List<JToken>(l).FindAll(n => n.ToString().Contains("GraphImage"));
+                            list = list.Count > quant ? list.GetRange(0, quant) : list;
+                            list.ForEach(n => items.Add(new InstagramItem() { ImageLow =  n.SelectToken("node.thumbnail_src").Value<string>(), ImageHigh = n.SelectToken("node.display_url").Value<string>() }));
                         }
                     }
                 }
+                return items;
             }
             catch (Exception)
             {
                 return null;
             }
 
-            return items;
         }
     }
 }

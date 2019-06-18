@@ -78,7 +78,7 @@ namespace InkApp.ViewModels
 
         private void LoadMoreData()
         {
-            IsBusy = false;
+            _ = GetMediaAsync(_pessoa);
         }
 
         private void OpenLocal()
@@ -129,41 +129,6 @@ namespace InkApp.ViewModels
             
         }
 
-        //public async Task GetData(Pessoa p = null)
-        //{
-        //    if (!IsBusy)
-        //    {
-        //        IsBusy = true;
-        //        Exception Error = null;
-        //        try
-        //        {
-        //            var collection = await App.Api.UserProcessor.GetUserMediaAsync(p.Username, PaginationParameters.MaxPagesToLoad(2));
-        //            if (collection.Succeeded)
-        //            {
-        //                Feed.Clear();
-                        
-        //                foreach (var item in collection.Value)
-        //                {
-        //                    if(item.Images.Count > 0 && item.Videos.Count == 0)
-        //                    {
-        //                        Feed.Add(new InstagramItem() { ImageLow = item.Images[1].Uri, ImageHigh = item.Images[0].Uri, People = p, Username = p.Username });
-        //                    }                            
-        //                }
-        //            }
-        //            Visible = false;
-        //        }
-        //        catch(Exception ex)
-        //        {
-        //            Error = ex;
-        //            Visible = true;
-        //        }
-        //        finally
-        //        {
-        //            if(Error == null)
-        //                IsBusy = false;
-        //        }
-        //    }
-        //}
         public override void OnNavigatedFromAsync(INavigationParameters parameters)
         {
             if(parameters.GetNavigationMode() == NavigationMode.Back)
