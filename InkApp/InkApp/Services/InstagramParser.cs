@@ -14,7 +14,7 @@ namespace InkApp.Services
         private bool has_next_page = true;
         public InstagramParser()
         {
-
+            
         }
 
         public async System.Threading.Tasks.Task<bool> GetUserAsync(Pessoa p)
@@ -84,6 +84,11 @@ namespace InkApp.Services
                 return null;
             }
 
+        }
+
+        public void CloseUser()
+        {
+            last_token = "";
         }
     }
 }

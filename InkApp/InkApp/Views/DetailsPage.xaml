@@ -69,7 +69,7 @@
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
                 <fl:FlowListView.Footer>
-                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                    <Grid Padding="6">
                         <Grid.Triggers>
                             <Trigger TargetType="Grid" Property="IsVisible" Value="False">
                                 <Setter Property="HeightRequest" Value="0" />
