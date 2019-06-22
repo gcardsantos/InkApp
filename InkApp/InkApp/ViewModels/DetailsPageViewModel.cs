@@ -133,7 +133,7 @@ namespace InkApp.ViewModels
         {
             if(parameters.GetNavigationMode() == NavigationMode.Back)
             {
-                App.Api.CloseUser();
+                App.Api.CloseUser(_pessoa);
                 _navigationService.GoBackAsync();
             }
         }

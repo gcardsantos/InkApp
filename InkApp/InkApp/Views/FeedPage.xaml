@@ -38,10 +38,11 @@
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                        Color="Black" VerticalOptions="Center" 
                                        HorizontalOptions="Center"/>
+                        <Button Text="Load More" Command="{Binding LoadingCommand}"/>
                     </Grid>
                 </fl:FlowListView.Footer>
             </fl:FlowListView>
-            <Button Text="Load More" Command="{Binding LoadingCommand}"/>
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>

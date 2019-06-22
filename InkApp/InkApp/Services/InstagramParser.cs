@@ -35,6 +35,7 @@ namespace InkApp.Services
 
                         p.Image = o.SelectToken("graphql.user.profile_pic_url").Value<string>();
                         p.IdInsta = o.SelectToken("graphql.user.id").Value<string>();
+                        p.NextPage = true;
                         return true;
                     }
                 }
@@ -54,13 +55,21 @@ namespace InkApp.Services
             List<InstagramItem> items = new List<InstagramItem>();
             try
             {
-                while (items.Count < (quant * 2) && has_next_page)
+                while (items.Count < (quant * 2) && p.NextPage)
                 {
                     using (HttpClient client = new HttpClient())
                     {
                         string s = @"https://www.instagram.com/graphql/query/?query_hash=472f257a40c653c64c666ce877d59d2b&variables={";
-
-                        string ss = "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + ", \"after\":\"" + last_token + "\"}";
+                        string ss;
+                        if (String.IsNullOrEmpty(p.LastToken))
+                        {
+                            ss = "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + ", \"after\":\"" + p.LastToken + "\"}";
+                        }
+                        else
+                        {
+                            ss = "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + "}";
+                        }
+                        
                         var response = await client.GetAsync(s + ss);
 
                         if (response.IsSuccessStatusCode)
@@ -68,8 +77,8 @@ namespace InkApp.Services
                             var json = await response.Content.ReadAsStringAsync();
                             JObject o = JObject.Parse(json);
 
-                            has_next_page = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.has_next_page").Value<bool>();
-                            last_token = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.end_cursor").Value<string>();
+                            p.NextPage = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.has_next_page").Value<bool>();
+                            p.LastToken = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.end_cursor").Value<string>();
                             var l = o.SelectToken("data.user.edge_owner_to_timeline_media.edges").Value<IEnumerable<JToken>>();
                             var list = new List<JToken>(l).FindAll(n => n.ToString().Contains("GraphImage"));
                             list = list.Count > quant ? list.GetRange(0, quant) : list;
@@ -86,9 +95,9 @@ namespace InkApp.Services
 
         }
 
-        public void CloseUser()
+        public void CloseUser(Pessoa _pessoa)
         {
-            last_token = "";
+            _pessoa.LastToken = "";
         }
     }
 }
