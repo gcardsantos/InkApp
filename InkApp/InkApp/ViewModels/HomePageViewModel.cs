@@ -94,7 +94,7 @@ namespace InkApp.ViewModels
                     var Repository = new Repository();
                     var city = City.ToString().Replace(" / ", "/").Split('/');
                     var pessoas = await Repository.GetPessoas(city[1], city[0]);
-                    pessoas.ForEach(async n => await App.Api.GetUserAsync(n));
+                    await App.Api.GetUserAsync(pessoas);
                     navigationParams.Add("pessoas", pessoas);
                     navigationParams.Add("city", city[1]);
                     navigationParams.Add("estado", city[0]);

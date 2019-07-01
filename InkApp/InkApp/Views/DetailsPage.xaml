@@ -5,6 +5,7 @@
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.DetailsPage"
              NavigationPage.HasBackButton="True"
@@ -22,11 +23,6 @@
                     </ff:CachedImage>
                     <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
                         <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
-                    
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" Margin="0" TextColor="Black"/>
-                            <Label Text="{Binding Local}" FontSize="14" TextColor="Black"/>
-                        </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                             <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="35">
                                 <Button Command="{Binding BtnLocal}" FontSize="Micro" BackgroundColor="Transparent"/>
@@ -45,7 +41,21 @@
                                 <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="12, 10"/>
                             </RelativeLayout>
                         </StackLayout>
-                        <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        <expandable:ExpandableView>
+                            <expandable:ExpandableView.PrimaryView >
+                                <StackLayout>
+                                    <Label Text="Sobre " HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                                </StackLayout>
+                            </expandable:ExpandableView.PrimaryView>
+                            <expandable:ExpandableView.SecondaryViewTemplate>
+                                <DataTemplate>
+                                    <StackLayout Padding="10,0">
+                                        <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </expandable:ExpandableView.SecondaryViewTemplate>
+                        </expandable:ExpandableView>
+                        
                     </StackLayout>
                 </StackLayout>
             </Frame>
@@ -69,17 +79,12 @@
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
                 <fl:FlowListView.Footer>
-                    <Grid Padding="6">
-                        <Grid.Triggers>
-                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                                <Setter Property="HeightRequest" Value="0" />
-                            </Trigger>
-                        </Grid.Triggers>
+                    <StackLayout Orientation="Vertical" Padding="10">
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                        Color="Black" VerticalOptions="Center" 
                                        HorizontalOptions="Center"/>
-                        <Button Command="{Binding LoadingCommand}" Text="Carregar Mais" IsVisible="True"/>
-                    </Grid>
+                        <Button Command="{Binding LoadingCommand}" Text="Carregar Mais" IsVisible="{Binding IsLoadMore}"/>
+                    </StackLayout>
                 </fl:FlowListView.Footer>
             </fl:FlowListView>
         </StackLayout>

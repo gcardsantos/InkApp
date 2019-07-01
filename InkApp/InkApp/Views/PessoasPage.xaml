@@ -37,7 +37,7 @@
                                 <StackLayout BackgroundColor="Transparent" Padding="4" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Frame HasShadow="True" BorderColor="WhiteSmoke" CornerRadius="10" HorizontalOptions="FillAndExpand">
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                            <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.5">
+                                            <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.5" CacheDuration="1" RetryCount="2">
                                                 <ff:CachedImage.Transformations>
                                                     <fftransformations:CircleTransformation/>
                                                 </ff:CachedImage.Transformations>

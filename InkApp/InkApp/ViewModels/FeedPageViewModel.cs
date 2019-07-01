@@ -15,6 +15,8 @@ namespace InkApp.ViewModels
         public DelegateCommand LoadingCommand { get; private set; }
         public DelegateCommand<object> PhotoTappedCommand { get; private set; }
 
+        private List<InstagramItem> items;
+
         private FlowObservableCollection<InstagramItem> _feed;
         public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
@@ -23,12 +25,16 @@ namespace InkApp.ViewModels
 
         private bool _busy;
         public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
+
+        private bool _loadMore;
+        public bool IsLoadMore { get { return _loadMore; } set { SetProperty(ref _loadMore, value); } }
         public List<Pessoa> PeopleAdded { get; set; }
 
         public FeedPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             repository = new Repository();
             Feed = new FlowObservableCollection<InstagramItem>();
+            items = new List<InstagramItem>();
             PeopleAdded = new List<Pessoa>();
             LoadingCommand = new DelegateCommand(GetMoreDataAsync);
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
@@ -58,6 +64,7 @@ namespace InkApp.ViewModels
             try
             {
                 IsBusy = true;
+                IsLoadMore = false;
                 var pessoas =  await repository.GetPessoas();
                 pessoas.OrderBy(n => Guid.NewGuid());
                 pessoas = pessoas.Where(n => !PeopleAdded.Exists(e => e.Username.Equals(n.Username))).ToList();
@@ -71,7 +78,7 @@ namespace InkApp.ViewModels
                         await GetDataAsync(p);
                 }
                 PeopleAdded.AddRange(pessoas);
-
+                Feed.AddRange(items.OrderBy(a => Guid.NewGuid()));
             }
             catch(Exception ex)
             {
@@ -79,18 +86,18 @@ namespace InkApp.ViewModels
             }finally
             {
                 IsBusy = false;
+                IsLoadMore = true;
             }
         }
 
         public async Task GetDataAsync(Pessoa p)
         {
-            var data = await App.Api.GetMediaAsync(p, 49);
+            var data = await App.Api.GetMediaAsync(p);
             
             if (data != null)
             {
-                data.RemoveAt(data.Count / 2);
-                //var l = data.Where(n => Feed.Any(e => e.ImageLow.Equals(n.ImageLow)));
-                Feed.AddRange(data);
+                var x = data.FindAll(n => !items.Exists(e => e.ImageLow == n.ImageLow));
+                items.AddRange(x);
             }
         }
 

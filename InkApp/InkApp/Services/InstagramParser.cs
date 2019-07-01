@@ -10,11 +10,43 @@ namespace InkApp.Services
 {
     public class InstagramParser
     {
-        private string last_token = "";
-        private bool has_next_page = true;
         public InstagramParser()
         {
             
+        }
+
+        public async System.Threading.Tasks.Task<bool> GetUserAsync(List<Pessoa> pessoas)
+        {
+            foreach(var p in pessoas)
+            {
+                string url = @"https://www.instagram.com/" + p.Username + "/?__a=1";
+                try
+                {
+                    using (HttpClient client = new HttpClient())
+                    {
+                        var response = await client.GetAsync(url);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string json = await response.Content.ReadAsStringAsync();
+
+                            var o = JObject.Parse(json);
+
+                            p.Image = o.SelectToken("graphql.user.profile_pic_url").Value<string>();
+                            p.IdInsta = o.SelectToken("graphql.user.id").Value<string>();
+                            p.QtdPosts = o.SelectToken("graphql.user.edge_owner_to_timeline_media.count").Value<int>();
+                            p.NextPage = true;
+                            
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public async System.Threading.Tasks.Task<bool> GetUserAsync(Pessoa p)
@@ -35,6 +67,7 @@ namespace InkApp.Services
 
                         p.Image = o.SelectToken("graphql.user.profile_pic_url").Value<string>();
                         p.IdInsta = o.SelectToken("graphql.user.id").Value<string>();
+                        p.QtdPosts = o.SelectToken("graphql.user.edge_owner_to_timeline_media.count").Value<int>();
                         p.NextPage = true;
                         return true;
                     }
@@ -50,18 +83,19 @@ namespace InkApp.Services
 
         }
 
-        public async System.Threading.Tasks.Task<List<InstagramItem>> GetMediaAsync(Pessoa p, int quant)
+        public async System.Threading.Tasks.Task<List<InstagramItem>> GetMediaAsync(Pessoa p)
         {
             List<InstagramItem> items = new List<InstagramItem>();
             try
             {
-                while (items.Count < (quant * 2) && p.NextPage)
+
+                while (items.Count < p.QtdPosts)
                 {
                     using (HttpClient client = new HttpClient())
                     {
                         string s = @"https://www.instagram.com/graphql/query/?query_hash=472f257a40c653c64c666ce877d59d2b&variables={";
                         string ss;
-                        if (String.IsNullOrEmpty(p.LastToken))
+                        if (!String.IsNullOrEmpty(p.LastToken))
                         {
                             ss = "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + ", \"after\":\"" + p.LastToken + "\"}";
                         }
@@ -81,8 +115,10 @@ namespace InkApp.Services
                             p.LastToken = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.end_cursor").Value<string>();
                             var l = o.SelectToken("data.user.edge_owner_to_timeline_media.edges").Value<IEnumerable<JToken>>();
                             var list = new List<JToken>(l).FindAll(n => n.ToString().Contains("GraphImage"));
-                            list = list.Count > quant ? list.GetRange(0, quant) : list;
-                            list.ForEach(n => items.Add(new InstagramItem() { ImageLow =  n.SelectToken("node.thumbnail_src").Value<string>(), ImageHigh = n.SelectToken("node.display_url").Value<string>() }));
+                            //
+                            p.QtdPosts -= (50 - list.Count);
+
+                            list.ForEach(n => items.Add(new InstagramItem() { ImageLow =  n.SelectToken("node.thumbnail_src").Value<string>(), ImageHigh = n.SelectToken("node.display_url").Value<string>(), People = p, Username = p.Username }));
                         }
                     }
                 }

@@ -18,6 +18,7 @@
   <ItemGroup>
     <PackageReference Include="AdMaiora.RealXaml.Client" Version="1.0.0" />
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
+    <PackageReference Include="ExpandableView" Version="1.0.9" />
     <PackageReference Include="Microsoft.Azure.Mobile.Client" Version="4.1.2-prerelease.481290" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />

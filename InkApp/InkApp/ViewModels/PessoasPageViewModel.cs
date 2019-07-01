@@ -75,6 +75,7 @@ namespace InkApp.ViewModels
                 var pessoas = parameters["pessoas"] as List<Pessoa>;
                 Title = parameters["city"] as string;
 
+                //pessoas.ForEach(async n => await App.Api.GetUserAsync(n));
                 Pessoas.Clear();
                 PeopleVisible.Clear();
                 foreach (var p in pessoas)

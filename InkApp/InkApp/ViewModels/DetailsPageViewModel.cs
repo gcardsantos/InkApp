@@ -4,6 +4,7 @@ using InkApp.Models;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace InkApp.ViewModels
     public class DetailsPageViewModel : ViewModelBase
     {
         private INavigationService _navigationService;
+        private List<InstagramItem> instagramItems;
         private FlowObservableCollection<InstagramItem> _feed;
         //baixa resolução  / alta resolução
         public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
@@ -46,6 +48,9 @@ namespace InkApp.ViewModels
         private bool _busy;
         public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
 
+        private bool _loadMore;
+        public bool IsLoadMore { get { return _loadMore; } set { SetProperty(ref _loadMore, value); } }
+
         private bool _visible;
         public bool Visible { get { return _visible; } set { SetProperty(ref _visible, value); } }
 
@@ -64,8 +69,9 @@ namespace InkApp.ViewModels
             BtnIg = new DelegateCommand(OpenInstagram);
             BtnLocal = new DelegateCommand(OpenLocal);
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
-            LoadingCommand = new DelegateCommand(LoadMoreData);
+            LoadingCommand = new DelegateCommand(LoadMoreDataAsync);
             Feed = new FlowObservableCollection<InstagramItem>();
+            instagramItems = new List<InstagramItem>();
         }
 
         private async void OpenPhotoAsync(object obj)
@@ -76,9 +82,9 @@ namespace InkApp.ViewModels
             await NavigationService.NavigateAsync("ImagePage", np);
         }
 
-        private void LoadMoreData()
+        private async void LoadMoreDataAsync()
         {
-            _ = GetMediaAsync(_pessoa);
+            await GetMediaAsync(_pessoa);
         }
 
         private void OpenLocal()
@@ -98,7 +104,7 @@ namespace InkApp.ViewModels
 
         private void OpenFace()
         {
-            Device.OpenUri(new Uri("https://m.facebook.com/" + _pessoa.Facebook));
+            Device.OpenUri(new Uri("fb://" + _pessoa.Facebook));
         }
 
         private void OpenWhatsApp()
@@ -117,14 +123,34 @@ namespace InkApp.ViewModels
             if (!IsBusy)
             {
                 IsBusy = true;
-                var data = await App.Api.GetMediaAsync(p, 49);
+                IsLoadMore = false;
 
-                if (data != null)
+                if (!p.NextPage && instagramItems.Count <= 0)
                 {
-                    //var lis = data.Where(n => Feed.Any(e => !e.ImageLow.Equals(n.ImageLow)));
-                    Feed.AddRange(data);
+                    IsBusy = false;
+                    IsLoadMore = false;
+                    return;
                 }
+                    
+
+                if(instagramItems.Count <= 0 && p.NextPage)
+                {
+                    instagramItems = new List<InstagramItem>(await App.Api.GetMediaAsync(p));
+                }
+
+                if (instagramItems.Count > 50)
+                {
+                    Feed.AddRange(instagramItems.GetRange(0, 50));
+                    instagramItems.RemoveRange(0, 50);
+                }
+                else
+                {
+                    Feed.AddRange(instagramItems.GetRange(0, instagramItems.Count));
+                    instagramItems.Clear();
+                }
+                
                 IsBusy = false;
+                IsLoadMore = true;
             }
             
         }
