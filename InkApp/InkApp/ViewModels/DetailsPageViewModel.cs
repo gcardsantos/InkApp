@@ -16,8 +16,11 @@ namespace InkApp.ViewModels
     {
         private INavigationService _navigationService;
         private List<InstagramItem> instagramItems;
-        private FlowObservableCollection<InstagramItem> _feed;
+
+        public InstagramItem Item;
+
         //baixa resolução  / alta resolução
+        private FlowObservableCollection<InstagramItem> _feed;
         public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
         //------regiao do profile info
@@ -160,21 +163,20 @@ namespace InkApp.ViewModels
             if(parameters.GetNavigationMode() == NavigationMode.Back)
             {
                 App.Api.CloseUser(_pessoa);
-                _navigationService.GoBackAsync();
             }
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             if(parameters.GetNavigationMode() == NavigationMode.New)
             {
                 _pessoa = parameters["pessoa"] as Pessoa;
+                _pessoa.NextPage = true;
                 ProfileImage = _pessoa.Image;
                 Local = _pessoa.Local;
                 Sobre = _pessoa.Sobre;
                 Title = _pessoa.Name;
-                _ = GetMediaAsync(_pessoa);
-                //_ = GetData(_pessoa);
+                await GetMediaAsync(_pessoa);
             }            
         }
 

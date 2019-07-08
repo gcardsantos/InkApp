@@ -28,6 +28,11 @@ namespace InkApp.Data
             return database.Table<InstagramItem>().Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
+        public Task<InstagramItem> GetItemAsync(InstagramItem item)
+        {
+            return database.Table<InstagramItem>().Where(i => i.ImageLow == item.ImageLow).FirstOrDefaultAsync();
+        }
+
         public Task<int> SaveItemAsync(InstagramItem item)
         {
             if (item.Id != 0)

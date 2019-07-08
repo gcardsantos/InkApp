@@ -10,29 +10,31 @@
              x:Class="InkApp.Views.ImagePage"
              BackgroundColor="Transparent">
     <ContentPage.Content>
-        <Frame CornerRadius="20">
-            <StackLayout Orientation="Vertical" Padding="10">
-                <RelativeLayout BindingContext="{Binding Item}" >
-                    <local:PinchGesture>
-                        <local:PinchGesture.Content>
-                            <ff:CachedImage Source="{Binding ImageHigh}"/>
-                        </local:PinchGesture.Content>
-                    </local:PinchGesture>
-                    <Button Text="Salvar" BindingContext="" Command="{Binding PhotoCommand}" HorizontalOptions="End"/>
-                </RelativeLayout>
-                <Frame Padding="20" BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10">
-                    <StackLayout Orientation="Horizontal" BindingContext="{Binding Pessoa}" HorizontalOptions="Fill">
-                        <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
-                            <ff:CachedImage.Transformations>
-                                <fftransformations:CircleTransformation/>
-                            </ff:CachedImage.Transformations>
-                        </ff:CachedImage>
-                        <Button Text="{Binding Name}" Command="{Binding ProfileCommand}" VerticalOptions="Center" TextColor="Black"  BackgroundColor="Transparent"/>
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
-        </Frame>
-        
+        <StackLayout Orientation="Vertical" Padding="1">
+            <RelativeLayout>
+                <local:PinchGesture>
+                    <local:PinchGesture.Content>
+                        <ff:CachedImage Aspect="AspectFill" Source="{Binding ImageHigh}" CacheDuration="1" RetryCount="2"/>
+                    </local:PinchGesture.Content>
+                </local:PinchGesture>
+                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource HeartBlack}" TextColor="{Binding Cor}" Scale="2" Margin="20">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PhotoCommand}" NumberOfTapsRequired="1"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </RelativeLayout>
+            <Frame Padding="10" Margin="5" BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" HeightRequest="50">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                    <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
+                        <ff:CachedImage.Transformations>
+                            <fftransformations:CircleTransformation/>
+                        </ff:CachedImage.Transformations>
+                    </ff:CachedImage>
+                    <Button Text="{Binding Name}" Command="{Binding ProfileCommand}" VerticalOptions="Center" TextColor="Black"  BackgroundColor="Transparent"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
     </ContentPage.Content>
     
 </ContentPage>

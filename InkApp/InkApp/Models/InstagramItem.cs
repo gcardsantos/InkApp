@@ -13,7 +13,9 @@ namespace InkApp.Models
         public string ImageLow { get; set; }
         public string ImageHigh { get; set; }
         public string Username { get; set; }
+        public string Name { get; set; }
         [Ignore]
         public Pessoa People { get; set; }
+        
     }
 }

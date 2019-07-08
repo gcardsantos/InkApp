@@ -49,6 +49,41 @@ namespace InkApp.Services
             return true;
         }
 
+        public async System.Threading.Tasks.Task<Pessoa> GetUserAsync(string name)
+        {
+            string url = @"https://www.instagram.com/" + name + "/?__a=1";
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = await client.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+
+                        var o = JObject.Parse(json);
+
+                        Pessoa p = new Pessoa();
+                        p.Name = name;
+                        p.Image = o.SelectToken("graphql.user.profile_pic_url").Value<string>();
+                        p.IdInsta = o.SelectToken("graphql.user.id").Value<string>();
+                        p.QtdPosts = o.SelectToken("graphql.user.edge_owner_to_timeline_media.count").Value<int>();
+                        p.NextPage = true;
+                        return p;
+                    }
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return null;
+        }
+
         public async System.Threading.Tasks.Task<bool> GetUserAsync(Pessoa p)
         {
 

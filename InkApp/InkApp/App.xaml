@@ -27,7 +27,9 @@
         <x:String x:Key="Home">&#xF2dc;</x:String>
         <x:String x:Key="SavePhotos">&#xF193;</x:String>
         <x:String x:Key="Feed">&#xF238;</x:String>
-        
-        
-	</Application.Resources>
+        <x:String x:Key="HeartBlack">&#xf2d5;</x:String>
+        <x:String x:Key="HeartWhite">&#xf2d1;</x:String>
+        <x:String x:Key="Account">&#xf00f;</x:String>
+
+    </Application.Resources>
 </prism:PrismApplication>

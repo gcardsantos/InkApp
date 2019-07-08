@@ -21,25 +21,29 @@
                             <fftransformations:CircleTransformation/>
                         </ff:CachedImage.Transformations>
                     </ff:CachedImage>
-                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
-                        <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                            <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="35">
-                                <Button Command="{Binding BtnLocal}" FontSize="Micro" BackgroundColor="Transparent"/>
-                                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black"  Scale="1.5" Margin="12, 10"/>
-                            </RelativeLayout>
-                            <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="35">
-                                <Button Command="{Binding BtnIg}" FontSize="Micro" BackgroundColor="Transparent"/>
-                                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="12, 10"/>
-                            </RelativeLayout>
-                            <RelativeLayout Padding="10" VerticalOptions="Start"  WidthRequest="15" HeightRequest="35">
-                                <Button Command="{Binding BtnWhats}" BackgroundColor="Transparent"/>
-                                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="12, 10"/>
-                            </RelativeLayout>
-                            <RelativeLayout Padding="10" VerticalOptions="Center" WidthRequest="15" HeightRequest="35">
-                                <Button Command="{Binding BtnFace}"  BackgroundColor="Transparent"/>
-                                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="12, 10"/>
-                            </RelativeLayout>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black" Scale="1.5" Margin="15, 10">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BtnLocal}" NumberOfTapsRequired="1"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="15, 10">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BtnIg}" NumberOfTapsRequired="1"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="15, 10">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BtnWhats}" NumberOfTapsRequired="1"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="15, 10">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BtnFace}" NumberOfTapsRequired="1"/>
+                                </Label.GestureRecognizers>
+                            </Label>
                         </StackLayout>
                         <expandable:ExpandableView>
                             <expandable:ExpandableView.PrimaryView >
