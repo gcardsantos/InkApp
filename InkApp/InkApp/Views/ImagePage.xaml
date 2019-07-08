@@ -4,19 +4,34 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:local="clr-namespace:InkApp.Gestos"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="InkApp.Views.ImagePage"
              BackgroundColor="Transparent">
     <ContentPage.Content>
-        <RelativeLayout Padding="20" BindingContext="{Binding Item}">
-            <local:PinchGesture>
-                <local:PinchGesture.Content>
-                    <ff:CachedImage Source="{Binding ImageHigh}"/>
-                </local:PinchGesture.Content>
-            </local:PinchGesture>
-            <Button Text="Salvar" Command="{Binding PhotoCommand}"/>
-        </RelativeLayout>           
+        <Frame CornerRadius="20">
+            <StackLayout Orientation="Vertical" Padding="10">
+                <RelativeLayout BindingContext="{Binding Item}" >
+                    <local:PinchGesture>
+                        <local:PinchGesture.Content>
+                            <ff:CachedImage Source="{Binding ImageHigh}"/>
+                        </local:PinchGesture.Content>
+                    </local:PinchGesture>
+                    <Button Text="Salvar" BindingContext="" Command="{Binding PhotoCommand}" HorizontalOptions="End"/>
+                </RelativeLayout>
+                <Frame Padding="20" BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10">
+                    <StackLayout Orientation="Horizontal" BindingContext="{Binding Pessoa}" HorizontalOptions="Fill">
+                        <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
+                            <ff:CachedImage.Transformations>
+                                <fftransformations:CircleTransformation/>
+                            </ff:CachedImage.Transformations>
+                        </ff:CachedImage>
+                        <Button Text="{Binding Name}" Command="{Binding ProfileCommand}" VerticalOptions="Center" TextColor="Black"  BackgroundColor="Transparent"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </Frame>
         
     </ContentPage.Content>
     

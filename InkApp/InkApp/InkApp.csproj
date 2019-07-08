@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.109</Version>
-    <FileVersion>1.0.1.109</FileVersion>
-    <AssemblyVersion>1.0.1.109</AssemblyVersion>
+    <Version>1.0.112</Version>
+    <FileVersion>1.0.1.112</FileVersion>
+    <AssemblyVersion>1.0.1.112</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +27,7 @@
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
+    <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1347-pre" />
   </ItemGroup>
 

@@ -103,6 +103,7 @@ namespace InkApp.ViewModels
                 {
                     Error = ex;
                     Visible = true;
+                    IsBusy = false;
                 }
                 finally
                 {
