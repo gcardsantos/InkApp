@@ -9,12 +9,12 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.DetailsPage"
              NavigationPage.HasBackButton="True"
-             Title="{Binding Title}">
+             Title="Perfil">
 
-    <ScrollView Padding="10">
-        <StackLayout Orientation="Vertical">
+    <ScrollView Padding="0">
+        <StackLayout Orientation="Vertical" Padding="3">
             
-            <Frame BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" Padding="10" Visual="Material">
+            <Frame BorderColor="Black" HasShadow="True" CornerRadius="10" Padding="10" Visual="Material">
                 <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
                     <ff:CachedImage Source="{Binding ProfileImage}" Aspect="AspectFit" WidthRequest="100" HeightRequest="100">
                         <ff:CachedImage.Transformations>
@@ -69,17 +69,15 @@
                 FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
-                        <Frame CornerRadius="0" HasShadow="True" Padding="5">
-                            <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="150"/>
-                                </Grid.RowDefinitions>
-                                <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}"/>
-                            </Grid>
-                        </Frame>
+                        <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"/>
+                            </Grid.RowDefinitions>
+                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}"/>
+                        </Grid>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
                 <fl:FlowListView.Footer>

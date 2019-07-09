@@ -153,7 +153,7 @@ namespace InkApp.Services
                             //
                             p.QtdPosts -= (50 - list.Count);
 
-                            list.ForEach(n => items.Add(new InstagramItem() { ImageLow =  n.SelectToken("node.thumbnail_src").Value<string>(), ImageHigh = n.SelectToken("node.display_url").Value<string>(), People = p, Username = p.Username }));
+                            list.ForEach(n => items.Add(new InstagramItem() { ImageLow =  n.SelectToken("node.thumbnail_src").Value<string>(), ImageHigh = n.SelectToken("node.display_url").Value<string>(), People = p, Username = p.Username, Name = p.Name }));
                         }
                     }
                 }
