@@ -4,12 +4,53 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:cc="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.FeedPage"
              Title="Novidades">
 
-    <ScrollView>
+    <ScrollView Orientation="Vertical">
         <StackLayout Orientation="Vertical" Padding="10">
+            <ScrollView Orientation="Horizontal">
+                <StackLayout Padding="10" Orientation="Horizontal">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black">
+                        <Label Text="BlackWork1" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Frame>
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black">
+                        <Label Text="BlackWork2" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Frame>
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black">
+                        <Label Text="BlackWork3" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Frame>
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black">
+                        <Label Text="BlackWork4" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Frame>
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black">
+                        <Label Text="BlackWork5" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Frame>
+                </StackLayout>
+            </ScrollView>
             <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="None" HasUnevenRows="false"
 			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
                 FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">

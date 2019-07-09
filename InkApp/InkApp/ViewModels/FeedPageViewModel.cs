@@ -20,6 +20,10 @@ namespace InkApp.ViewModels
         private FlowObservableCollection<InstagramItem> _feed;
         public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
+
+        private FlowObservableCollection<Estilo> _estilos;
+        public FlowObservableCollection<Estilo> Estilos { get { return _estilos; } set { SetProperty(ref _estilos, value); } }
+
         private object _lastItemTapped;
         public object LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
 
@@ -34,6 +38,7 @@ namespace InkApp.ViewModels
         {
             repository = new Repository();
             Feed = new FlowObservableCollection<InstagramItem>();
+            Estilos = new FlowObservableCollection<Estilo>();
             items = new List<InstagramItem>();
             PeopleAdded = new List<Pessoa>();
             LoadingCommand = new DelegateCommand(GetMoreDataAsync);
@@ -43,6 +48,12 @@ namespace InkApp.ViewModels
 
         private void StartValueAsync()
         {
+            Estilos.Add(new Estilo() { Name = "BlackWork1" });
+            Estilos.Add(new Estilo() { Name = "BlackWork2" });
+            Estilos.Add(new Estilo() { Name = "BlackWork3" });
+            Estilos.Add(new Estilo() { Name = "BlackWork4" });
+            Estilos.Add(new Estilo() { Name = "BlackWork5" });
+            Estilos.Add(new Estilo() { Name = "BlackWork6" });
             GetMoreDataAsync();
         }
 
