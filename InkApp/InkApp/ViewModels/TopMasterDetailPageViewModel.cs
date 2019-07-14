@@ -30,9 +30,9 @@ namespace InkApp.ViewModels
             Photos = "\uf193";
         }
 
-        public void Navigate(string path)
+        public async void Navigate(string path)
         {
-            NavigateAsync(path);
+            await NavigateAsync(path);
         }
 
         public async System.Threading.Tasks.Task NavigateAsync(string path)

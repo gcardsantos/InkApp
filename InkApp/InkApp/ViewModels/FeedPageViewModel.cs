@@ -12,7 +12,7 @@ namespace InkApp.ViewModels
     public class FeedPageViewModel : ViewModelBase
     {
         private Repository repository;
-        public DelegateCommand LoadingCommand { get; private set; }
+        public DelegateCommand<string> FilterCommand { get; private set; }
         public DelegateCommand<object> PhotoTappedCommand { get; private set; }
 
         private List<InstagramItem> items;
@@ -41,20 +41,23 @@ namespace InkApp.ViewModels
             Estilos = new FlowObservableCollection<Estilo>();
             items = new List<InstagramItem>();
             PeopleAdded = new List<Pessoa>();
-            LoadingCommand = new DelegateCommand(GetMoreDataAsync);
+            FilterCommand = new DelegateCommand<string>(FilterData);
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
             StartValueAsync();
         }
 
-        private void StartValueAsync()
+        private void FilterData(string obj)
         {
-            Estilos.Add(new Estilo() { Name = "BlackWork1" });
-            Estilos.Add(new Estilo() { Name = "BlackWork2" });
-            Estilos.Add(new Estilo() { Name = "BlackWork3" });
-            Estilos.Add(new Estilo() { Name = "BlackWork4" });
-            Estilos.Add(new Estilo() { Name = "BlackWork5" });
-            Estilos.Add(new Estilo() { Name = "BlackWork6" });
-            GetMoreDataAsync();
+            Feed.Clear();
+            if (obj != "All")
+                Feed.AddRange(items.Where(n => n.Tags.Contains(obj)));
+            else
+                Feed.AddRange(items);
+        }
+
+        private async void StartValueAsync()
+        {
+            await GetMoreDataAsync();
         }
 
         private async void OpenPhotoAsync(object obj)
@@ -70,14 +73,13 @@ namespace InkApp.ViewModels
             base.OnNavigatedFrom(parameters);
         }
 
-        public async void GetMoreDataAsync()
+        public async Task GetMoreDataAsync()
         {
             try
             {
                 IsBusy = true;
                 IsLoadMore = false;
-                var pessoas =  await repository.GetPessoas();
-                pessoas.OrderBy(n => Guid.NewGuid());
+                var pessoas =  await repository.GetShufflePessoas();
                 pessoas = pessoas.Where(n => !PeopleAdded.Exists(e => e.Username.Equals(n.Username))).ToList();
                 pessoas.RemoveRange(pessoas.Count/2, pessoas.Count/2);
                 
@@ -85,40 +87,43 @@ namespace InkApp.ViewModels
                 {
                     var b = await App.Api.GetUserAsync(p);
 
-                    if(b)
+                    if (b)
+                    {
                         await GetDataAsync(p);
+                        PeopleAdded.Add(p);
+                    }
                 }
-                PeopleAdded.AddRange(pessoas);
                 Feed.AddRange(items.OrderBy(a => Guid.NewGuid()));
             }
             catch(Exception ex)
             {
                 string s = ex.Message;
-            }finally
+            }
+            finally
             {
                 IsBusy = false;
                 IsLoadMore = true;
             }
         }
 
+
         public async Task GetDataAsync(Pessoa p)
         {
-            var data = await App.Api.GetMediaAsync(p);
+            var data = await App.Api.GetMediaAsync(p, 10);
             
             if (data != null)
             {
-                var x = data.FindAll(n => !items.Exists(e => e.ImageLow == n.ImageLow));
-                items.AddRange(x);
+                var x = data.FindAll(n => !items.Any(e => e.ImageLow == n.ImageLow));
+                items.AddRange(x.OrderBy(a => Guid.NewGuid()));
             }
         }
 
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.GetNavigationMode() == NavigationMode.New)
             {     
-                GetMoreDataAsync();
-                //_ = GetData(_pessoa);
+                await GetMoreDataAsync();
             }
         }
     }

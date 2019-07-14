@@ -16,6 +16,7 @@ namespace InkApp.Models
         public string Name { get; set; }
         [Ignore]
         public Pessoa People { get; set; }
-        
+        [Ignore]
+        public string Tags { get; set; }
     }
 }

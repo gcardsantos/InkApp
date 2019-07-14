@@ -138,13 +138,13 @@ namespace InkApp.ViewModels
 
                 if(instagramItems.Count <= 0 && p.NextPage)
                 {
-                    instagramItems = new List<InstagramItem>(await App.Api.GetMediaAsync(p));
+                    instagramItems = new List<InstagramItem>(await App.Api.GetAllMediaAsync(p));
                 }
 
-                if (instagramItems.Count > 50)
+                if (instagramItems.Count > 25)
                 {
-                    Feed.AddRange(instagramItems.GetRange(0, 50));
-                    instagramItems.RemoveRange(0, 50);
+                    Feed.AddRange(instagramItems.GetRange(0, 25));
+                    instagramItems.RemoveRange(0, 25);
                 }
                 else
                 {

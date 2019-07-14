@@ -11,7 +11,7 @@
             <ScrollView>
                 <StackLayout Orientation="Vertical" Padding="70" BackgroundColor="Gainsboro" VerticalOptions="Center" WidthRequest="50">
                     <Frame HeightRequest="100" BorderColor="WhiteSmoke" HorizontalOptions="CenterAndExpand">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" FontSize="72" HorizontalOptions="Center"/>
+                        <Image Source=""/>
                     </Frame>
                     <Label TextColor="Black"  FontSize="20">
                         <Label.FormattedText>

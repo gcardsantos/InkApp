@@ -22,5 +22,13 @@ namespace InkApp.Models
 
             return Items.ToList();
         }
+
+        public async Task<List<Pessoa>> GetShufflePessoas()
+        {
+            var Service = new Services.AzureService<Pessoa>();
+            var Items = await Service.GetTable();
+
+            return Items.OrderBy(n => Guid.NewGuid()).ToList();
+        }
     }
 }

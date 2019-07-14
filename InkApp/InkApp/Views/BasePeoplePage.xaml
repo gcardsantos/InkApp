@@ -5,9 +5,7 @@
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="InkApp.Views.FeedPage"
-             Title="Novidades">
-
+             x:Class="InkApp.Views.BasePeoplePage">
     <ScrollView Orientation="Vertical">
         <StackLayout Orientation="Vertical" Padding="0">
             <ScrollView Orientation="Horizontal">
@@ -63,8 +61,8 @@
                     </Frame>
                 </StackLayout>
             </ScrollView>
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="None" HasUnevenRows="True"
-			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
+            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Pessoas}" RowHeight="150" SeparatorVisibility="None" HasUnevenRows="True"
+			    FlowItemTappedCommand="{Binding OpenProfileCommand}" FlowLastTappedItem="{Binding People}">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
@@ -74,7 +72,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
-                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}" CacheDuration="7"/>
+                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding Image}" CacheDuration="7"/>
                         </Grid>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
@@ -83,11 +81,10 @@
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                        Color="Black" VerticalOptions="Center" 
                                        HorizontalOptions="Center"/>
-                        <Button Command="{Binding LoadingCommand}" Text="Carregar Mais" IsVisible="{Binding IsLoadMore}"/>
                     </StackLayout>
                 </fl:FlowListView.Footer>
             </fl:FlowListView>
-            
+
         </StackLayout>
     </ScrollView>
 </ContentPage>
