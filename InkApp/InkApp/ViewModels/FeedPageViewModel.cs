@@ -120,7 +120,7 @@ namespace InkApp.ViewModels
             
             if (data != null)
             {
-                var x = data.FindAll(n => !items.Any(e => e.ImageLow == n.ImageLow));
+                var x = data.Where(n => !items.Any(e => e.ImageLow.Equals(n.ImageLow)));
                 items.AddRange(x.OrderBy(a => Guid.NewGuid()));
             }
         }

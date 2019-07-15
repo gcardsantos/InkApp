@@ -14,7 +14,8 @@
             <RelativeLayout>
                 <local:PinchGesture>
                     <local:PinchGesture.Content>
-                        <ff:CachedImage Aspect="AspectFill" Source="{Binding ImageHigh}" CacheDuration="1" RetryCount="2"/>
+                        <ff:CachedImage Aspect="Fill" Source="{Binding ImageHigh}" CacheDuration="1" RetryCount="2" RelativeLayout.WidthConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                        RelativeLayout.HeightConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
                     </local:PinchGesture.Content>
                 </local:PinchGesture>
                 <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource HeartBlack}" TextColor="{Binding Cor}" Scale="2" Margin="20">
