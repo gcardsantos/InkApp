@@ -63,7 +63,7 @@
                     </Frame>
                 </StackLayout>
             </ScrollView>
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="None" HasUnevenRows="True"
+            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
 			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>

@@ -154,7 +154,31 @@ namespace InkApp.Services
                                 list.RemoveRange(list.Count - quant - 1, quant);
                             }
                             //p.QtdPosts -= (50 - list.Count);
-                            list.ForEach(n => items.Add(new InstagramItem() { ImageLow = n.SelectToken("node.thumbnail_src").Value<string>(), ImageHigh = n.SelectToken("node.display_url").Value<string>(), People = p, Username = p.Username, Name = p.Name, Tags = n.SelectToken("node.edge_media_to_caption.edges[0].node.text").Value<string>() }));
+                            foreach (var x in list)
+                            {
+                                string t;
+                                try
+                                {
+                                    t = x.SelectToken("node.edge_media_to_caption.edges[0].node.text").Value<string>();
+                                }
+                                catch (Exception)
+                                {
+                                    t = "";
+                                }
+
+
+                                InstagramItem i = new InstagramItem()
+                                {
+                                    ImageLow = x.SelectToken("node.thumbnail_src").Value<string>(),
+                                    ImageHigh = x.SelectToken("node.display_url").Value<string>(),
+                                    Tags = t,
+                                    People = p,
+                                    Username = p.Username,
+                                    Name = p.Name
+                                };
+                                items.Add(i);
+                            }
+                            //list.ForEach(n => items.Add(new InstagramItem() { ImageLow = n.SelectToken("node.thumbnail_src").Value<string>(), ImageHigh = n.SelectToken("node.display_url").Value<string>(), People = p, Username = p.Username, Name = p.Name, Tags = n.SelectToken("node.edge_media_to_caption.edges[0].node.text").Value<string>() }));
                         }
                     }
                 }
@@ -200,7 +224,30 @@ namespace InkApp.Services
                             var l = o.SelectToken("data.user.edge_owner_to_timeline_media.edges").Value<IEnumerable<JToken>>();
                             var list = new List<JToken>(l).FindAll(n => n.ToString().Contains("GraphImage"));
                             p.QtdPosts -= (50 - list.Count);
-                            list.ForEach(n => items.Add(new InstagramItem() { ImageLow =  n.SelectToken("node.thumbnail_src").Value<string>(), ImageHigh = n.SelectToken("node.display_url").Value<string>(), People = p, Username = p.Username, Name = p.Name, Tags = n.SelectToken("node.edge_media_to_caption.edges[0].node.text").Value<string>() }));
+
+                            foreach (var x in list)
+                            {
+                                string t;
+                                try
+                                {
+                                    t = x.SelectToken("node.edge_media_to_caption.edges[0].node.text").Value<string>();
+                                }
+                                catch (Exception)
+                                {
+                                    t = "";
+                                }
+
+                                InstagramItem i = new InstagramItem()
+                                {
+                                    ImageLow = x.SelectToken("node.thumbnail_src").Value<string>(),
+                                    ImageHigh = x.SelectToken("node.display_url").Value<string>(),
+                                    Tags = t,
+                                    People = p,
+                                    Username = p.Username,
+                                    Name = p.Name
+                                };
+                                items.Add(i);
+                            }
                         }
                     }
                 }

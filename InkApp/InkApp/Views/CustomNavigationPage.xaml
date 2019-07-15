@@ -8,7 +8,7 @@
             x:Class="InkApp.Views.CustomNavigationPage">
     <NavigationPage.BarBackgroundColor>
         <OnPlatform x:TypeArguments="Color">
-            <On Platform="Android, iOS" Value="Transparent" />
+            <On Platform="Android, iOS" Value="White" />
         </OnPlatform>
     </NavigationPage.BarBackgroundColor>
     <NavigationPage.BarTextColor>

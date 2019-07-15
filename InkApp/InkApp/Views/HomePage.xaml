@@ -6,12 +6,16 @@
              x:Class="InkApp.Views.HomePage"
              NavigationPage.HasNavigationBar="True"
              Title=""
-             >
+             BackgroundColor="White">
 
     <ScrollView>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
-            <Label FontFamily="{DynamicResource FontLobster}" Text="InkApp" TextColor="Black" FontSize="35" HorizontalOptions="Center"/>
-            <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0">
+            <Image  Grid.Column="1"
+                    Grid.Row="2"
+                    Source="inkapp.png"
+                    Aspect="AspectFill"
+                    Scale="0.5"/>
+            <StackLayout  HorizontalOptions="Center" VerticalOptions="Center" Padding="0">
                 <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}" FontSize="13"
                     TextColor="Black" Title="Cidade:">
                     <Picker.Items>

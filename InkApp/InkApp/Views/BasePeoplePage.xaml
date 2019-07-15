@@ -4,14 +4,16 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="InkApp.Views.BasePeoplePage">
+             x:Class="InkApp.Views.BasePeoplePage"
+             Title="Tatuadores">
     <ScrollView Orientation="Vertical">
         <StackLayout Orientation="Vertical" Padding="0">
             <ScrollView Orientation="Horizontal">
                 <StackLayout Padding="10" Orientation="Horizontal">
                     <Frame Padding="5" CornerRadius="10" BorderColor="Black">
-                        <Label Text="Todas" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="Todos" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="All"/>
                             </Label.GestureRecognizers>
@@ -61,18 +63,22 @@
                     </Frame>
                 </StackLayout>
             </ScrollView>
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Pessoas}" RowHeight="150" SeparatorVisibility="None" HasUnevenRows="True"
-			    FlowItemTappedCommand="{Binding OpenProfileCommand}" FlowLastTappedItem="{Binding People}">
+            <fl:FlowListView x:Name="flowListView" FlowColumnCount="2" FlowItemsSource="{Binding Pessoas}" RowHeight="200"
+			    FlowItemTappedCommand="{Binding OpenProfileCommand}" FlowLastTappedItem="{Binding People}" SeparatorVisibility="Default">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
-                        <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="150"/>
-                            </Grid.RowDefinitions>
-                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding Image}" CacheDuration="7"/>
+                        <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Padding="10">
+                            
+                                <StackLayout Orientation="Vertical" VerticalOptions="Center" HeightRequest="200">
+                                    <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.3" CacheDuration="1" RetryCount="2">
+                                        <ff:CachedImage.Transformations>
+                                            <fftransformations:CircleTransformation/>
+                                        </ff:CachedImage.Transformations>
+                                    </ff:CachedImage>
+                                    <Label Text="{Binding Name}" FontSize="Default" HorizontalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="Black"/>
+                                    <Label Text="{Binding Local}" FontSize="Micro" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
+                                </StackLayout>
+                            
                         </Grid>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
