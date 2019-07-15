@@ -100,7 +100,7 @@
                             </ViewCell>
 
                             <ViewCell>
-                                <StackLayout Padding="15" HeightRequest="100" HorizontalOptions="Center">
+                                <StackLayout Padding="15" HeightRequest="200" HorizontalOptions="Center">
                                     <Label  FontSize="20" TextColor="Black">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -109,12 +109,6 @@
                                                         Deseja ser divulgado?
                                                     </Span.Text>
                                                 </Span>
-                                                <Span>
-                                                    <Span.Text>
-                                                        Entre em contato conosco
-                                                    </Span.Text>
-                                                </Span>
-
                                             </FormattedString>
                                         </Label.FormattedText>
                                         <Label.GestureRecognizers>

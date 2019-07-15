@@ -8,12 +8,10 @@ using Xamarin.Forms;
 
 namespace InkApp.Views
 {
-    [AdMaiora.RealXaml.Client.MainPage]
     public partial class HomePage : ContentPage
     {
         public HomePage()
         {
-            AdMaiora.RealXaml.Client.AppManager.Init(this);
             InitializeComponent();
         }
 
