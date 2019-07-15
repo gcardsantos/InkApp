@@ -7,6 +7,7 @@
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="InkApp.Views.SavePhotosPage"
+             BackgroundColor="White"
              Title="Photos">
 
     <ScrollView>
@@ -42,7 +43,6 @@
                     </Grid>
                 </fl:FlowListView.Footer>
             </fl:FlowListView>
-            <Button Text="Load More" Command="{Binding LoadingCommand}"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

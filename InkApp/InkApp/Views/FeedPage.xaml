@@ -6,11 +6,12 @@
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.FeedPage"
+             BackgroundColor="White"
              Title="Novidades">
 
     <ScrollView Orientation="Vertical">
         <StackLayout Orientation="Vertical" Padding="0">
-            <ScrollView Orientation="Horizontal">
+            <ScrollView Orientation="Horizontal" HeightRequest="60">
                 <StackLayout Padding="10" Orientation="Horizontal">
                     <Frame Padding="5" CornerRadius="10" BorderColor="Black">
                         <Label Text="Todas" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center">
@@ -64,7 +65,7 @@
                 </StackLayout>
             </ScrollView>
             <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
-			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
+			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}" HasUnevenRows="False">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
@@ -83,11 +84,10 @@
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                        Color="Black" VerticalOptions="Center" 
                                        HorizontalOptions="Center"/>
-                        <Button Command="{Binding LoadingCommand}" Text="Carregar Mais" IsVisible="{Binding IsLoadMore}"/>
+                        <ImageButton Scale="0.3" Source="loadmore.png" HeightRequest="50" BackgroundColor="White" Command="{Binding LoadingCommand}" IsVisible="{Binding IsLoadMore}"/>
                     </StackLayout>
                 </fl:FlowListView.Footer>
             </fl:FlowListView>
-            
         </StackLayout>
     </ScrollView>
 </ContentPage>

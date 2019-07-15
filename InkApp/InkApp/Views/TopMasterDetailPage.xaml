@@ -30,7 +30,7 @@
                           Aspect="AspectFill"/>
                     </Grid>
 
-                    <TableView Intent="Menu" RowHeight="70" BackgroundColor="White">
+                    <TableView Intent="Menu" RowHeight="70" BackgroundColor="White" HasUnevenRows="True">
                         <TableSection>
                             <ViewCell>
                                 <StackLayout Padding="15">
@@ -100,8 +100,8 @@
                             </ViewCell>
 
                             <ViewCell>
-                                <StackLayout Padding="15" HeightRequest="200" HorizontalOptions="Center">
-                                    <Label  FontSize="20" TextColor="Black">
+                                <StackLayout Padding="15" HeightRequest="100" HorizontalOptions="Center">
+                                    <Label  FontSize="20" TextColor="Black" HorizontalOptions="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span FontAttributes="Bold">
@@ -111,11 +111,30 @@
                                                 </Span>
                                             </FormattedString>
                                         </Label.FormattedText>
+                                        
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/RequestPage"/>
                                         </Label.GestureRecognizers>
                                     </Label>
+                                    <Frame  Padding="1">
+                                        <Label  FontSize="20" TextColor="Black" HorizontalOptions="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold">
+                                                        <Span.Text>
+                                                            Solicitar
+                                                        </Span.Text>
+                                                    </Span>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/RequestPage"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Frame>
+                                    
                                 </StackLayout>
+                                
                             </ViewCell>
                         </TableSection>
                     </TableView>

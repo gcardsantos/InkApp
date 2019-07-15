@@ -9,6 +9,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"             
              x:Class="InkApp.Views.PessoasPage"
              NavigationPage.HasBackButton="True"
+             BackgroundColor="White"
              Title="{Binding Title}">
 
     <ContentPage.Resources>

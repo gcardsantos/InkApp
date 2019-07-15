@@ -73,7 +73,7 @@ namespace InkApp.ViewModels
                 Pessoa = Item.People;
 
                 if (Pessoa == null)
-                    Pessoa = await App.Api.GetUserAsync(Item.Name);
+                    Pessoa = await App.Api.GetUserAsync(Item.Username);
 
                 Item.People = Pessoa;
                 Name = Item.People.Name;

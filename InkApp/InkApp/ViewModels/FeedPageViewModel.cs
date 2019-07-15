@@ -15,6 +15,7 @@ namespace InkApp.ViewModels
         public DelegateCommand<string> FilterCommand { get; private set; }
         public DelegateCommand<object> PhotoTappedCommand { get; private set; }
 
+        public DelegateCommand LoadingCommand { get; set; }
         private List<InstagramItem> items;
 
         private FlowObservableCollection<InstagramItem> _feed;
@@ -43,7 +44,13 @@ namespace InkApp.ViewModels
             PeopleAdded = new List<Pessoa>();
             FilterCommand = new DelegateCommand<string>(FilterData);
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
+            LoadingCommand = new DelegateCommand(LoadMoreData);
             StartValueAsync();
+        }
+
+        private async void LoadMoreData()
+        {
+            await GetMoreDataAsync();
         }
 
         private void FilterData(string obj)

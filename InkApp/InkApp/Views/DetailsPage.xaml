@@ -9,6 +9,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.DetailsPage"
              NavigationPage.HasBackButton="True"
+             BackgroundColor="White"
              Title="Perfil">
 
     <ScrollView Padding="0">
@@ -48,7 +49,7 @@
                         <expandable:ExpandableView>
                             <expandable:ExpandableView.PrimaryView >
                                 <StackLayout>
-                                    <Label Text="Sobre " HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                                    <Label Text="+ Sobre" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" />
                                 </StackLayout>
                             </expandable:ExpandableView.PrimaryView>
                             <expandable:ExpandableView.SecondaryViewTemplate>
@@ -85,7 +86,8 @@
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                        Color="Black" VerticalOptions="Center" 
                                        HorizontalOptions="Center"/>
-                        <Button Command="{Binding LoadingCommand}" Text="Carregar Mais" IsVisible="{Binding IsLoadMore}"/>
+
+                        <ImageButton Scale="0.3" Source="loadmore.png" HeightRequest="50" BackgroundColor="White" Command="{Binding LoadingCommand}" IsVisible="{Binding IsLoadMore}"/>
                     </StackLayout>
                 </fl:FlowListView.Footer>
             </fl:FlowListView>

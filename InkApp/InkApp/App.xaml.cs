@@ -12,7 +12,7 @@ using InkApp.Services;
 using Plugin.Connectivity;
 using System.Net;
 
-//[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace InkApp
 {
     public partial class App
@@ -36,14 +36,8 @@ namespace InkApp
         protected override async void OnInitialized()
         {
             CheckConnection();
-            //AdMaiora.RealXaml.Client.AppManager.Init(this);
+            AdMaiora.RealXaml.Client.AppManager.Init(this);
             InitializeComponent();
-#if DEBUG
-            HotReloader.Current.Run(this, new HotReloader.Configuration()
-            {
-                DeviceUrlPort = 8000,
-            }) ;
-#endif
             FlowListView.Init();
             Api = new InstagramParser();
             await NavigationService.NavigateAsync("/TopMasterDetailPage/CustomNavigationPage/HomePage");
