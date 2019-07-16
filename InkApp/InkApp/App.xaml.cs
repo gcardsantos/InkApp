@@ -11,6 +11,7 @@ using DLToolkit.Forms.Controls;
 using InkApp.Services;
 using Plugin.Connectivity;
 using System.Net;
+using InkApp.Models;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace InkApp
@@ -25,6 +26,8 @@ namespace InkApp
 
         public static double ScreenWidth;
         public static double ScreenHeight;
+
+        public static Repository Repository;
         public static PhotoDatabase database;
         //public static IInstaApi Api;
         public static InstagramParser Api;
@@ -40,6 +43,7 @@ namespace InkApp
             InitializeComponent();
             FlowListView.Init();
             Api = new InstagramParser();
+            Repository = new Repository();
             await NavigationService.NavigateAsync("/TopMasterDetailPage/CustomNavigationPage/HomePage");
             //await NavigationService.NavigateAsync(new System.Uri("/TopMasterDetailPage/CustomNavigationPage/HomePage", System.UriKind.Absolute));
 

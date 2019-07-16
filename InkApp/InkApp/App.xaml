@@ -30,6 +30,7 @@
         <x:String x:Key="HeartBlack">&#xf2d5;</x:String>
         <x:String x:Key="HeartWhite">&#xf2d1;</x:String>
         <x:String x:Key="Account">&#xf00f;</x:String>
+        <x:String x:Key="Pen">&#xf3ea;</x:String>
 
     </Application.Resources>
 </prism:PrismApplication>

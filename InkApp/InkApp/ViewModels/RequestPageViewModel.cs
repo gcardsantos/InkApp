@@ -1,7 +1,9 @@
-﻿using InkApp.Services;
+﻿using InkApp.Models;
+using InkApp.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +12,30 @@ namespace InkApp.ViewModels
 {
     public class RequestPageViewModel : ViewModelBase
     {
-        public string NameText { get; set; }
-        public string UserText { get; set; }
-        public string FaceText { get; set; }
-        public string NumberText { get; set; }
-        public string AboutText { get; set; }
+        public string _nameText;
+        public string NameText { get { return _nameText; } set { SetProperty(ref _nameText, value); } }
+
+        public string _userText;
+        public string UserText { get { return _userText; } set { SetProperty(ref _userText, value); } }
+
+        public string _faceText;
+        public string FaceText { get { return _faceText; } set { SetProperty(ref _faceText, value); } }
+
+        public string _numberText;
+        public string NumberText { get { return _numberText; } set { SetProperty(ref _numberText, value); } }
+
+        public string _aboutText;
+        public string AboutText { get { return _aboutText; } set { SetProperty(ref _aboutText, value); } }
+
+        private readonly IPageDialogService PageDialogService;
 
         public DelegateCommand SendCommand { get; }
         public DelegateCommand CancelCommand { get; }
-        public RequestPageViewModel(INavigationService navigationService) : base(navigationService)
+        public RequestPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService)
         {
             SendCommand = new DelegateCommand(SendEmail);
             CancelCommand = new DelegateCommand(CancelEvent);
+            PageDialogService = pageDialogService;
         }
 
         private async void CancelEvent()
@@ -31,9 +45,25 @@ namespace InkApp.ViewModels
 
         private async void SendEmail()
         {
-            var email = new EmailService();
-            var body = NameText + " - " + UserText + " - " + FaceText + " - " + NumberText + " - " + AboutText;
-            await email.SendEmail("[InkApp] Solicitação", body, new List<string>() { "y286708@nwytg.net" });
+            Solicitacao s = new Solicitacao();
+            s.Nome = NameText;
+            s.Username = UserText;
+            s.Facebook = FaceText;
+            s.Telefone = NumberText;
+            s.Sobre = AboutText;
+
+
+
+            if (App.Repository.Request(s))
+            {
+                await PageDialogService.DisplayAlertAsync("Requisição", "Requisição efetuada com sucesso.", "Ok");
+            }
+            else
+            {
+                await PageDialogService.DisplayAlertAsync("Requisição", "Ocorreu algum problema ao efetuar requisição.", "Ok");
+            }
+
+            await NavigationService.GoBackToRootAsync();
         }
     }
 }

@@ -36,6 +36,9 @@ namespace InkApp.ViewModels
 
         private string _name;
         public string Name { get { return _name; } set { SetProperty(ref _name, value); } }
+
+        private string _heart;
+        public string Heart { get { return _heart; } set { SetProperty(ref _heart, value); } }
         public ImagePageViewModel(INavigationService navigationService) :base(navigationService)
         {
             PhotoCommand = new DelegateCommand(SavePhoto);
@@ -53,15 +56,29 @@ namespace InkApp.ViewModels
 
         private void DeletePhoto()
         {
-            App.Database.DeleteItemAsync(Item);
-            Cor = Color.Black;
+            
         }
 
-        private void SavePhoto()
+        private async void SavePhoto()
         {
-            Item.Name = Name;
-            App.Database.SaveItemAsync(Item);
-            Cor = Color.Red;
+            if(Color.Black == Cor)
+            {
+                Item.Name = Name;
+                Item.Username = Pessoa.Username;
+                var c = await App.Database.SaveItemAsync(Item);
+
+                if(c == 1)
+                    Cor = Color.Red;
+            }
+            else
+            {
+                var c = await App.Database.DeleteItemAsync(Item);
+
+                if(c == 1)
+                    Cor = Color.Black;
+            }
+
+            await NavigationService.GoBackAsync();
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)

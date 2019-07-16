@@ -4,16 +4,35 @@
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                   prism:ViewModelLocator.AutowireViewModel="True"
                   x:Class="InkApp.Views.TopMasterDetailPage"
-                  MasterBehavior="SplitOnPortrait">
+                  MasterBehavior="SplitOnPortrait"
+                  BackgroundColor="White">
 
     <MasterDetailPage.Master>
-        <ContentPage Title="Menu" Padding="0">
+        <ContentPage Title="Menu" Padding="0" BackgroundColor="White">
             <ContentPage.Content>
-                <StackLayout>
+                <StackLayout Orientation="Vertical" BackgroundColor="White" Margin="0, 30">
+                    <Image
+                              Grid.Column="1"
+                              Grid.Row="2"
+                              Source="inkapp.png"
+                              Aspect="AspectFit"
+                              Scale="0.5"/>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding QuantTatuadores}" HorizontalOptions="Center"/>
+                                <Label Text="Tatuadores" TextColor="Black"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical" Margin="20,0">
+                                <Label Text="~ 2000" HorizontalOptions="Center"/>
+                                <Label Text="Tatuagens" TextColor="Black"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
                     <Grid BackgroundColor="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="10"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -23,21 +42,16 @@
                             <RowDefinition Height="10"/>
                             <RowDefinition Height="10"/>
                         </Grid.RowDefinitions>
-                        <Image
-                          Grid.Column="1"
-                          Grid.Row="2"
-                          Source="inkapp.png"
-                          Aspect="AspectFill"/>
                     </Grid>
 
-                    <TableView Intent="Menu" RowHeight="70" BackgroundColor="White" HasUnevenRows="True">
+                    <TableView Intent="Menu" RowHeight="70" BackgroundColor="White" HasUnevenRows="True" Margin="0, 30">
                         <TableSection>
                             <ViewCell>
                                 <StackLayout Padding="15">
-                                    <Label TextColor="Black"  FontSize="20">
+                                    <Label TextColor="Black"  FontSize="18">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{StaticResource Home}" FontFamily="{DynamicResource MaterialButton}" FontSize="27"/>
+                                                <Span Text="{StaticResource Home}" FontFamily="{DynamicResource MaterialButton}" FontSize="19"/>
                                                 <Span Text=" "/>
                                                 <Span Text="Home"/>
                                             </FormattedString>
@@ -51,10 +65,10 @@
 
                             <ViewCell>
                                 <StackLayout Padding="15">
-                                    <Label TextColor="Black" FontSize="20">
+                                    <Label TextColor="Black" FontSize="18">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{StaticResource Feed}" FontFamily="{DynamicResource MaterialButton}" FontSize="27"/>
+                                                <Span Text="{StaticResource Feed}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
                                                 <Span Text=" "/>
                                                 <Span Text="Novidades"/>
                                             </FormattedString>
@@ -67,10 +81,10 @@
                             </ViewCell>
                             <ViewCell>
                                 <StackLayout Padding="15">
-                                    <Label FontSize="20" TextColor="Black">
+                                    <Label FontSize="18" TextColor="Black">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{StaticResource SavePhotos}" FontFamily="{DynamicResource MaterialButton}" FontSize="27"/>
+                                                <Span Text="{StaticResource Pen}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
                                                 <Span Text=" "/>
                                                 <Span Text="Tatuadores"/>
                                             </FormattedString>
@@ -84,10 +98,10 @@
 
                             <ViewCell>
                                 <StackLayout Padding="15">
-                                    <Label  FontSize="20" TextColor="Black">
+                                    <Label  FontSize="18" TextColor="Black">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{StaticResource HeartBlack}" FontFamily="{DynamicResource MaterialButton}" FontSize="27"/>
+                                                <Span Text="{StaticResource HeartBlack}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
                                                 <Span Text=" "/>
                                                 <Span Text="Preferidas"/>
                                             </FormattedString>
@@ -101,7 +115,7 @@
 
                             <ViewCell>
                                 <StackLayout Padding="15" HeightRequest="100" HorizontalOptions="Center">
-                                    <Label  FontSize="20" TextColor="Black" HorizontalOptions="Center">
+                                    <Label  FontSize="18" TextColor="Black" HorizontalOptions="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span FontAttributes="Bold">
@@ -111,13 +125,13 @@
                                                 </Span>
                                             </FormattedString>
                                         </Label.FormattedText>
-                                        
+
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/RequestPage"/>
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Frame  Padding="1">
-                                        <Label  FontSize="20" TextColor="Black" HorizontalOptions="Center">
+                                    <Frame  Padding="1" CornerRadius="10">
+                                        <Label  FontSize="18" TextColor="Black" HorizontalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold">
@@ -132,15 +146,12 @@
                                             </Label.GestureRecognizers>
                                         </Label>
                                     </Frame>
-                                    
                                 </StackLayout>
-                                
                             </ViewCell>
                         </TableSection>
                     </TableView>
                 </StackLayout>
             </ContentPage.Content>
-            
         </ContentPage>
     </MasterDetailPage.Master>
 </MasterDetailPage>

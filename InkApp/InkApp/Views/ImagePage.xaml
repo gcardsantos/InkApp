@@ -10,20 +10,23 @@
              x:Class="InkApp.Views.ImagePage"
              BackgroundColor="White">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="1">
-            <RelativeLayout>
-                <local:PinchGesture>
-                    <local:PinchGesture.Content>
-                        <ff:CachedImage Aspect="Fill" Source="{Binding ImageHigh}" CacheDuration="1" RetryCount="2" RelativeLayout.WidthConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+        <StackLayout Orientation="Vertical" Padding="0">
+            <AbsoluteLayout>
+                <Frame Padding="0" Margin="0">
+                    <local:PinchGesture>
+                        <local:PinchGesture.Content>
+                            <ff:CachedImage Aspect="Fill" Source="{Binding ImageHigh}" CacheDuration="1" RetryCount="2" RelativeLayout.WidthConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width}"
                         RelativeLayout.HeightConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
-                    </local:PinchGesture.Content>
-                </local:PinchGesture>
-                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource HeartBlack}" TextColor="{Binding Cor}" Scale="2" Margin="20">
+                        </local:PinchGesture.Content>
+                    </local:PinchGesture>
+                </Frame>
+                
+                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource HeartWhite}" TextColor="{Binding Cor}" Scale="2" Margin="20">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding PhotoCommand}" NumberOfTapsRequired="1"/>
                     </Label.GestureRecognizers>
                 </Label>
-            </RelativeLayout>
+            </AbsoluteLayout>
             <Frame Padding="10" Margin="5" BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" HeightRequest="50">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
                     <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">

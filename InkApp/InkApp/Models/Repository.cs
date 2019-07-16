@@ -30,5 +30,19 @@ namespace InkApp.Models
 
             return Items.OrderBy(n => Guid.NewGuid()).ToList();
         }
+
+        public async Task<int> GetQuantPessoas()
+        {
+            var Service = new Services.AzureService<Pessoa>();
+            var Items = await Service.GetTable();
+
+            return Items.Count();
+        }
+
+        public bool Request(Solicitacao solicitacao)
+        {
+            var Service = new Services.AzureService<Solicitacao>();
+            return Service.AddItem(solicitacao);
+        }
     }
 }

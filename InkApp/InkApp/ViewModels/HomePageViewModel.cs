@@ -91,9 +91,8 @@ namespace InkApp.ViewModels
                     IsBusy = true;
                     BtnEnabled = false;                   
                     
-                    var Repository = new Repository();
                     var city = City.ToString().Replace(" / ", "/").Split('/');
-                    var pessoas = await Repository.GetPessoas(city[1], city[0]);
+                    var pessoas = await App.Repository.GetPessoas(city[1], city[0]);
                     await App.Api.GetUserAsync(pessoas);
                     navigationParams.Add("pessoas", pessoas);
                     navigationParams.Add("city", city[1]);

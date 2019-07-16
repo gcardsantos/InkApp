@@ -23,5 +23,19 @@ namespace InkApp.Services
             return Table.ToEnumerableAsync();
         }
 
+        public bool AddItem(T item)
+        {
+            try
+            {
+                Table.InsertAsync(item);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+        }
+
     }
 }

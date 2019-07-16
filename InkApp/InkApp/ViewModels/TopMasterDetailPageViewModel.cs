@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using InkApp.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -10,6 +11,9 @@ namespace InkApp.ViewModels
 {
     public class TopMasterDetailPageViewModel : BindableBase, INavigatedAware
     {
+        private string _quant;
+        public string QuantTatuadores { get { return _quant; } set { SetProperty(ref _quant, value); } }
+
         private string _home;
         public string Home { get { return _home; } set { SetProperty(ref _home, value); } }
 
@@ -40,9 +44,9 @@ namespace InkApp.ViewModels
             await _navigationService.NavigateAsync(path);
         }
 
-        public void OnNavigatedTo(INavigationParameters parameters)
+        public async void OnNavigatedTo(INavigationParameters parameters)
         {
-
+            QuantTatuadores = (await App.Repository.GetQuantPessoas()).ToString();
         }
 
         public void OnNavigatedFromAsync(INavigationParameters parameters)
