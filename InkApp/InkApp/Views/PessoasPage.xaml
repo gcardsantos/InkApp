@@ -44,11 +44,16 @@
                                                 </ff:CachedImage.Transformations>
                                             </ff:CachedImage>
                                             <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="Start" Padding="10, -5, 0, 0"  Margin="10, 0, 0, 0">
-                                                <Label Text="{Binding Name}" FontSize="15" FontAttributes="Bold" TextColor="Black"/>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" Margin="0, -3" TextColor="Black"/>
-                                                    <Label Text="{Binding Local}" FontSize="12" HorizontalOptions="CenterAndExpand" LineBreakMode="TailTruncation" TextColor="Black"/>
-                                                </StackLayout>
+                                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
+                                                <Label  FontSize="18" TextColor="Black">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{StaticResource Location}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
+                                                            <Span Text=" "/>
+                                                            <Span Text="{Binding Local}"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
                                             </StackLayout>
                                         </StackLayout>
                                     </Frame>

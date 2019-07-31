@@ -65,7 +65,7 @@
                 </StackLayout>
             </ScrollView>
             <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
-			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}" HasUnevenRows="False">
+			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}" HasUnevenRows="False" FlowUseAbsoluteLayoutInternally="True">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
@@ -75,7 +75,8 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
-                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}" CacheDuration="7"/>
+                            
+                            <ff:CachedImage FadeAnimationForCachedImages="True" FadeAnimationEnabled="True" Source="{Binding ImageLow}"/>
                         </Grid>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>

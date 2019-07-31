@@ -115,10 +115,10 @@
 
                             <ViewCell>
                                 <StackLayout Padding="15" HeightRequest="100" HorizontalOptions="Center">
-                                    <Label  FontSize="18" TextColor="Black" HorizontalOptions="Center">
+                                    <Label TextColor="Black" HorizontalOptions="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span FontAttributes="Bold">
+                                                <Span FontAttributes="Bold" FontSize="Default">
                                                     <Span.Text>
                                                         Deseja ser divulgado?
                                                     </Span.Text>
@@ -131,10 +131,10 @@
                                         </Label.GestureRecognizers>
                                     </Label>
                                     <Frame  Padding="1" CornerRadius="10">
-                                        <Label  FontSize="18" TextColor="Black" HorizontalOptions="Center">
+                                        <Label TextColor="Black" HorizontalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span FontAttributes="Bold">
+                                                    <Span FontAttributes="Bold" FontSize="Default">
                                                         <Span.Text>
                                                             Solicitar
                                                         </Span.Text>
