@@ -23,23 +23,23 @@ namespace InkApp.Droid
             base.OnCreate(bundle);
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             //this.Window.AddFlags(WindowManagerFlags.Fullscreen | WindowManagerFlags.TurnScreenOn);
-            InitFontScale();
+            //InitFontScale();
             Window.SetStatusBarColor(Color.Black);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
             LoadApplication(new App(new AndroidInitializer()));
         }
 
-        private void InitFontScale()
-        {
-            Configuration configuration = Resources.Configuration;
-            configuration.FontScale = (float)1.3;
-            //0.85 small, 1 standard, 1.15 big，1.3 more bigger ，1.45 supper big 
-            DisplayMetrics metrics = new DisplayMetrics();
-            WindowManager.DefaultDisplay.GetMetrics(metrics);
-            metrics.ScaledDensity = configuration.FontScale * metrics.Density;
-            BaseContext.Resources.UpdateConfiguration(configuration, metrics);
-        }
+        //private void InitFontScale()
+        //{
+        //    Configuration configuration = Resources.Configuration;
+        //    configuration.FontScale = (float)1.3;
+        //    0.85 small, 1 standard, 1.15 big，1.3 more bigger ，1.45 supper big
+        //    DisplayMetrics metrics = new DisplayMetrics();
+        //    WindowManager.DefaultDisplay.GetMetrics(metrics);
+        //    metrics.ScaledDensity = configuration.FontScale * metrics.Density;
+        //    BaseContext.Resources.UpdateConfiguration(configuration, metrics);
+        //}
     }
 
 

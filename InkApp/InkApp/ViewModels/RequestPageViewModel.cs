@@ -15,17 +15,8 @@ namespace InkApp.ViewModels
         public string _nameText;
         public string NameText { get { return _nameText; } set { SetProperty(ref _nameText, value); } }
 
-        public string _userText;
-        public string UserText { get { return _userText; } set { SetProperty(ref _userText, value); } }
-
-        public string _faceText;
-        public string FaceText { get { return _faceText; } set { SetProperty(ref _faceText, value); } }
-
-        public string _numberText;
-        public string NumberText { get { return _numberText; } set { SetProperty(ref _numberText, value); } }
-
-        public string _aboutText;
-        public string AboutText { get { return _aboutText; } set { SetProperty(ref _aboutText, value); } }
+        public string _email;
+        public string EmailText { get { return _email; } set { SetProperty(ref _email, value); } }
 
         private readonly IPageDialogService PageDialogService;
 
@@ -46,13 +37,8 @@ namespace InkApp.ViewModels
         private async void SendEmail()
         {
             Solicitacao s = new Solicitacao();
+            s.Email = EmailText;
             s.Nome = NameText;
-            s.Username = UserText;
-            s.Facebook = FaceText;
-            s.Telefone = NumberText;
-            s.Sobre = AboutText;
-
-
 
             if (App.Repository.Request(s))
             {

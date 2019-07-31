@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.178</Version>
-    <FileVersion>1.0.1.178</FileVersion>
-    <AssemblyVersion>1.0.1.178</AssemblyVersion>
+    <Version>1.0.182</Version>
+    <FileVersion>1.0.1.182</FileVersion>
+    <AssemblyVersion>1.0.1.182</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <None Remove="DesignTimeData.json" />
+    <None Remove="Gorilla.json" />
+    <None Remove="Linker.xml" />
   </ItemGroup>
 
   <ItemGroup>

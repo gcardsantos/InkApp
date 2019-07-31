@@ -14,7 +14,6 @@ namespace InkApp.ViewModels
 {
     public class DetailsPageViewModel : ViewModelBase
     {
-        private INavigationService _navigationService;
         private List<InstagramItem> instagramItems;
 
         public InstagramItem Item;
