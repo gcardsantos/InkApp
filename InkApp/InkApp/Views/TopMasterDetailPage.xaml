@@ -54,7 +54,7 @@
                                             <FormattedString>
                                                 <Span Text="{StaticResource Home}" FontFamily="{DynamicResource MaterialButton}" FontSize="19"/>
                                                 <Span Text=" "/>
-                                                <Span Text="Home"/>
+                                                <Span Text=" Home"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                         <Label.GestureRecognizers>
