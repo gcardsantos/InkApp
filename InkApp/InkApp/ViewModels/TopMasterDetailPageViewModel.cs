@@ -23,6 +23,12 @@ namespace InkApp.ViewModels
         private string _photos;
         public string Photos { get { return _photos; } set { SetProperty(ref _photos, value); } }
 
+        private bool _busy;
+        public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
+
+        private bool _visible;
+        public bool Visible { get { return _visible; } set { SetProperty(ref _visible, value); } }
+
         public DelegateCommand<string> NavigateCommand { get; }
         public INavigationService _navigationService;
         public TopMasterDetailPageViewModel(INavigationService navigationService)
@@ -46,7 +52,11 @@ namespace InkApp.ViewModels
 
         public async void OnNavigatedTo(INavigationParameters parameters)
         {
-            QuantTatuadores = (await App.Repository.GetQuantPessoas()).ToString();
+            IsBusy = true;
+            Visible = false;
+            QuantTatuadores = (await (new Repository()).GetQuantPessoas()).ToString();
+            Visible = true;
+            IsBusy = false;
         }
 
         public void OnNavigatedFromAsync(INavigationParameters parameters)
