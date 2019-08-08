@@ -15,7 +15,9 @@ namespace InkApp.ViewModels
         public DelegateCommand<string> FilterCommand { get; private set; }
         public DelegateCommand<object> PhotoTappedCommand { get; private set; }
 
+        public DelegateCommand TopCommand { get; private set; }
         public DelegateCommand LoadingCommand { get; set; }
+
         private List<InstagramItem> items;
 
         private FlowObservableCollection<InstagramItem> _feed;
@@ -33,6 +35,10 @@ namespace InkApp.ViewModels
 
         private bool _loadMore;
         public bool IsLoadMore { get { return _loadMore; } set { SetProperty(ref _loadMore, value); } }
+
+        private int _position;
+        public int Position { get { return _position; } set { SetProperty(ref _position, value); } }
+
         public List<Pessoa> PeopleAdded { get; set; }
 
         public FeedPageViewModel(INavigationService navigationService) : base(navigationService)
@@ -45,7 +51,18 @@ namespace InkApp.ViewModels
             FilterCommand = new DelegateCommand<string>(FilterData);
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
             LoadingCommand = new DelegateCommand(LoadMoreData);
+            TopCommand = new DelegateCommand(CardOpenPhoto);
             StartValueAsync();
+        }
+
+        private async void CardOpenPhoto()
+        {
+            NavigationParameters np = new NavigationParameters
+            {
+                { "photo", TopList[Position] }
+            };
+
+            await NavigationService.NavigateAsync("ImagePage", np);
         }
 
         private async void LoadMoreData()

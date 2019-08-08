@@ -67,21 +67,23 @@
                     </Frame>
                 </StackLayout>
             </ScrollView>
-            <!--<cards:CarouselView 
+
+            <cards:CarouselView 
                 ItemsSource="{Binding TopList}"
-                SelectedIndex="{Binding Position}" Padding="20">
+                SelectedIndex="{Binding Position}" 
+                Padding="20" HorizontalOptions="Center">
                 <cards:CarouselView.ItemTemplate>
                     <DataTemplate>
                         <ContentView>
-                            <Frame VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="200" WidthRequest="300" HasShadow="True" IsClippedToBounds="true" BackgroundColor= "WhiteSmoke" CornerRadius="10" Padding="1">
-                                <ImageButton Source="{Binding ImageLow}" Aspect="AspectFit"/>
+                            <Frame VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="200" WidthRequest="200" HasShadow="True" IsClippedToBounds="true" BackgroundColor= "WhiteSmoke" CornerRadius="10" Padding="1">
+                                <ImageButton Source="{Binding ImageLow}" Aspect="AspectFit" Command="{Binding TopCommand}"/>
                             </Frame>
                         </ContentView>
                     </DataTemplate>
                 </cards:CarouselView.ItemTemplate>
 
                 <controls:IndicatorsControl/>
-            </cards:CarouselView>-->
+            </cards:CarouselView>
             
             <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
 			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}" HasUnevenRows="False" FlowUseAbsoluteLayoutInternally="True">
@@ -95,7 +97,7 @@
                                 <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
                             
-                            <Image Source="{Binding ImageLow}"/>
+                            <ff:CachedImage Source="{Binding ImageLow}"/>
                         </Grid>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
