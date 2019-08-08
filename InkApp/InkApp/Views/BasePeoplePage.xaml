@@ -71,14 +71,24 @@
                         <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Padding="10">
                             
                                 <StackLayout Orientation="Vertical" VerticalOptions="Center" HeightRequest="200">
-                                    <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.3" CacheDuration="1" RetryCount="2">
+                                    <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.5" CacheDuration="1" RetryCount="2" Margin="0, 20">
                                         <ff:CachedImage.Transformations>
                                             <fftransformations:CircleTransformation/>
                                         </ff:CachedImage.Transformations>
                                     </ff:CachedImage>
-                                    <Label Text="{Binding Name}" FontSize="Default" HorizontalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="Black"/>
-                                    <Label Text="{Binding Local}" FontSize="Micro" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
-                                </StackLayout>
+                                    
+                                    <Label Text="{Binding Name}" FontSize="Large" HorizontalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="Black"/>
+
+                                    <Label TextColor="Black" HorizontalOptions="Center" LineBreakMode="TailTruncation">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Cidade}" FontSize="Default"/>
+                                            <Span Text=" - " FontSize="Default"/>
+                                            <Span Text="{Binding Estado}" FontSize="Default"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
                             
                         </Grid>
                     </DataTemplate>

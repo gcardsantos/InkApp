@@ -23,24 +23,24 @@
                         </ff:CachedImage.Transformations>
                     </ff:CachedImage>
                     <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                        <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                        <Label Text="{Binding Title}" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black" Scale="1.5" Margin="15, 10">
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BtnLocal}" NumberOfTapsRequired="1"/>
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="15, 10">
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BtnIg}" NumberOfTapsRequired="1"/>
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="15, 10">
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BtnWhats}" NumberOfTapsRequired="1"/>
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="15, 10">
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BtnFace}" NumberOfTapsRequired="1"/>
                                 </Label.GestureRecognizers>
@@ -49,13 +49,13 @@
                         <expandable:ExpandableView>
                             <expandable:ExpandableView.PrimaryView >
                                 <StackLayout>
-                                    <Label Text="+ Sobre" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" />
+                                    <Label Text="+ Sobre" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" />
                                 </StackLayout>
                             </expandable:ExpandableView.PrimaryView>
                             <expandable:ExpandableView.SecondaryViewTemplate>
                                 <DataTemplate>
                                     <StackLayout Padding="10,0">
-                                        <Label Text="{Binding Sobre}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Sobre}" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Center"/>
                                     </StackLayout>
                                 </DataTemplate>
                             </expandable:ExpandableView.SecondaryViewTemplate>
