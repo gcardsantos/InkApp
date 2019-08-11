@@ -42,6 +42,13 @@
                                            HorizontalOptions="Center"/>
                     </Grid>
                 </fl:FlowListView.Footer>
+                <fl:FlowListView.FlowEmptyTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Label Text="Não há tatuagens salvas." FontSize="Medium" HorizontalOptions="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </fl:FlowListView.FlowEmptyTemplate>
             </fl:FlowListView>
         </StackLayout>
     </ScrollView>

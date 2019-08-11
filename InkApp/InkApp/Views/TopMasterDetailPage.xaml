@@ -10,22 +10,22 @@
     <MasterDetailPage.Master>
         <ContentPage Title="Menu" Padding="0" BackgroundColor="White">
             <ContentPage.Content>
-                <StackLayout Orientation="Vertical" BackgroundColor="White" Margin="0, 30">
+                <StackLayout Orientation="Vertical" BackgroundColor="White" Margin="0, 60">
                     <Image
                               Grid.Column="1"
                               Grid.Row="2"
                               Source="inkapp.png"
                               Aspect="AspectFit"
                               Scale="0.5"/>
-                    <StackLayout Orientation="Vertical" HorizontalOptions="Center">
-                        <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Center" Margin="0, -30">
+                        <ActivityIndicator  IsVisible="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsRunning="True" Color="Black" Scale="0.6"/>
+                        <StackLayout Orientation="Horizontal" Padding="0, 10">
                             <StackLayout Orientation="Vertical">
-                                <ActivityIndicator IsVisible="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" Color="Black" HeightRequest="20"/>
-                                <Label Text="{Binding QuantTatuadores}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding QuantTatuadores}" HorizontalOptions="Center" IsVisible="{Binding Visible}"/>
                                 <Label Text="Tatuadores" TextColor="Black"/>
                             </StackLayout>
                             <StackLayout Orientation="Vertical" Margin="20,0">
-                                <Label Text="~ 2000" HorizontalOptions="Center"/>
+                                <Label Text="~ 2000" HorizontalOptions="Center" IsVisible="{Binding Visible}"/>
                                 <Label Text="Tatuagens" TextColor="Black"/>
                             </StackLayout>
                         </StackLayout>
@@ -54,7 +54,7 @@
                                             <FormattedString>
                                                 <Span Text="{StaticResource Home}" FontFamily="{DynamicResource MaterialButton}" FontSize="19"/>
                                                 <Span Text=" "/>
-                                                <Span Text="Home"/>
+                                                <Span Text=" Home"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                         <Label.GestureRecognizers>

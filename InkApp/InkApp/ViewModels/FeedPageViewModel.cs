@@ -15,15 +15,17 @@ namespace InkApp.ViewModels
         public DelegateCommand<string> FilterCommand { get; private set; }
         public DelegateCommand<object> PhotoTappedCommand { get; private set; }
 
+        public DelegateCommand TopCommand { get; private set; }
         public DelegateCommand LoadingCommand { get; set; }
+
         private List<InstagramItem> items;
 
         private FlowObservableCollection<InstagramItem> _feed;
         public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
 
-        private FlowObservableCollection<Estilo> _estilos;
-        public FlowObservableCollection<Estilo> Estilos { get { return _estilos; } set { SetProperty(ref _estilos, value); } }
+        private FlowObservableCollection<InstagramItem> _toplist;
+        public FlowObservableCollection<InstagramItem> TopList { get { return _toplist; } set { SetProperty(ref _toplist, value); } }
 
         private object _lastItemTapped;
         public object LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
@@ -33,19 +35,34 @@ namespace InkApp.ViewModels
 
         private bool _loadMore;
         public bool IsLoadMore { get { return _loadMore; } set { SetProperty(ref _loadMore, value); } }
+
+        private int _position;
+        public int Position { get { return _position; } set { SetProperty(ref _position, value); } }
+
         public List<Pessoa> PeopleAdded { get; set; }
 
         public FeedPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             repository = new Repository();
             Feed = new FlowObservableCollection<InstagramItem>();
-            Estilos = new FlowObservableCollection<Estilo>();
+            TopList = new FlowObservableCollection<InstagramItem>();
             items = new List<InstagramItem>();
             PeopleAdded = new List<Pessoa>();
             FilterCommand = new DelegateCommand<string>(FilterData);
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
             LoadingCommand = new DelegateCommand(LoadMoreData);
+            TopCommand = new DelegateCommand(CardOpenPhoto);
             StartValueAsync();
+        }
+
+        private async void CardOpenPhoto()
+        {
+            NavigationParameters np = new NavigationParameters
+            {
+                { "photo", TopList[Position] }
+            };
+
+            await NavigationService.NavigateAsync("ImagePage", np);
         }
 
         private async void LoadMoreData()
@@ -65,13 +82,16 @@ namespace InkApp.ViewModels
         private async void StartValueAsync()
         {
             await GetMoreDataAsync();
+            TopList.AddRange(items.GetRange(new Random ().Next(0, items.Count-1), 5));
         }
 
         private async void OpenPhotoAsync(object obj)
         {
             var x = Feed.First(n => n.ImageLow.Equals((obj as InstagramItem).ImageLow));
-            NavigationParameters np = new NavigationParameters();
-            np.Add("photo", x);
+            NavigationParameters np = new NavigationParameters
+            {
+                { "photo", x }
+            };
             await NavigationService.NavigateAsync("ImagePage", np);
         }
 
