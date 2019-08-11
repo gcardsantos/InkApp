@@ -69,17 +69,15 @@
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Padding="10">
-                            
-                                <StackLayout Orientation="Vertical" VerticalOptions="Center" HeightRequest="200">
-                                    <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.3" CacheDuration="1" RetryCount="2">
-                                        <ff:CachedImage.Transformations>
-                                            <fftransformations:CircleTransformation/>
-                                        </ff:CachedImage.Transformations>
-                                    </ff:CachedImage>
-                                    <Label Text="{Binding Name}" FontSize="Default" HorizontalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="Black"/>
-                                    <Label Text="{Binding Local}" FontSize="Micro" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
-                                </StackLayout>
-                            
+                            <StackLayout Orientation="Vertical" VerticalOptions="Center" HeightRequest="200">
+                                <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.3" CacheDuration="1" RetryCount="2">
+                                    <ff:CachedImage.Transformations>
+                                        <fftransformations:CircleTransformation/>
+                                    </ff:CachedImage.Transformations>
+                                </ff:CachedImage>
+                                <Label Text="{Binding Name}" FontSize="Default" HorizontalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="Black"/>
+                                <Label Text="{Binding Cidade}" FontSize="Micro" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
+                            </StackLayout>
                         </Grid>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>

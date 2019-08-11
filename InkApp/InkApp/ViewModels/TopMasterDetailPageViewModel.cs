@@ -14,14 +14,8 @@ namespace InkApp.ViewModels
         private string _quant;
         public string QuantTatuadores { get { return _quant; } set { SetProperty(ref _quant, value); } }
 
-        private string _home;
-        public string Home { get { return _home; } set { SetProperty(ref _home, value); } }
-
-        private string _feed;
-        public string Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
-
-        private string _photos;
-        public string Photos { get { return _photos; } set { SetProperty(ref _photos, value); } }
+        private bool _busy;
+        public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
 
         public DelegateCommand<string> NavigateCommand { get; }
         public INavigationService _navigationService;
@@ -29,9 +23,16 @@ namespace InkApp.ViewModels
         {
             _navigationService = navigationService;
             NavigateCommand = new DelegateCommand<string>(Navigate);
-            Home = "\uf2dc";
-            Feed = "\uf238";
-            Photos = "\uf193";
+
+            StartValue();
+            
+        }
+
+        private async void StartValue()
+        {
+            IsBusy = true;
+            QuantTatuadores = (await App.Repository.GetQuantPessoas()).ToString();
+            IsBusy = false;
         }
 
         public async void Navigate(string path)
@@ -46,7 +47,7 @@ namespace InkApp.ViewModels
 
         public async void OnNavigatedTo(INavigationParameters parameters)
         {
-            QuantTatuadores = (await App.Repository.GetQuantPessoas()).ToString();
+            
         }
 
         public void OnNavigatedFromAsync(INavigationParameters parameters)

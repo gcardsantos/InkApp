@@ -27,14 +27,15 @@ namespace InkApp.ViewModels
 
         public SavePhotosPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            StartValue();
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhoto);
         }
 
         public async void StartValue()
         {
+            IsBusy = true;
             List<InstagramItem> list = await App.Database.GetItemsAsync();
             Feed = new FlowObservableCollection<InstagramItem>(list);
+            IsBusy = false;
         }
 
         public async void OpenPhoto(object obj)
@@ -44,5 +45,11 @@ namespace InkApp.ViewModels
 
             await NavigationService.NavigateAsync("ImagePage", np);
         }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            StartValue();
+        }
     }
 }
+

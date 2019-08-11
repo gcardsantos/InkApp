@@ -3,6 +3,7 @@ using InkApp.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,8 +40,11 @@ namespace InkApp.ViewModels
 
         private string _heart;
         public string Heart { get { return _heart; } set { SetProperty(ref _heart, value); } }
-        public ImagePageViewModel(INavigationService navigationService) :base(navigationService)
+
+        private readonly IPageDialogService PageDialogService;
+        public ImagePageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) :base(navigationService)
         {
+            PageDialogService = pageDialogService;
             PhotoCommand = new DelegateCommand(SavePhoto);
             ProfileCommand = new DelegateCommand(GoProfile);
             DeleteCommand = new DelegateCommand(DeletePhoto);
@@ -68,14 +72,30 @@ namespace InkApp.ViewModels
                 var c = await App.Database.SaveItemAsync(Item);
 
                 if(c == 1)
+                {
                     Cor = Color.Red;
+                    await PageDialogService.DisplayAlertAsync("Photo", "Salva com sucesso.", "Ok");
+                }
+                else
+                {
+                    await PageDialogService.DisplayAlertAsync("Photo", "Não foi possível salvar.", "Ok");
+                }
+                    
             }
             else
             {
                 var c = await App.Database.DeleteItemAsync(Item);
 
                 if(c == 1)
+                {
                     Cor = Color.Black;
+                    await PageDialogService.DisplayAlertAsync("Photo", "Removida com sucesso.", "Ok");
+                }
+                else
+                {
+                    await PageDialogService.DisplayAlertAsync("Photo", "Não foi possível remover.", "Ok");
+                }
+                
             }
 
             await NavigationService.GoBackAsync();

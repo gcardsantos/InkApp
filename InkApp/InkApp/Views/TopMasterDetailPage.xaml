@@ -20,6 +20,7 @@
                     <StackLayout Orientation="Vertical" HorizontalOptions="Center">
                         <StackLayout Orientation="Horizontal">
                             <StackLayout Orientation="Vertical">
+                                <ActivityIndicator IsVisible="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" Color="Black" HeightRequest="20"/>
                                 <Label Text="{Binding QuantTatuadores}" HorizontalOptions="Center"/>
                                 <Label Text="Tatuadores" TextColor="Black"/>
                             </StackLayout>
