@@ -37,18 +37,12 @@
                                 <Setter Property="HeightRequest" Value="0" />
                             </Trigger>
                         </Grid.Triggers>
+                        <Label Text="Não há imagens salvas." FontSize="Header" TextColor="Black" IsVisible="{Binding Nothing}"/>
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                            Color="Black" VerticalOptions="Center" 
                                            HorizontalOptions="Center"/>
                     </Grid>
                 </fl:FlowListView.Footer>
-                <fl:FlowListView.FlowEmptyTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Label Text="Não há tatuagens salvas." FontSize="Medium" HorizontalOptions="Center"/>
-                        </Grid>
-                    </DataTemplate>
-                </fl:FlowListView.FlowEmptyTemplate>
             </fl:FlowListView>
         </StackLayout>
     </ScrollView>

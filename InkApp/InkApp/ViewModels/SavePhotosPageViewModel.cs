@@ -25,8 +25,12 @@ namespace InkApp.ViewModels
         public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
 
 
+        private bool _nothing;
+        public bool Nothing { get { return _nothing; } set { SetProperty(ref _nothing, value); } }
+
         public SavePhotosPageViewModel(INavigationService navigationService) : base(navigationService)
         {
+            Nothing = false;
             StartValue();
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhoto);
         }
@@ -34,6 +38,9 @@ namespace InkApp.ViewModels
         public async void StartValue()
         {
             List<InstagramItem> list = await App.Database.GetItemsAsync();
+
+            _ = list.Count == 0 ? Nothing = true : Nothing = false;
+
             Feed = new FlowObservableCollection<InstagramItem>(list);
         }
 

@@ -1,12 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Content.Res;
 using Android.Graphics;
-using Android.Graphics.Drawables;
 using Android.OS;
-using Android.Util;
 using Android.Views;
-using CarouselView.FormsPlugin.Android;
 using PanCardView.Droid;
 using Prism;
 using Prism.Ioc;
@@ -28,6 +24,7 @@ namespace InkApp.Droid
             //InitFontScale();
             Window.SetStatusBarColor(Color.Black);
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            global::Xamarin.Forms.FormsMaterial.Init(this, bundle);
             CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
             LoadApplication(new App(new AndroidInitializer()));

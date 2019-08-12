@@ -17,7 +17,7 @@
                     Scale="0.6"/>
             <StackLayout  HorizontalOptions="Center" VerticalOptions="Center" Padding="0" WidthRequest="200">
                 <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}" FontSize="13"
-                    TextColor="Black" Title="Cidade:">
+                    TextColor="Black" Title="Cidade:" Visual="Material" BackgroundColor="Transparent">
                     <Picker.Items>
                         <x:String>MG / Belo Horizonte</x:String>
                         <x:String>PR / Curitiba</x:String>
@@ -31,7 +31,7 @@
                     <Button BackgroundColor="Transparent" Command="{Binding NavigateToPessoasPageCommand}" FontSize="Micro"/>
                 </RelativeLayout>
                 <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}"/>
-                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Black" />
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Black" Visual="Material"/>
             </StackLayout>
         </StackLayout>
     </ScrollView>
