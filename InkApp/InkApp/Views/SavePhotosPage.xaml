@@ -31,13 +31,13 @@
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
                 <fl:FlowListView.Footer>
-                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                    <Grid Padding="6">
                         <Grid.Triggers>
                             <Trigger TargetType="Grid" Property="IsVisible" Value="False">
                                 <Setter Property="HeightRequest" Value="0" />
                             </Trigger>
                         </Grid.Triggers>
-                        <Label Text="Não há imagens salvas." FontSize="Header" TextColor="Black" IsVisible="{Binding Nothing}"/>
+                        <Label Text="Não há imagens salvas." HorizontalOptions="Center" FontSize="Medium" TextColor="Black" IsVisible="{Binding Nothing}"/>
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                            Color="Black" VerticalOptions="Center" 
                                            HorizontalOptions="Center"/>

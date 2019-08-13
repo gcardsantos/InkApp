@@ -39,7 +39,7 @@ namespace InkApp.ViewModels
         {
             List<InstagramItem> list = await App.Database.GetItemsAsync();
 
-            _ = list.Count == 0 ? Nothing = true : Nothing = false;
+            Nothing = list.Count == 0 ? true : false;
 
             Feed = new FlowObservableCollection<InstagramItem>(list);
         }
