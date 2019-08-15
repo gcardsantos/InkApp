@@ -6,7 +6,6 @@ using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Util;
 using Android.Views;
-using CarouselView.FormsPlugin.Android;
 using PanCardView.Droid;
 using Prism;
 using Prism.Ioc;
@@ -30,6 +29,7 @@ namespace InkApp.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
+            global::Xamarin.Forms.FormsMaterial.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
 

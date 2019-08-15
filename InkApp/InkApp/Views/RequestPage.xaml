@@ -18,15 +18,15 @@
 
             <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10">
                 <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                    <Label Text="Email: " FontSize="Default" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
-                    <Entry Text="{Binding EmailText}" VerticalOptions="CenterAndExpand" WidthRequest="200"/>
+                    <Label Text="Email: " FontSize="Default" VerticalOptions="CenterAndExpand" WidthRequest="120" BackgroundColor="Transparent"/>
+                    <Entry Text="{Binding EmailText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent" Visual="Material"/>
                 </StackLayout>
             </Frame>
 
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Cancelar" Command="{Binding CancelCommand}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
-                <Button Text="Enviar" Command="{Binding SendCommand}" BackgroundColor="White" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10"/>
+                <Button Text="Cancelar" Command="{Binding CancelCommand}" BackgroundColor="Black" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10" Visual="Material"/>
+                <Button Text="Enviar" Command="{Binding SendCommand}" BackgroundColor="Black" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10" Visual="Material"/>
             </StackLayout>
         </StackLayout>
     </ScrollView>
