@@ -48,7 +48,6 @@ namespace InkApp.ViewModels
         {
             NavigationParameters np = new NavigationParameters();
             np.Add("photo", obj);
-
             await NavigationService.NavigateAsync("ImagePage", np);
         }
     }

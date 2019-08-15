@@ -87,7 +87,7 @@ namespace Admin
 
                             if (close == 1)
                             {
-                                repository.AddItem(p);
+                                repository.AddPessoa(p);
                             }
                         }                      
                         
@@ -105,6 +105,14 @@ namespace Admin
                             i++;
                         }
 
+                        Console.WriteLine("Selecione o tatuador (0 para sair): ");
+                        int ind = Convert.ToInt32(Console.ReadLine());
+
+                        if(ind != 0)
+                        {
+                            Pessoa p = pessoas[ind];
+                            CreatePessoa();
+                        }
 
                         break;
                     case 3:

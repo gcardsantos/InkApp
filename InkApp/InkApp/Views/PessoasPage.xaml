@@ -9,7 +9,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"             
              x:Class="InkApp.Views.PessoasPage"
              NavigationPage.HasBackButton="True"
-             BackgroundColor="White"
+             BackgroundColor="AntiqueWhite"
              Title="{Binding Title}">
 
     <ContentPage.Resources>
@@ -36,7 +36,7 @@
                         <ViewCell Tapped="ViewCell_Tapped">
                             <ViewCell.View>
                                 <StackLayout BackgroundColor="Transparent" Padding="4" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <Frame HasShadow="True" BorderColor="WhiteSmoke" CornerRadius="10" HorizontalOptions="FillAndExpand">
+                                    <Frame HasShadow="True" BorderColor="WhiteSmoke" CornerRadius="10" HorizontalOptions="FillAndExpand" BackgroundColor="FloralWhite">
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                             <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.5" CacheDuration="1" RetryCount="2">
                                                 <ff:CachedImage.Transformations>

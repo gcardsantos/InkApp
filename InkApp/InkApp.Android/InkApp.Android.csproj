@@ -83,7 +83,7 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidDexTool>dx</AndroidDexTool>
-    <AndroidLinkTool>proguard</AndroidLinkTool>
+    <AndroidLinkTool>r8</AndroidLinkTool>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -147,7 +147,11 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\Lobster-Regular.ttf" />
     <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />
+    <AndroidAsset Include="Assets\OleoScript-Regular.ttf" />
     <ProguardConfiguration Include="proguard.cfg" />
+    <AndroidAsset Include="Assets\LeckerliOne-Regular.ttf" />
+    <AndroidAsset Include="Assets\LilyScriptOne-Regular.ttf" />
+    <AndroidAsset Include="Assets\RockSalt-Regular.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>

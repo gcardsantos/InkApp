@@ -7,7 +7,7 @@
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.BasePeoplePage"
-             BackgroundColor="White"
+             BackgroundColor="AntiqueWhite"
              Title="Tatuadores">
     <ScrollView Orientation="Vertical">
         <StackLayout Orientation="Vertical" Padding="0">
@@ -69,17 +69,15 @@
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Padding="10">
-                            
-                                <StackLayout Orientation="Vertical" VerticalOptions="Center" HeightRequest="200">
-                                    <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.5" CacheDuration="1" RetryCount="2" Margin="0, 20">
-                                        <ff:CachedImage.Transformations>
-                                            <fftransformations:CircleTransformation/>
-                                        </ff:CachedImage.Transformations>
-                                    </ff:CachedImage>
-                                    
-                                    <Label Text="{Binding Name}" FontSize="Large" HorizontalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="Black"/>
+                            <StackLayout Orientation="Vertical" VerticalOptions="Center" HeightRequest="200">
+                                <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.5" CacheDuration="1" RetryCount="2" Margin="0, 20">
+                                    <ff:CachedImage.Transformations>
+                                        <fftransformations:CircleTransformation/>
+                                    </ff:CachedImage.Transformations>
+                                </ff:CachedImage>
+                                <Label Text="{Binding Name}" FontSize="Large" HorizontalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="Black"/>
 
-                                    <Label TextColor="Black" HorizontalOptions="Center" LineBreakMode="TailTruncation">
+                                <Label TextColor="Black" HorizontalOptions="Center" LineBreakMode="TailTruncation">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="{Binding Cidade}" FontSize="Default"/>
@@ -89,7 +87,6 @@
                                     </Label.FormattedText>
                                 </Label>
                             </StackLayout>
-                            
                         </Grid>
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>

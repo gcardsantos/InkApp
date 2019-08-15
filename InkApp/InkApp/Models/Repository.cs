@@ -45,9 +45,10 @@ namespace InkApp.Models
             return Service.AddItem(solicitacao);
         }
 
-        public object AddItem(Pessoa p)
+        public bool AddPessoa(Pessoa p)
         {
-            throw new NotImplementedException();
+            var Service = new Services.AzureService<Pessoa>();
+            return Service.AddItem(p);
         }
     }
 }

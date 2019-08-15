@@ -8,18 +8,24 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="InkApp.Views.ImagePage"
-             BackgroundColor="White">
+             BackgroundColor="AntiqueWhite">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="0">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Heart}" FontFamily="{DynamicResource MaterialButton}" TextColor="{Binding Cor}" Margin="20, 20, 0, -10" Scale="2">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PhotoCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
             <ScrollView>
                 <Frame Visual="Material" CornerRadius="20" Padding="1" Margin="0, 30">
                     <local:PinchToZoomContainer>
                         <Image Source="{Binding ImageHigh}" />
                     </local:PinchToZoomContainer>
                 </Frame>
-                
             </ScrollView>
-            <Frame Padding="10" Margin="5" BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" HeightRequest="50">
+            <Frame Padding="10" Margin="5" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" HeightRequest="50">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
                     <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
                         <ff:CachedImage.Transformations>

@@ -58,13 +58,11 @@ namespace InkApp
             containerRegistry.RegisterForNavigation<PessoasPage, PessoasPageViewModel>();
             containerRegistry.RegisterForNavigation<DetailsPage, DetailsPageViewModel>();
             containerRegistry.RegisterForNavigation<ImagePage, ImagePageViewModel>();
-            containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
             containerRegistry.RegisterForNavigation<SavePhotosPage, SavePhotosPageViewModel>();
             containerRegistry.RegisterForNavigation<TopMasterDetailPage, TopMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<RequestPage, RequestPageViewModel>();
             containerRegistry.RegisterForNavigation<FeedPage, FeedPageViewModel>();
             containerRegistry.RegisterForNavigation<ErrorConectionPage, ErrorConectionPageViewModel>();
-            containerRegistry.RegisterForNavigation<TabPage, TabPageViewModel>();
             containerRegistry.RegisterForNavigation<BasePeoplePage, BasePeoplePageViewModel>();
         }
 
