@@ -113,6 +113,10 @@ namespace InkApp.ViewModels
                         BtnEnabled = true;
                         await NavigationService.NavigateAsync("PessoasPage", navigationParams, false);
                     }
+                    else
+                    {
+                        await NavigationService.NavigateAsync("ErrorConectionPage", navigationParams, false);
+                    }
                 }
             }
 

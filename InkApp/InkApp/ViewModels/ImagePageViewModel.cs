@@ -41,6 +41,9 @@ namespace InkApp.ViewModels
 
         private string _heart;
         public string Heart { get { return _heart; } set { SetProperty(ref _heart, value); } }
+
+        private bool _busy;
+        public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
         public ImagePageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) :base(navigationService)
         {
             PageDialogService = pageDialogService;
@@ -96,31 +99,43 @@ namespace InkApp.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
+            IsBusy = true;
             if(Item == null)
             {
                 Item = parameters["photo"] as InstagramItem;
                 ImageHigh = Item.ImageHigh;
-                Pessoa = Item.People;
 
-                if (Pessoa == null)
-                    Pessoa = await App.Api.GetUserAsync(Item.Username);
-
-                Item.People = Pessoa;
-                Name = Item.People.Name;
-                Profile = Item.People.Image;
-                var x = await App.Database.GetItemAsync(Item);
-
-                if (x == null)
+                try
                 {
-                    Cor = Color.Black;
-                    Heart = "\uf2d5";
+                    if (Pessoa == null)
+                        Pessoa = await App.Api.GetUserAsync(Item.Username);
+
+                    Pessoa = Item.People;
+                    Name = Item.Name;
+                    Item.People = Pessoa;
+                    Item.People.Name = Name;
+                    Profile = Item.People.Image;
+                    var x = await App.Database.GetItemAsync(Item);
+
+                    if (x == null)
+                    {
+                        Cor = Color.Black;
+                        Heart = "\uf2d5";
+                    }
+                    else
+                    {
+                        Cor = Color.Red;
+                        Heart = "\uf2d1";
+                    }
+
                 }
-                else
+                catch (Exception)
                 {
-                    Cor = Color.Red;
-                    Heart = "\uf2d1";
+                    await NavigationService.NavigateAsync("ErrorConectionPage");
                 }
             }
+
+            IsBusy = false;
             
         }
     }

@@ -122,37 +122,44 @@ namespace InkApp.ViewModels
 
         public async Task GetMediaAsync(Pessoa p)
         {
-            if (!IsBusy)
+            try
             {
-                IsBusy = true;
-                IsLoadMore = false;
-
-                if (!p.NextPage && instagramItems.Count <= 0)
+                if (!IsBusy)
                 {
-                    IsBusy = false;
+                    IsBusy = true;
                     IsLoadMore = false;
-                    return;
-                }
+
+                    if (!p.NextPage && instagramItems.Count <= 0)
+                    {
+                        IsBusy = false;
+                        IsLoadMore = false;
+                        return;
+                    }
                     
 
-                if(instagramItems.Count <= 0 && p.NextPage)
-                {
-                    instagramItems = new List<InstagramItem>(await App.Api.GetAllMediaAsync(p));
-                }
+                    if(instagramItems.Count <= 0 && p.NextPage)
+                    {
+                        instagramItems = new List<InstagramItem>(await App.Api.GetAllMediaAsync(p));
+                    }
 
-                if (instagramItems.Count > 30)
-                {
-                    Feed.AddRange(instagramItems.GetRange(0, 30));
-                    instagramItems.RemoveRange(0, 30);
-                }
-                else
-                {
-                    Feed.AddRange(instagramItems.GetRange(0, instagramItems.Count));
-                    instagramItems.Clear();
-                }
+                    if (instagramItems.Count > 30)
+                    {
+                        Feed.AddRange(instagramItems.GetRange(0, 30));
+                        instagramItems.RemoveRange(0, 30);
+                    }
+                    else
+                    {
+                        Feed.AddRange(instagramItems.GetRange(0, instagramItems.Count));
+                        instagramItems.Clear();
+                    }
                 
-                IsBusy = false;
-                IsLoadMore = true;
+                    IsBusy = false;
+                    IsLoadMore = true;
+                }
+            }
+            catch (Exception)
+            {
+                await NavigationService.NavigateAsync("ErrorConectionPage");
             }
             
         }

@@ -26,13 +26,19 @@
                 </Frame>
             </ScrollView>
             <Frame Padding="10" Margin="5" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" HeightRequest="50">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                    <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
-                        <ff:CachedImage.Transformations>
-                            <fftransformations:CircleTransformation/>
-                        </ff:CachedImage.Transformations>
-                    </ff:CachedImage>
-                    <Button Text="{Binding Name}" Command="{Binding ProfileCommand}" VerticalOptions="Center" TextColor="Black"  BackgroundColor="Transparent"/>
+                <StackLayout Orientation="Vertical">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                                               Color="Black" VerticalOptions="Center" 
+                                               HorizontalOptions="Center"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                        <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
+                            <ff:CachedImage.Transformations>
+                                <fftransformations:CircleTransformation/>
+                            </ff:CachedImage.Transformations>
+                        </ff:CachedImage>
+                        
+                        <Button Text="{Binding Name}" Command="{Binding ProfileCommand}" VerticalOptions="Center" TextColor="Black"  BackgroundColor="Transparent"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
         </StackLayout>
