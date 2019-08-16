@@ -8,114 +8,111 @@
                   BackgroundColor="White">
 
     <MasterDetailPage.Master>
-        <ContentPage Title="Menu" Padding="0" BackgroundColor="White">
+        <ContentPage Title="Menu" Padding="0" BackgroundColor="AntiqueWhite">
             <ContentPage.Content>
-                <StackLayout Orientation="Vertical" BackgroundColor="White" Margin="0, 60">
-                    <Image
+                <StackLayout Orientation="Vertical" BackgroundColor="AntiqueWhite" Margin="0, 40">
+                    <Label Text="InkApp" FontFamily="LeckerliOne-Regular.ttf#LeckerliOne-Regular" FontSize="50" TextColor="Black" HorizontalOptions="Center"/>
+                    <!--<Image
                               Grid.Column="1"
                               Grid.Row="2"
                               Source="inkapp.png"
                               Aspect="AspectFit"
-                              Scale="0.5"/>
-                    <StackLayout Orientation="Vertical" HorizontalOptions="Center" Margin="0, -30">
+                              Scale="0.5"/>-->
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Center" >
                         <ActivityIndicator  IsVisible="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsRunning="True" Color="Black" Scale="0.6"/>
-                        <StackLayout Orientation="Horizontal" Padding="0, 10">
+                        <StackLayout Orientation="Horizontal" Padding="0, 20">
                             <StackLayout Orientation="Vertical">
-                                <Label Text="{Binding QuantTatuadores}" HorizontalOptions="Center" IsVisible="{Binding Visible}"/>
-                                <Label Text="Tatuadores" TextColor="Black"/>
+                                <Label Text="{Binding QuantTatuadores}" HorizontalOptions="Center" IsVisible="{Binding Visible}" FontAttributes="Bold"/>
+                                <Label Text="Tatuadores" TextColor="Black" FontAttributes="Bold"/>
                             </StackLayout>
                             <StackLayout Orientation="Vertical" Margin="20,0">
-                                <Label Text="~ 2000" HorizontalOptions="Center" IsVisible="{Binding Visible}"/>
-                                <Label Text="Tatuagens" TextColor="Black"/>
+                                <Label Text="~ 2000" HorizontalOptions="Center" IsVisible="{Binding Visible}" FontAttributes="Bold"/>
+                                <Label Text="Tatuagens" TextColor="Black" FontAttributes="Bold"/>
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
-                    <Grid BackgroundColor="White">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="10"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="10"/>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="10"/>
-                            <RowDefinition Height="10"/>
-                        </Grid.RowDefinitions>
-                    </Grid>
-
-                    <TableView Intent="Menu" RowHeight="70" BackgroundColor="White" HasUnevenRows="True" Margin="0, 30">
+                    <TableView Intent="Menu" RowHeight="30" BackgroundColor="AntiqueWhite" HasUnevenRows="True" Margin="0, 30">
                         <TableSection>
                             <ViewCell>
                                 <StackLayout Padding="15">
-                                    <Label TextColor="Black"  FontSize="18">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{StaticResource Home}" FontFamily="{DynamicResource MaterialButton}" FontSize="19"/>
-                                                <Span Text=" "/>
-                                                <Span Text=" Home"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                        <Label.GestureRecognizers>
+                                    <Frame Visual="Material" CornerRadius="20" HeightRequest="20" BackgroundColor="FloralWhite">
+                                        <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/HomePage"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
+                                        </Frame.GestureRecognizers>
+                                        <Label TextColor="Black"  FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{StaticResource Home}" FontFamily="{DynamicResource MaterialButton}" FontSize="19"/>
+                                                    <Span Text=" "/>
+                                                    <Span Text=" Início"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Frame>
                                 </StackLayout>
                             </ViewCell>
 
                             <ViewCell>
                                 <StackLayout Padding="15">
-                                    <Label TextColor="Black" FontSize="18">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{StaticResource Feed}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
-                                                <Span Text=" "/>
-                                                <Span Text="Novidades"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                        <Label.GestureRecognizers>
+                                    <Frame Visual="Material" CornerRadius="20" HeightRequest="21" BackgroundColor="FloralWhite">
+                                        <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/FeedPage"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
+                                        </Frame.GestureRecognizers>
+                                        <Label TextColor="Black" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{StaticResource Feed}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
+                                                    <Span Text=" "/>
+                                                    <Span Text="Novidades"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Frame>
                                 </StackLayout>
                             </ViewCell>
                             <ViewCell>
                                 <StackLayout Padding="15">
-                                    <Label FontSize="18" TextColor="Black">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{StaticResource Pen}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
-                                                <Span Text=" "/>
-                                                <Span Text="Tatuadores"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                        <Label.GestureRecognizers>
+                                    <Frame Visual="Material" CornerRadius="20" BackgroundColor="FloralWhite">
+                                        <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/BasePeoplePage"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
+                                        </Frame.GestureRecognizers>
+                                        <Label FontSize="18" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{StaticResource Pen}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
+                                                    <Span Text=" "/>
+                                                    <Span Text="Tatuadores"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Frame>
                                 </StackLayout>
                             </ViewCell>
 
                             <ViewCell>
                                 <StackLayout Padding="15">
-                                    <Label  FontSize="18" TextColor="Black">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{StaticResource HeartBlack}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
-                                                <Span Text=" "/>
-                                                <Span Text="Preferidas"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                        <Label.GestureRecognizers>
+                                    <Frame Visual="Material" CornerRadius="20" BackgroundColor="FloralWhite">
+                                        <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/SavePhotosPage"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
+                                        </Frame.GestureRecognizers>
+                                        <Label  FontSize="18" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{StaticResource HeartBlack}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>
+                                                    <Span Text=" "/>
+                                                    <Span Text="Preferidas"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Frame>
                                 </StackLayout>
                             </ViewCell>
 
                             <ViewCell>
                                 <StackLayout Padding="15" HeightRequest="100" HorizontalOptions="Center">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/RequestPage"/>
+                                    </StackLayout.GestureRecognizers>
                                     <Label TextColor="Black" HorizontalOptions="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -126,12 +123,8 @@
                                                 </Span>
                                             </FormattedString>
                                         </Label.FormattedText>
-
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/RequestPage"/>
-                                        </Label.GestureRecognizers>
                                     </Label>
-                                    <Frame  Padding="1" CornerRadius="10">
+                                    <Frame  Padding="1" CornerRadius="10" BackgroundColor="FloralWhite">
                                         <Label TextColor="Black" HorizontalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
@@ -142,9 +135,6 @@
                                                     </Span>
                                                 </FormattedString>
                                             </Label.FormattedText>
-                                            <Label.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/RequestPage"/>
-                                            </Label.GestureRecognizers>
                                         </Label>
                                     </Frame>
                                 </StackLayout>

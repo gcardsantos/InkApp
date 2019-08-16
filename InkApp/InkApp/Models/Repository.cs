@@ -44,5 +44,11 @@ namespace InkApp.Models
             var Service = new Services.AzureService<Solicitacao>();
             return Service.AddItem(solicitacao);
         }
+
+        public bool AddPessoa(Pessoa p)
+        {
+            var Service = new Services.AzureService<Pessoa>();
+            return Service.AddItem(p);
+        }
     }
 }

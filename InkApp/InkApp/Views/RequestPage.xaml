@@ -4,29 +4,26 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.RequestPage"
-             BackgroundColor="White"
-             Title="Solicitação">
+             BackgroundColor="AntiqueWhite"
+             Title="Solicitar">
     <ScrollView>
 
         <StackLayout Orientation="Vertical" VerticalOptions="Center" Padding="10">
-            <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10">
+            <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10" Visual="Material">
                 <StackLayout Orientation="Horizontal" >
                     <Label Text="Nome: " FontSize="Default" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
-                    <Entry Text="{Binding NameText}" VerticalOptions="CenterAndExpand" WidthRequest="200"/>
+                    <Entry Text="{Binding NameText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
                 </StackLayout>
             </Frame>
-
-            <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10">
+            <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10" Visual="Material">
                 <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                    <Label Text="Email: " FontSize="Default" VerticalOptions="CenterAndExpand" WidthRequest="120" BackgroundColor="Transparent"/>
-                    <Entry Text="{Binding EmailText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent" Visual="Material"/>
+                    <Label Text="Email: " FontSize="Default" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
+                    <Entry Text="{Binding EmailText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
                 </StackLayout>
             </Frame>
-
-
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Cancelar" Command="{Binding CancelCommand}" BackgroundColor="Black" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10" Visual="Material"/>
-                <Button Text="Enviar" Command="{Binding SendCommand}" BackgroundColor="Black" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="10" Visual="Material"/>
+                <Button Text="Cancelar" Command="{Binding CancelCommand}" BackgroundColor="Black" BorderWidth="2" CornerRadius="10" Visual="Material"/>
+                <Button Text="Enviar" Command="{Binding SendCommand}" BackgroundColor="Black" BorderWidth="2" CornerRadius="10" Visual="Material"/>
             </StackLayout>
         </StackLayout>
     </ScrollView>

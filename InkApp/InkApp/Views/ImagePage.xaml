@@ -8,26 +8,24 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="InkApp.Views.ImagePage"
-             BackgroundColor="White">
+             BackgroundColor="AntiqueWhite">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="0">
-            <AbsoluteLayout>
-                <Frame Padding="0" Margin="0">
-                    <local:PinchGesture>
-                        <local:PinchGesture.Content>
-                            <ff:CachedImage Aspect="Fill" Source="{Binding ImageHigh}" CacheDuration="1" RetryCount="2" RelativeLayout.WidthConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width}"
-                        RelativeLayout.HeightConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
-                        </local:PinchGesture.Content>
-                    </local:PinchGesture>
-                </Frame>
-                
-                <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource HeartWhite}" TextColor="{Binding Cor}" Scale="2" Margin="20">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Heart}" FontFamily="{DynamicResource MaterialButton}" TextColor="{Binding Cor}" Margin="20, 20, 0, -10" Scale="2">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PhotoCommand}" NumberOfTapsRequired="1"/>
+                        <TapGestureRecognizer Command="{Binding PhotoCommand}"/>
                     </Label.GestureRecognizers>
                 </Label>
-            </AbsoluteLayout>
-            <Frame Padding="10" Margin="5" BorderColor="WhiteSmoke" HasShadow="True" CornerRadius="10" HeightRequest="50">
+            </StackLayout>
+            <ScrollView>
+                <Frame Visual="Material" CornerRadius="20" Padding="1" Margin="0, 30">
+                    <local:PinchToZoomContainer>
+                        <Image Source="{Binding ImageHigh}" />
+                    </local:PinchToZoomContainer>
+                </Frame>
+            </ScrollView>
+            <Frame Padding="10" Margin="5" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" HeightRequest="50">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
                     <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
                         <ff:CachedImage.Transformations>

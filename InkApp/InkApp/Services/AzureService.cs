@@ -28,6 +28,7 @@ namespace InkApp.Services
             try
             {
                 Table.InsertAsync(item);
+
                 return true;
             }
             catch (Exception)
@@ -37,5 +38,25 @@ namespace InkApp.Services
             
         }
 
+        public async Task<bool> UpdateItemAsync(int id, T item)
+        {
+            try
+            {
+                T target = await Table.LookupAsync(id);
+
+                if (target != null)
+                {
+                    await Table.UpdateAsync(item);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        
     }
 }

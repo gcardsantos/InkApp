@@ -7,7 +7,7 @@
              xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="InkApp.Views.SavePhotosPage"
-             BackgroundColor="White"
+             BackgroundColor="AntiqueWhite"
              Title="Photos">
 
     <ScrollView>
@@ -17,38 +17,30 @@
                     FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
-                        <Frame CornerRadius="0" HasShadow="True" Padding="5">
-                            <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="150"/>
-                                </Grid.RowDefinitions>
-                                <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}"/>
-                            </Grid>
-                        </Frame>
+                        <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"/>
+                            </Grid.RowDefinitions>
+                            <ff:CachedImage Source="{Binding ImageLow}"/>
+                        </Grid>                        
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
                 <fl:FlowListView.Footer>
-                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                    <Grid Padding="6">
                         <Grid.Triggers>
                             <Trigger TargetType="Grid" Property="IsVisible" Value="False">
                                 <Setter Property="HeightRequest" Value="0" />
                             </Trigger>
                         </Grid.Triggers>
+                        <Label Text="Não há imagens salvas." HorizontalOptions="Center" FontSize="Medium" TextColor="Black" IsVisible="{Binding Nothing}"/>
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                            Color="Black" VerticalOptions="Center" 
                                            HorizontalOptions="Center"/>
                     </Grid>
                 </fl:FlowListView.Footer>
-                <fl:FlowListView.FlowEmptyTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Label Text="Não há tatuagens salvas." FontSize="Medium" HorizontalOptions="Center"/>
-                        </Grid>
-                    </DataTemplate>
-                </fl:FlowListView.FlowEmptyTemplate>
             </fl:FlowListView>
         </StackLayout>
     </ScrollView>

@@ -13,6 +13,7 @@ namespace InkApp.ViewModels
 {
     public class ImagePageViewModel : ViewModelBase
     {
+        public IPageDialogService PageDialogService { get; }
         public DelegateCommand PhotoCommand { get; set; }
         public DelegateCommand ProfileCommand { get; set; }
 
@@ -40,8 +41,6 @@ namespace InkApp.ViewModels
 
         private string _heart;
         public string Heart { get { return _heart; } set { SetProperty(ref _heart, value); } }
-
-        private readonly IPageDialogService PageDialogService;
         public ImagePageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) :base(navigationService)
         {
             PageDialogService = pageDialogService;
@@ -65,38 +64,32 @@ namespace InkApp.ViewModels
 
         private async void SavePhoto()
         {
-            if(Color.Black == Cor)
+            try
             {
-                Item.Name = Name;
-                Item.Username = Pessoa.Username;
-                var c = await App.Database.SaveItemAsync(Item);
-
-                if(c == 1)
+                if (Color.Black == Cor)
                 {
-                    Cor = Color.Red;
-                    await PageDialogService.DisplayAlertAsync("Photo", "Salva com sucesso.", "Ok");
+                    Item.Name = Name;
+                    Item.Username = Pessoa.Username;
+                    var c = await App.Database.SaveItemAsync(Item);
+
+                    if (c == 1)
+                        Cor = Color.Red;
+                    await PageDialogService.DisplayAlertAsync("Salvo", "Salvo com sucesso.", "Ok");
                 }
                 else
                 {
-                    await PageDialogService.DisplayAlertAsync("Photo", "Não foi possível salvar.", "Ok");
-                }
-                    
-            }
-            else
-            {
-                var c = await App.Database.DeleteItemAsync(Item);
+                    var c = await App.Database.DeleteItemAsync(Item);
 
-                if(c == 1)
-                {
-                    Cor = Color.Black;
-                    await PageDialogService.DisplayAlertAsync("Photo", "Removida com sucesso.", "Ok");
+                    if (c == 1)
+                        Cor = Color.Black;
+                    await PageDialogService.DisplayAlertAsync("Removido", "Removido com sucesso.", "Ok");
                 }
-                else
-                {
-                    await PageDialogService.DisplayAlertAsync("Photo", "Não foi possível remover.", "Ok");
-                }
-                
             }
+            catch (Exception)
+            {
+                await PageDialogService.DisplayAlertAsync("Erro", "Ocorreu um erro ao salvar/remover foto.", "Ok");
+            }
+            
 
             await NavigationService.GoBackAsync();
         }
@@ -118,9 +111,15 @@ namespace InkApp.ViewModels
                 var x = await App.Database.GetItemAsync(Item);
 
                 if (x == null)
+                {
                     Cor = Color.Black;
+                    Heart = "\uf2d5";
+                }
                 else
+                {
                     Cor = Color.Red;
+                    Heart = "\uf2d1";
+                }
             }
             
         }
