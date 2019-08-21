@@ -76,7 +76,11 @@ namespace InkApp.ViewModels
                     var c = await App.Database.SaveItemAsync(Item);
 
                     if (c == 1)
+                    {
                         Cor = Color.Red;
+                        Heart = "\uf2d1";
+                    }
+                        
                     await PageDialogService.DisplayAlertAsync("Salvo", "Salvo com sucesso.", "Ok");
                 }
                 else
@@ -84,7 +88,10 @@ namespace InkApp.ViewModels
                     var c = await App.Database.DeleteItemAsync(Item);
 
                     if (c == 1)
+                    {
                         Cor = Color.Black;
+                        Heart = "\uf2d5";
+                    }
                     await PageDialogService.DisplayAlertAsync("Removido", "Removido com sucesso.", "Ok");
                 }
             }
@@ -99,22 +106,25 @@ namespace InkApp.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
-            IsBusy = true;
             if(Item == null)
             {
+                IsBusy = true;
                 Item = parameters["photo"] as InstagramItem;
                 ImageHigh = Item.ImageHigh;
 
                 try
                 {
                     if (Pessoa == null)
+                    {
                         Pessoa = await App.Api.GetUserAsync(Item.Username);
+                        IsBusy = false;
+                        Item.People = Pessoa;
+                        Item.People.Name = Name;
+                        Profile = Pessoa.Image;
+                    }
 
-                    Pessoa = Item.People;
                     Name = Item.Name;
-                    Item.People = Pessoa;
-                    Item.People.Name = Name;
-                    Profile = Item.People.Image;
+
                     var x = await App.Database.GetItemAsync(Item);
 
                     if (x == null)
@@ -134,8 +144,6 @@ namespace InkApp.ViewModels
                     await NavigationService.NavigateAsync("ErrorConectionPage");
                 }
             }
-
-            IsBusy = false;
             
         }
     }

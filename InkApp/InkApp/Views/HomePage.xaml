@@ -20,8 +20,8 @@
                 <Frame HasShadow="True" Visual="Material" WidthRequest="300" HeightRequest="170" BackgroundColor="FloralWhite">
                     <StackLayout HorizontalOptions="Center">
                         <Label Text="InkApp" FontFamily="LeckerliOne-Regular.ttf#Knewave-Regular" FontSize="50" TextColor="Black" HorizontalOptions="Center"/>
-                        <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}"
-                            TextColor="Black" Title="Cidade:"  BackgroundColor="Transparent">
+                        <Picker x:Name="CityPicker" SelectedItem="{Binding City}" IsVisible="{Binding PickerVisible}" IsEnabled="{Binding BtnEnabled}" InputTransparent="False"
+                            TextColor="Black" Title="Cidade: " TitleColor="Gray" HorizontalOptions="Start" BackgroundColor="Transparent" WidthRequest="200" Visual="Default">
                             <Picker.Items>
                                 <x:String>MG / Belo Horizonte</x:String>
                                 <x:String>PR / Curitiba</x:String>
@@ -30,8 +30,8 @@
                             </Picker.Items>
                         </Picker>
 
-                        <RelativeLayout HorizontalOptions="Center" VerticalOptions="Center" Scale="1.5" IsVisible="{Binding BtnEnabled}" Margin="0, 20">
-                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Lupa}" TextColor="Black" Scale="1.5">
+                        <RelativeLayout HorizontalOptions="Center" VerticalOptions="Center" Scale="3" IsVisible="{Binding BtnEnabled}" Margin="0, 20">
+                            <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Lupa}" TextColor="Black">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding NavigateToPessoasPageCommand}"/>
                                 </Label.GestureRecognizers>

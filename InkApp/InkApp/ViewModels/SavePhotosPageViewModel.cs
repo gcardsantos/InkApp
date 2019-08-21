@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace InkApp.ViewModels
 {
@@ -24,6 +25,8 @@ namespace InkApp.ViewModels
         private bool _busy;
         public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
 
+        private bool _loading;
+        public bool IsLoadingInfinite { get { return _loading; } set { SetProperty(ref _loading, value); } }
 
         private bool _nothing;
         public bool Nothing { get { return _nothing; } set { SetProperty(ref _nothing, value); } }
@@ -33,6 +36,30 @@ namespace InkApp.ViewModels
             Nothing = false;
             StartValue();
             PhotoTappedCommand = new DelegateCommand<object>(OpenPhoto);
+            LoadingCommand = new DelegateCommand(async () =>
+            {
+                await LoadMoreAsync();
+            });
+        }
+
+        protected virtual async Task LoadMoreAsync()
+        {
+            var oldTotal = Feed.Count;
+
+            await Task.Delay(3000);
+
+            var howMany = 60;
+
+            var items = new List<InstagramItem>();
+
+            for (int i = oldTotal; i < oldTotal + howMany; i++)
+            {
+                items.Add(new InstagramItem());
+            }
+
+            Feed.AddRange(items);
+
+            IsLoadingInfinite = false;
         }
 
         public async void StartValue()

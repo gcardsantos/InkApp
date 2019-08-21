@@ -12,22 +12,10 @@
 
     <ScrollView>
         <StackLayout Orientation="Vertical" Padding="10">
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="None" HasUnevenRows="false"
+            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" HasUnevenRows="false"
 			        FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
                     FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
-                <fl:FlowListView.FlowColumnTemplate>
-                    <DataTemplate>
-                        <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="150"/>
-                            </Grid.RowDefinitions>
-                            <ff:CachedImage Source="{Binding ImageLow}"/>
-                        </Grid>                        
-                    </DataTemplate>
-                </fl:FlowListView.FlowColumnTemplate>
+
                 <fl:FlowListView.Footer>
                     <Grid Padding="6">
                         <Grid.Triggers>
@@ -41,6 +29,32 @@
                                            HorizontalOptions="Center"/>
                     </Grid>
                 </fl:FlowListView.Footer>
+
+
+                <fl:FlowListView.FlowLoadingTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ActivityIndicator IsRunning="True" IsVisible="True" 
+                                           Color="Black" VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </fl:FlowListView.FlowLoadingTemplate>
+
+                <fl:FlowListView.FlowColumnTemplate>
+                    <DataTemplate>
+                        <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"/>
+                            </Grid.RowDefinitions>
+                            <ff:CachedImage Source="{Binding ImageLow}"/>
+                        </Grid>                        
+                    </DataTemplate>
+                </fl:FlowListView.FlowColumnTemplate>
+                
             </fl:FlowListView>
         </StackLayout>
     </ScrollView>

@@ -10,39 +10,43 @@
              x:Class="InkApp.Views.ImagePage"
              BackgroundColor="AntiqueWhite">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="0">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="{Binding Heart}" FontFamily="{DynamicResource MaterialButton}" TextColor="{Binding Cor}" Margin="20, 20, 0, -10" Scale="2">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PhotoCommand}"/>
-                    </Label.GestureRecognizers>
-                </Label>
-            </StackLayout>
-            <ScrollView>
-                <Frame Visual="Material" CornerRadius="20" Padding="1" Margin="0, 30">
+        <ScrollView Orientation="Vertical">
+            <StackLayout Orientation="Vertical" Padding="0" Margin="5">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding Heart}" FontFamily="{DynamicResource MaterialButton}" TextColor="{Binding Cor}" Margin="15, 15, 0, 0" Scale="2">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PhotoCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                
+                <Frame Visual="Material" CornerRadius="20" Padding="1" Margin="0, 20">
                     <local:PinchToZoomContainer>
                         <Image Source="{Binding ImageHigh}" />
                     </local:PinchToZoomContainer>
                 </Frame>
-            </ScrollView>
-            <Frame Padding="10" Margin="5" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" HeightRequest="50">
-                <StackLayout Orientation="Vertical">
-                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
-                                               Color="Black" VerticalOptions="Center" 
-                                               HorizontalOptions="Center"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-                        <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
-                            <ff:CachedImage.Transformations>
-                                <fftransformations:CircleTransformation/>
-                            </ff:CachedImage.Transformations>
-                        </ff:CachedImage>
-                        
-                        <Button Text="{Binding Name}" Command="{Binding ProfileCommand}" VerticalOptions="Center" TextColor="Black"  BackgroundColor="Transparent"/>
-                    </StackLayout>
-                </StackLayout>
-            </Frame>
-        </StackLayout>
+                
+                <Frame Padding="7" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" HeightRequest="50" Visual="Material">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ProfileCommand}"/>
+                    </Frame.GestureRecognizers>
 
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                                                   Color="Black" VerticalOptions="Center" 
+                                                   HorizontalOptions="Center"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, -3">
+                            <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
+                                <ff:CachedImage.Transformations>
+                                    <fftransformations:CircleTransformation/>
+                                </ff:CachedImage.Transformations>
+                            </ff:CachedImage>
+                            <Label Text="{Binding Name}" VerticalOptions="Center" BackgroundColor="Transparent" TextColor="Black" FontAttributes="Bold"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
     
 </ContentPage>

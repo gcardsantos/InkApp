@@ -54,7 +54,21 @@ namespace InkApp.ViewModels
         {
             IsBusy = true;
             Visible = false;
-            QuantTatuadores = (await (new Repository()).GetQuantPessoas()).ToString();
+            int tentativas = 0;
+
+            while (tentativas < 2 && String.IsNullOrWhiteSpace(QuantTatuadores))
+            {
+                try
+                {
+                    QuantTatuadores = (await (new Repository()).GetQuantPessoas()).ToString();
+                }
+                catch (Exception)
+                {
+                    tentativas++;
+                }
+            }
+            
+            
             Visible = true;
             IsBusy = false;
         }
