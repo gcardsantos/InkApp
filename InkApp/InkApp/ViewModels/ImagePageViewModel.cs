@@ -55,6 +55,7 @@ namespace InkApp.ViewModels
         private async void GoProfile()
         {
             var navigationParams = new NavigationParameters();
+            Pessoa.Name = Name;
             navigationParams.Add("pessoa", Pessoa);
             navigationParams.Add("photo", Item);
             await NavigationService.NavigateAsync("DetailsPage", navigationParams);
@@ -110,16 +111,17 @@ namespace InkApp.ViewModels
             {
                 IsBusy = true;
                 Item = parameters["photo"] as InstagramItem;
+                Pessoa = parameters["pessoa"] as Pessoa;
                 ImageHigh = Item.ImageHigh;
 
                 try
                 {
                     if (Pessoa == null)
                     {
-                        Pessoa = await App.Api.GetUserAsync(Item.Username);
+                        Pessoa = await (new Repository().GetPessoa(Item.Name));
+                        await App.Api.GetUserAsync(Pessoa);
                         IsBusy = false;
                         Item.People = Pessoa;
-                        Item.People.Name = Name;
                         Profile = Pessoa.Image;
                     }
 
