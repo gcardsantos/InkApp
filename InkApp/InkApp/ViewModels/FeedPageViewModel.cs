@@ -62,7 +62,7 @@ namespace InkApp.ViewModels
                 { "photo", TopList[Position] }
             };
 
-            await NavigationService.NavigateAsync("ImagePage", np);
+            await NavigationService.NavigateAsync("ImagePage", np, false);
         }
 
         private async void LoadMoreData()
@@ -97,7 +97,7 @@ namespace InkApp.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            base.OnNavigatedFrom(parameters);
+            
         }
 
         public async Task GetMoreDataAsync()

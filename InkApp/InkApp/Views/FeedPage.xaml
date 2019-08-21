@@ -14,51 +14,51 @@
 
     <ScrollView Orientation="Vertical" BackgroundColor="AntiqueWhite">
         <StackLayout Orientation="Vertical" Padding="0">
-            <ScrollView Orientation="Horizontal">
-                <StackLayout Padding="10" Orientation="Horizontal">
-                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" HeightRequest="30">
+            <ScrollView Orientation="Horizontal" MinimumHeightRequest="60">
+                <StackLayout Padding="10" Orientation="Horizontal" MinimumHeightRequest="50">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
                         <Label Text="Todas" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="All"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </Frame>
-                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" HeightRequest="30">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
                         <Label Text="BlackWork" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="blackwork"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </Frame>
-                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" HeightRequest="30">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
                         <Label Text="Black and Gray" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="blackandgray"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </Frame>
-                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" HeightRequest="30">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
                         <Label Text="Fine Line" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="fineline"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </Frame>
-                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" HeightRequest="30">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
                         <Label Text="Geometric" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="geometric"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </Frame>
-                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" HeightRequest="30">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
                         <Label Text="Old School" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="oldschool"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </Frame>
-                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" HeightRequest="30">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
                         <Label Text="Tribal" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="tribal"/>

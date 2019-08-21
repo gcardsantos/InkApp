@@ -10,8 +10,8 @@
              x:Class="InkApp.Views.ImagePage"
              BackgroundColor="AntiqueWhite">
     <ContentPage.Content>
-        <ScrollView Orientation="Vertical">
-            <StackLayout Orientation="Vertical" Padding="0" Margin="5">
+        <ScrollView Orientation="Vertical" BackgroundColor="Transparent">
+            <StackLayout Orientation="Vertical" Padding="0" Margin="5" BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding Heart}" FontFamily="{DynamicResource MaterialButton}" TextColor="{Binding Cor}" Margin="15, 15, 0, 0" Scale="2">
                         <Label.GestureRecognizers>
@@ -20,7 +20,7 @@
                     </Label>
                 </StackLayout>
                 
-                <Frame Visual="Material" CornerRadius="20" Padding="1" Margin="0, 20">
+                <Frame Visual="Material" CornerRadius="20" Padding="1" Margin="0, 20" BackgroundColor="AntiqueWhite">
                     <local:PinchToZoomContainer>
                         <Image Source="{Binding ImageHigh}" />
                     </local:PinchToZoomContainer>
