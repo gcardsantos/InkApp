@@ -13130,11 +13130,11 @@ namespace InkApp.Droid
 		public partial class Mipmap
 		{
 			
-			// aapt resource value: 0x7F0C0001
-			public const int Icon = 2131492865;
-			
 			// aapt resource value: 0x7F0C0000
 			public const int ic_launcher = 2131492864;
+			
+			// aapt resource value: 0x7F0C0001
+			public const int inkapp_icon = 2131492865;
 			
 			static Mipmap()
 			{
