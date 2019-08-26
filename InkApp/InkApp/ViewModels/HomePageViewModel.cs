@@ -57,14 +57,30 @@ namespace InkApp.ViewModels
             StartValues();
         }
 
-        public void StartValues()
+        public async void StartValues()
         {
-            BtnEnabled = true;
-            Login = true;
-            PickerVisible = true;
             NavigateToPessoasPageCommand = new DelegateCommand(NavigateToPessoasPage);
             NavigateToRequestPageCommand = new DelegateCommand(NavigateToRequestPage);
             NavigateToAboutPageCommand = new DelegateCommand(NavitageToAboutPageAsync);
+
+            int attempt = 0;
+            IsBusy = true;
+            while(attempt != 1)
+            {
+                try
+                {
+                    var x = await (new Repository().GetPessoas());
+                    attempt = 1;
+                }
+                catch (Exception)
+                {
+                    
+                }
+            }
+
+            PickerVisible = true;
+            BtnEnabled = true;
+            Login = true;
         }
 
         private async void NavigateToRequestPage()
