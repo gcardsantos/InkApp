@@ -78,6 +78,7 @@ namespace InkApp.ViewModels
                 }
             }
 
+            IsBusy = false;
             PickerVisible = true;
             BtnEnabled = true;
             Login = true;
