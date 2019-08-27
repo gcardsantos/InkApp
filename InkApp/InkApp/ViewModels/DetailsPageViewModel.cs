@@ -5,6 +5,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -19,8 +20,8 @@ namespace InkApp.ViewModels
         public InstagramItem Item;
 
         //baixa resolução  / alta resolução
-        private FlowObservableCollection<InstagramItem> _feed;
-        public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
+        private ObservableCollection<InstagramItem> _feed;
+        public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
         //------regiao do profile info
         private string _sobre;
@@ -42,8 +43,8 @@ namespace InkApp.ViewModels
         private object _photo;
         public object Image { get { return _photo; } set { SetProperty(ref _photo, value); } }
 
-        private object _lastItemTapped;
-        public object LastTappedItem { get { return _photo; } set { SetProperty(ref _lastItemTapped, value); } }
+        private InstagramItem _lastItemTapped;
+        public InstagramItem LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
 
         private Pessoa _pessoa;
 
@@ -57,7 +58,7 @@ namespace InkApp.ViewModels
         public bool Visible { get { return _visible; } set { SetProperty(ref _visible, value); } }
 
 
-        public DelegateCommand<object> PhotoTappedCommand { get; private set; }
+        public DelegateCommand PhotoTappedCommand { get; private set; }
         public DelegateCommand BtnIg { get; private set; }
         public DelegateCommand BtnLocal { get; private set; }
         public DelegateCommand BtnWhats { get; private set; }
@@ -70,15 +71,15 @@ namespace InkApp.ViewModels
             BtnFace = new DelegateCommand(OpenFace);
             BtnIg = new DelegateCommand(OpenInstagram);
             BtnLocal = new DelegateCommand(OpenLocal);
-            PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
+            PhotoTappedCommand = new DelegateCommand(OpenPhotoAsync);
             LoadingCommand = new DelegateCommand(LoadMoreDataAsync);
-            Feed = new FlowObservableCollection<InstagramItem>();
+            Feed = new ObservableCollection<InstagramItem>();
             instagramItems = new List<InstagramItem>();
         }
 
-        private async void OpenPhotoAsync(object obj)
+        private async void OpenPhotoAsync()
         {
-            var x = Feed.First(n => n.ImageLow.Equals((obj as InstagramItem).ImageLow));
+            var x = Feed.First(n => n.ImageLow.Equals(LastTappedItem.ImageLow));
             NavigationParameters np = new NavigationParameters();
             np.Add("photo", x);
             await NavigationService.NavigateAsync("ImagePage", np);
@@ -144,12 +145,18 @@ namespace InkApp.ViewModels
 
                     if (instagramItems.Count > 30)
                     {
-                        Feed.AddRange(instagramItems.GetRange(0, 30));
+                        foreach(var x in instagramItems.GetRange(0, 30))
+                        {
+                            Feed.Add(x);
+                        }
                         instagramItems.RemoveRange(0, 30);
                     }
                     else
                     {
-                        Feed.AddRange(instagramItems.GetRange(0, instagramItems.Count));
+                        foreach (var x in instagramItems)
+                        {
+                            Feed.Add(x);
+                        }
                         instagramItems.Clear();
                     }
                 

@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InkApp\InkApp\InkApp.csproj" />
   </ItemGroup>
 

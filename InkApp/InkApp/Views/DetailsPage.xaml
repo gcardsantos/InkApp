@@ -64,7 +64,38 @@
                 </StackLayout>
             </Frame>
             <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}" FontSize="Large"/>
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" HasUnevenRows="false" SeparatorColor="White"
+            <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureAllItems"
+                            SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepItemsInView"
+                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="20">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="3" VerticalItemSpacing="3"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"/>
+                            </Grid.RowDefinitions>
+                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}" CacheDuration="30"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.FooterTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical" Padding="10">
+                            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                           Color="Black" VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+
+                            <ImageButton Scale="0.3" Source="loadmore.png" HeightRequest="50" BackgroundColor="Transparent" Command="{Binding LoadingCommand}" IsVisible="{Binding IsLoadMore}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.FooterTemplate>
+            </CollectionView>
+            <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" HasUnevenRows="false" SeparatorColor="White"
 			        FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
                     FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
                 <fl:FlowListView.FlowColumnTemplate>
@@ -89,7 +120,7 @@
                         <ImageButton Scale="0.3" Source="loadmore.png" HeightRequest="50" BackgroundColor="Transparent" Command="{Binding LoadingCommand}" IsVisible="{Binding IsLoadMore}"/>
                     </StackLayout>
                 </fl:FlowListView.Footer>
-            </fl:FlowListView>
+            </fl:FlowListView>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>
