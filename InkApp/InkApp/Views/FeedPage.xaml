@@ -84,8 +84,32 @@
 
                 <controls:IndicatorsControl/>
             </cards:CarouselView>-->
-            
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
+
+            <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureFirstItem"
+                            SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepItemsInView"
+                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="20" IsVisible="{Binding CollectionVisible}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="2" VerticalItemSpacing="2"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"/>
+                            </Grid.RowDefinitions>
+                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}" CacheDuration="30"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                           Color="Black" VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+            <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
 			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}" HasUnevenRows="False" FlowUseAbsoluteLayoutInternally="True">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
@@ -109,7 +133,7 @@
                         <ImageButton Scale="0.3" Source="loadmore.png" HeightRequest="50" BackgroundColor="White" Command="{Binding LoadingCommand}" IsVisible="{Binding IsLoadMore}"/>
                     </StackLayout>
                 </fl:FlowListView.Footer>
-            </fl:FlowListView>
+            </fl:FlowListView>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -3,7 +3,6 @@ using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
-using PanCardView.Droid;
 using Prism;
 using Prism.Ioc;
 
@@ -25,9 +24,7 @@ namespace InkApp.Droid
             Window.SetStatusBarColor(Color.Black);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             global::Xamarin.Forms.FormsMaterial.Init(this, bundle);
-            CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
-            global::Xamarin.Forms.FormsMaterial.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
 

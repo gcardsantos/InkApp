@@ -1,5 +1,4 @@
-﻿using DLToolkit.Forms.Controls;
-using InkApp.Models;
+﻿using InkApp.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -13,69 +12,55 @@ namespace InkApp.ViewModels
 {
     public class SavePhotosPageViewModel : ViewModelBase
     {
-        public DelegateCommand LoadingCommand { get; private set; }
-        public DelegateCommand<object> PhotoTappedCommand { get; private set; }
+        public DelegateCommand PhotoTappedCommand { get; private set; }
 
-        private FlowObservableCollection<InstagramItem> _feed;
-        public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
+        private ObservableCollection<InstagramItem> _feed;
+        public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
-        private object _lastItemTapped;
-        public object LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
+        private InstagramItem _lastItemTapped;
+        public InstagramItem LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
 
         private bool _busy;
         public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
 
-        private bool _loading;
-        public bool IsLoadingInfinite { get { return _loading; } set { SetProperty(ref _loading, value); } }
-
         private bool _nothing;
         public bool Nothing { get { return _nothing; } set { SetProperty(ref _nothing, value); } }
+
+
+        private bool _isCollection;
+        public bool CollectionVisible { get { return _isCollection; } set { SetProperty(ref _isCollection, value); } }
 
         public SavePhotosPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             Nothing = false;
             StartValue();
-            PhotoTappedCommand = new DelegateCommand<object>(OpenPhoto);
-            LoadingCommand = new DelegateCommand(async () =>
-            {
-                await LoadMoreAsync();
-            });
-        }
-
-        protected virtual async Task LoadMoreAsync()
-        {
-            var oldTotal = Feed.Count;
-
-            await Task.Delay(3000);
-
-            var howMany = 60;
-
-            var items = new List<InstagramItem>();
-
-            for (int i = oldTotal; i < oldTotal + howMany; i++)
-            {
-                items.Add(new InstagramItem());
-            }
-
-            Feed.AddRange(items);
-
-            IsLoadingInfinite = false;
+            PhotoTappedCommand = new DelegateCommand(OpenPhoto);
         }
 
         public async void StartValue()
         {
+            IsBusy = true;
+            CollectionVisible = false;
             List<InstagramItem> list = await App.Database.GetItemsAsync();
 
             Nothing = list.Count == 0 ? true : false;
 
-            Feed = new FlowObservableCollection<InstagramItem>(list);
+            Feed = new ObservableCollection<InstagramItem>(list);
+
+            IsBusy = false;
+            CollectionVisible = true;
         }
 
-        public async void OpenPhoto(object obj)
+        public async void OpenPhoto()
         {
-            NavigationParameters np = new NavigationParameters();
-            np.Add("photo", obj);
-            await NavigationService.NavigateAsync("ImagePage", np);
+            if(LastTappedItem != null)
+            {
+                NavigationParameters np = new NavigationParameters
+                {
+                    { "photo", LastTappedItem }
+                };
+                await NavigationService.NavigateAsync("ImagePage", np);
+            }            
         }
     }
 }

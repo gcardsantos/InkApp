@@ -64,7 +64,42 @@
                     </Frame>
                 </StackLayout>
             </ScrollView>
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="2" FlowItemsSource="{Binding Pessoas}" RowHeight="200"
+
+            <CollectionView x:Name="dataCollection" ItemsSource="{Binding Pessoas}" SelectedItem="{Binding People}" ItemSizingStrategy="MeasureFirstItem"
+                            SelectionChangedCommand="{Binding OpenProfileCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepItemsInView" IsVisible="{Binding CollectionVisible}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="3" VerticalItemSpacing="3"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Padding="10">
+                            <StackLayout Orientation="Vertical" VerticalOptions="Center" HeightRequest="200">
+                                <ff:CachedImage Source="{Binding Image}" Aspect="AspectFit" Scale="1.5" CacheDuration="1" RetryCount="2" Margin="0, 20">
+                                    <ff:CachedImage.Transformations>
+                                        <fftransformations:CircleTransformation/>
+                                    </ff:CachedImage.Transformations>
+                                </ff:CachedImage>
+                                <Label Text="{Binding Name}" FontSize="Large" HorizontalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" TextColor="Black"/>
+
+                                <Label TextColor="Black" HorizontalOptions="Center" LineBreakMode="TailTruncation">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Cidade}" FontSize="Default"/>
+                                            <Span Text=" - " FontSize="Default"/>
+                                            <Span Text="{Binding Estado}" FontSize="Default"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                           Color="Black" VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+            
+            <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="2" FlowItemsSource="{Binding Pessoas}" RowHeight="200"
 			    FlowItemTappedCommand="{Binding OpenProfileCommand}" FlowLastTappedItem="{Binding People}" SeparatorVisibility="Default">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
@@ -97,7 +132,7 @@
                                        HorizontalOptions="Center"/>
                     </StackLayout>
                 </fl:FlowListView.Footer>
-            </fl:FlowListView>
+            </fl:FlowListView>-->
 
         </StackLayout>
     </ScrollView>

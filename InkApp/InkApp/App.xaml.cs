@@ -7,10 +7,8 @@ using Xamarin.Forms.Xaml;
 using InkApp.Data;
 using System.IO;
 using System;
-using DLToolkit.Forms.Controls;
 using InkApp.Services;
 using Plugin.Connectivity;
-using System.Net;
 using InkApp.Models;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -41,7 +39,6 @@ namespace InkApp
             CheckConnection();
             AdMaiora.RealXaml.Client.AppManager.Init(this);
             InitializeComponent();
-            FlowListView.Init();
             Api = new InstagramParser();
             Repository = new Repository();
             await NavigationService.NavigateAsync("/TopMasterDetailPage/CustomNavigationPage/HomePage");

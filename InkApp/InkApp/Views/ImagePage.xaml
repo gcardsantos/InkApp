@@ -11,7 +11,7 @@
              BackgroundColor="AntiqueWhite">
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" BackgroundColor="Transparent">
-            <StackLayout Orientation="Vertical" Padding="0" Margin="5" BackgroundColor="Transparent">
+            <StackLayout VerticalOptions="Center" Orientation="Vertical" Padding="0" Margin="5" BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding Heart}" FontFamily="{DynamicResource MaterialButton}" TextColor="{Binding Cor}" Margin="15, 15, 0, 0" Scale="2">
                         <Label.GestureRecognizers>

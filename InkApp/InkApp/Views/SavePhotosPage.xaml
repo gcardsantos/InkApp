@@ -11,8 +11,34 @@
              Title="Photos">
 
     <ScrollView>
-        <StackLayout Orientation="Vertical" Padding="10">
-            <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" HasUnevenRows="false"
+        <StackLayout Orientation="Vertical" Padding="1">
+            <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureFirstItem"
+                            SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepItemsInView" IsVisible="{Binding CollectionVisible}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="3" VerticalItemSpacing="3"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"/>
+                            </Grid.RowDefinitions>
+                            <ff:CachedImage Source="{Binding ImageLow}" CacheDuration="30"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Label Text="Não há imagens salvas." HorizontalOptions="Center" FontSize="Medium" TextColor="Black" IsVisible="{Binding Nothing}"/>
+                </CollectionView.EmptyView>
+            </CollectionView>
+            
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                           Color="Black" VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+            <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" HasUnevenRows="false"
 			        FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
                     FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
 
@@ -55,7 +81,7 @@
                     </DataTemplate>
                 </fl:FlowListView.FlowColumnTemplate>
                 
-            </fl:FlowListView>
+            </fl:FlowListView>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>

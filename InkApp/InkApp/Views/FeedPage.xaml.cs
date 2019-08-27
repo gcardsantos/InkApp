@@ -11,7 +11,10 @@ namespace InkApp.Views
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
+            if (dataCollection != null)
+            {
+                dataCollection.SelectedItem = null;
+            }
         }
     }
 }
