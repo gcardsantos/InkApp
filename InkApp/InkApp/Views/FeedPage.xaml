@@ -2,11 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             xmlns:fl="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
-             xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
-             xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.FeedPage"
              BackgroundColor="White"
@@ -23,7 +19,7 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </Frame>
-                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
+                    <Frame Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30" >
                         <Label Text="BlackWork" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="blackwork"/>
@@ -100,7 +96,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
-                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}" CacheDuration="30"/>
+                            <ff:CachedImage DownsampleToViewSize="True" BitmapOptimizations="True" Source="{Binding ImageLow}" CacheDuration="30"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

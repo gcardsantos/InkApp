@@ -27,6 +27,13 @@ namespace InkApp.ViewModels
         private object _item;
         public object Item { get { return _item; } set { SetProperty(ref _item, value); } }
 
+        private string _searchText;
+        public string SearchText { get { return _searchText; }
+            set {
+                FilterPeople(SearchText);
+                SetProperty(ref _searchText, value); }
+            }
+
         public DelegateCommand ItemTappedCommand { get; private set; }
 
         public DelegateCommand<string> SearchBarCommand { get; private set; }
@@ -44,7 +51,7 @@ namespace InkApp.ViewModels
         {
             if (!String.IsNullOrWhiteSpace(obj))
             {
-                var p = Pessoas.Where(n => n.Name.Contains(obj));
+                var p = Pessoas.Where(n => n.Name.ToLower().Contains(obj.ToLower()));
                 PeopleVisible = new ObservableCollection<Pessoa>(p);
             }
             else

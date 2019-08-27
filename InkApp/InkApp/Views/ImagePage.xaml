@@ -35,7 +35,7 @@
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                                                    Color="Black" VerticalOptions="Center" 
                                                    HorizontalOptions="Center"/>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, -3">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, -4">
                             <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
                                 <ff:CachedImage.Transformations>
                                     <fftransformations:CircleTransformation/>

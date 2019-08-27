@@ -246,5 +246,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\inkapp_icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\kloader.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
