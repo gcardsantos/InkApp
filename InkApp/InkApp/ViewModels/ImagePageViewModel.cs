@@ -41,6 +41,9 @@ namespace InkApp.ViewModels
 
         private string _heart;
         public string Heart { get { return _heart; } set { SetProperty(ref _heart, value); } }
+
+        private bool _busy;
+        public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
         public ImagePageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) :base(navigationService)
         {
             PageDialogService = pageDialogService;
@@ -52,6 +55,7 @@ namespace InkApp.ViewModels
         private async void GoProfile()
         {
             var navigationParams = new NavigationParameters();
+            Pessoa.Name = Name;
             navigationParams.Add("pessoa", Pessoa);
             navigationParams.Add("photo", Item);
             await NavigationService.NavigateAsync("DetailsPage", navigationParams);
@@ -73,7 +77,11 @@ namespace InkApp.ViewModels
                     var c = await App.Database.SaveItemAsync(Item);
 
                     if (c == 1)
+                    {
                         Cor = Color.Red;
+                        Heart = "\uf2d1";
+                    }
+                        
                     await PageDialogService.DisplayAlertAsync("Salvo", "Salvo com sucesso.", "Ok");
                 }
                 else
@@ -81,7 +89,10 @@ namespace InkApp.ViewModels
                     var c = await App.Database.DeleteItemAsync(Item);
 
                     if (c == 1)
+                    {
                         Cor = Color.Black;
+                        Heart = "\uf2d5";
+                    }
                     await PageDialogService.DisplayAlertAsync("Removido", "Removido com sucesso.", "Ok");
                 }
             }
@@ -98,27 +109,41 @@ namespace InkApp.ViewModels
         {
             if(Item == null)
             {
+                IsBusy = true;
                 Item = parameters["photo"] as InstagramItem;
+                Pessoa = parameters["pessoa"] as Pessoa;
                 ImageHigh = Item.ImageHigh;
-                Pessoa = Item.People;
 
-                if (Pessoa == null)
-                    Pessoa = await App.Api.GetUserAsync(Item.Username);
-
-                Item.People = Pessoa;
-                Name = Item.People.Name;
-                Profile = Item.People.Image;
-                var x = await App.Database.GetItemAsync(Item);
-
-                if (x == null)
+                try
                 {
-                    Cor = Color.Black;
-                    Heart = "\uf2d5";
+                    if (Pessoa == null)
+                    {
+                        Pessoa = await (new Repository().GetPessoa(Item.Name));
+                        await App.Api.GetUserAsync(Pessoa);
+                        IsBusy = false;
+                        Item.People = Pessoa;
+                        Profile = Pessoa.Image;
+                    }
+
+                    Name = Item.Name;
+
+                    var x = await App.Database.GetItemAsync(Item);
+
+                    if (x == null)
+                    {
+                        Cor = Color.Black;
+                        Heart = "\uf2d5";
+                    }
+                    else
+                    {
+                        Cor = Color.Red;
+                        Heart = "\uf2d1";
+                    }
+
                 }
-                else
+                catch (Exception)
                 {
-                    Cor = Color.Red;
-                    Heart = "\uf2d1";
+                    await NavigationService.NavigateAsync("ErrorConectionPage");
                 }
             }
             

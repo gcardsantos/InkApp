@@ -62,7 +62,7 @@ namespace InkApp.ViewModels
                 { "photo", TopList[Position] }
             };
 
-            await NavigationService.NavigateAsync("ImagePage", np);
+            await NavigationService.NavigateAsync("ImagePage", np, false);
         }
 
         private async void LoadMoreData()
@@ -97,7 +97,7 @@ namespace InkApp.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            base.OnNavigatedFrom(parameters);
+            
         }
 
         public async Task GetMoreDataAsync()
@@ -125,6 +125,7 @@ namespace InkApp.ViewModels
             catch(Exception ex)
             {
                 string s = ex.Message;
+                await NavigationService.NavigateAsync("ErrorConectionPage");
             }
             finally
             {
@@ -136,12 +137,19 @@ namespace InkApp.ViewModels
 
         public async Task GetDataAsync(Pessoa p)
         {
-            var data = await App.Api.GetMediaAsync(p, 10);
-            
-            if (data != null)
+            try
             {
-                var x = data.Where(n => !items.Any(e => e.ImageLow.Equals(n.ImageLow)));
-                items.AddRange(x.OrderBy(a => Guid.NewGuid()));
+                var data = await App.Api.GetMediaAsync(p, 10);
+            
+                if (data != null)
+                {
+                    var x = data.Where(n => !items.Any(e => e.ImageLow.Equals(n.ImageLow)));
+                    items.AddRange(x.OrderBy(a => Guid.NewGuid()));
+                }
+            }
+            catch (Exception)
+            {
+                await NavigationService.NavigateAsync("ErrorConectionPage");
             }
         }
 

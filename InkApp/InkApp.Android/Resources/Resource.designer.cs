@@ -4917,7 +4917,6 @@ namespace InkApp.Droid
 			global::Xamarin.Forms.Material.Android.Resource.Style.XamarinFormsMaterialProgressBarHorizontal = global::InkApp.Droid.Resource.Style.XamarinFormsMaterialProgressBarHorizontal;
 			global::Xamarin.Forms.Material.Android.Resource.Style.XamarinFormsMaterialSlider = global::InkApp.Droid.Resource.Style.XamarinFormsMaterialSlider;
 			global::Xamarin.Forms.Material.Android.Resource.Style.XamarinFormsMaterialTheme = global::InkApp.Droid.Resource.Style.XamarinFormsMaterialTheme;
-			global::Xamarin.Forms.Material.Android.Resource.Style.collectionViewStyle = global::InkApp.Droid.Resource.Style.collectionViewStyle;
 			global::Xamarin.Forms.Material.Android.Resource.Styleable.ActionBar = global::InkApp.Droid.Resource.Styleable.ActionBar;
 			global::Xamarin.Forms.Material.Android.Resource.Styleable.ActionBar_background = global::InkApp.Droid.Resource.Styleable.ActionBar_background;
 			global::Xamarin.Forms.Material.Android.Resource.Styleable.ActionBar_backgroundSplit = global::InkApp.Droid.Resource.Styleable.ActionBar_backgroundSplit;
@@ -7480,7 +7479,6 @@ namespace InkApp.Droid
 			global::Xamarin.Forms.Platform.Android.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense = global::InkApp.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense;
 			global::Xamarin.Forms.Platform.Android.Resource.Style.Widget_MaterialComponents_Toolbar = global::InkApp.Droid.Resource.Style.Widget_MaterialComponents_Toolbar;
 			global::Xamarin.Forms.Platform.Android.Resource.Style.Widget_Support_CoordinatorLayout = global::InkApp.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
-			global::Xamarin.Forms.Platform.Android.Resource.Style.collectionViewStyle = global::InkApp.Droid.Resource.Style.collectionViewStyle;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ActionBar = global::InkApp.Droid.Resource.Styleable.ActionBar;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ActionBar_background = global::InkApp.Droid.Resource.Styleable.ActionBar_background;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ActionBar_backgroundSplit = global::InkApp.Droid.Resource.Styleable.ActionBar_backgroundSplit;
@@ -11832,7 +11830,7 @@ namespace InkApp.Droid
 			public const int ic_vol_type_tv_light = 2131165463;
 			
 			// aapt resource value: 0x7F070119
-			public const int Inkapp = 2131165465;
+			public const int inkapp = 2131165465;
 			
 			// aapt resource value: 0x7F07011A
 			public const int inkapp_splash = 2131165466;
@@ -13135,11 +13133,11 @@ namespace InkApp.Droid
 		public partial class Mipmap
 		{
 			
-			// aapt resource value: 0x7F0C0001
-			public const int Icon = 2131492865;
-			
 			// aapt resource value: 0x7F0C0000
 			public const int ic_launcher = 2131492864;
+			
+			// aapt resource value: 0x7F0C0001
+			public const int inkapp_icon = 2131492865;
 			
 			static Mipmap()
 			{
@@ -14006,9 +14004,6 @@ namespace InkApp.Droid
 			
 			// aapt resource value: 0x7F0E00C5
 			public const int CardView_Light = 2131624133;
-			
-			// aapt resource value: 0x7F0E020D
-			public const int collectionViewStyle = 2131624461;
 			
 			// aapt resource value: 0x7F0E00C6
 			public const int DrawerArrowStyle = 2131624134;

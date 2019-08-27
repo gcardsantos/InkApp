@@ -6,6 +6,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace InkApp.ViewModels
@@ -36,20 +37,29 @@ namespace InkApp.ViewModels
 
         private async void SendEmail()
         {
-            Solicitacao s = new Solicitacao();
-            s.Email = EmailText;
-            s.Nome = NameText;
+            var foo = new EmailAddressAttribute();
 
-            if (App.Repository.Request(s))
+            if (!String.IsNullOrWhiteSpace(EmailText) && foo.IsValid(EmailText))
             {
-                await PageDialogService.DisplayAlertAsync("Requisição", "Requisição efetuada com sucesso.", "Ok");
+                Solicitacao s = new Solicitacao();
+                s.Email = EmailText;
+                s.Nome = NameText;
+
+                if (App.Repository.Request(s))
+                {
+                    await PageDialogService.DisplayAlertAsync("Requisição", "Requisição efetuada com sucesso.", "Ok");
+                }
+                else
+                {
+                    await PageDialogService.DisplayAlertAsync("Requisição", "Ocorreu algum problema ao efetuar requisição.", "Ok");
+                }
+
+                await NavigationService.GoBackToRootAsync();
             }
             else
             {
-                await PageDialogService.DisplayAlertAsync("Requisição", "Ocorreu algum problema ao efetuar requisição.", "Ok");
+                await PageDialogService.DisplayAlertAsync("Requisição", "Informe um email válido.", "Ok");
             }
-
-            await NavigationService.GoBackToRootAsync();
         }
     }
 }

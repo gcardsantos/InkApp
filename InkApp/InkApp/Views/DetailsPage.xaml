@@ -12,9 +12,8 @@
              BackgroundColor="AntiqueWhite"
              Title="Perfil">
 
-    <ScrollView Padding="0">
+    <ScrollView Padding="0" Orientation="Vertical">
         <StackLayout Orientation="Vertical" Padding="3">
-
             <Frame BorderColor="Black" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" Padding="10" Visual="Material">
                 <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
                     <ff:CachedImage Source="{Binding ProfileImage}" Aspect="AspectFit" WidthRequest="100" HeightRequest="100">
@@ -60,14 +59,14 @@
                                 </DataTemplate>
                             </expandable:ExpandableView.SecondaryViewTemplate>
                         </expandable:ExpandableView>
-                        
+
                     </StackLayout>
                 </StackLayout>
             </Frame>
             <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}" FontSize="Large"/>
             <fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" HasUnevenRows="false" SeparatorColor="White"
-			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
-                FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
+			        FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
+                    FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Grid VerticalOptions="Fill" HorizontalOptions="CenterAndExpand">
@@ -84,8 +83,8 @@
                 <fl:FlowListView.Footer>
                     <StackLayout Orientation="Vertical" Padding="10">
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
-                                       Color="Black" VerticalOptions="Center" 
-                                       HorizontalOptions="Center"/>
+                                           Color="Black" VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
 
                         <ImageButton Scale="0.3" Source="loadmore.png" HeightRequest="50" BackgroundColor="Transparent" Command="{Binding LoadingCommand}" IsVisible="{Binding IsLoadMore}"/>
                     </StackLayout>
