@@ -60,6 +60,8 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <AndroidTlsProvider>btls</AndroidTlsProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>

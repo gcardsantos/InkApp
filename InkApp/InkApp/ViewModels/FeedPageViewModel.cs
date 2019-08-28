@@ -28,6 +28,8 @@ namespace InkApp.ViewModels
         private ObservableCollection<InstagramItem> _toplist;
         public ObservableCollection<InstagramItem> TopList { get { return _toplist; } set { SetProperty(ref _toplist, value); } }
 
+        public Dictionary<Pessoa, List<InstagramItem>> Imagens;
+
         private InstagramItem _lastItemTapped;
         public InstagramItem LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
 
@@ -44,30 +46,34 @@ namespace InkApp.ViewModels
         private int _position;
         public int Position { get { return _position; } set { SetProperty(ref _position, value); } }
 
+        public string FilterSelected { get; set; }
+
         public List<Pessoa> PeopleAdded { get; set; }
 
         public FeedPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             repository = new Repository();
+            Imagens = new Dictionary<Pessoa, List<InstagramItem>>();
             Feed = new ObservableCollection<InstagramItem>();
-            TopList = new ObservableCollection<InstagramItem>();
+            //TopList = new ObservableCollection<InstagramItem>();
             items = new List<InstagramItem>();
             PeopleAdded = new List<Pessoa>();
             FilterCommand = new DelegateCommand<string>(FilterData);
             PhotoTappedCommand = new DelegateCommand(OpenPhotoAsync);
             LoadingCommand = new DelegateCommand(LoadMoreData);
             TopCommand = new DelegateCommand(CardOpenPhoto);
+            FilterSelected = "All";
             StartValueAsync();
         }
 
         private async void CardOpenPhoto()
         {
-            NavigationParameters np = new NavigationParameters
-            {
-                { "photo", TopList[Position] }
-            };
+            //NavigationParameters np = new NavigationParameters
+            //{
+            //    { "photo", TopList[Position] }
+            //};
 
-            await NavigationService.NavigateAsync("ImagePage", np, false);
+            //await NavigationService.NavigateAsync("ImagePage", np, false);
         }
 
         private async void LoadMoreData()
@@ -77,10 +83,11 @@ namespace InkApp.ViewModels
 
         private void FilterData(string obj)
         {
+            FilterSelected = obj;
             Feed.Clear();
             if (obj != "All")
             {
-                foreach(var x in items.Where(n => n.Tags.Contains(obj)))
+                foreach(var x in items.Where(n => n.Tags.Contains(FilterSelected)))
                 {
                     Feed.Add(x);
                 }
@@ -98,10 +105,6 @@ namespace InkApp.ViewModels
         {
             CollectionVisible = false;
             await GetMoreDataAsync();
-            foreach (var x in items.GetRange(new Random().Next(0, items.Count - 1), 5))
-            {
-                TopList.Add(x);
-            }
             CollectionVisible = true;
         }
 
@@ -144,10 +147,26 @@ namespace InkApp.ViewModels
                         PeopleAdded.Add(p);
                     }
                 }
-                foreach (var x in items.OrderBy(a => Guid.NewGuid()))
+
+                var itemsShuffle = items.OrderBy(a => Guid.NewGuid());
+
+                if (FilterSelected.Equals("All"))
                 {
-                    Feed.Add(x);
+                    foreach (var x in itemsShuffle)
+                    {
+                        Feed.Add(x);
+                    }
+                }else
+                {
+                    foreach (var x in itemsShuffle)
+                    {
+                        if (x.Tags.ToLower().Contains(FilterSelected.ToLower()))
+                        {
+                            Feed.Add(x);
+                        }
+                    }
                 }
+
             }
             catch(Exception ex)
             {
@@ -170,8 +189,18 @@ namespace InkApp.ViewModels
             
                 if (data != null)
                 {
-                    var x = data.Where(n => !items.Any(e => e.ImageLow.Equals(n.ImageLow)));
-                    items.AddRange(x.OrderBy(a => Guid.NewGuid()));
+                    if (!Imagens.ContainsKey(p))
+                    {
+                        Imagens.Add(p, data);
+                    }
+                    else
+                    {
+                        var d = Imagens[p];
+                        data.RemoveAll(n => d.Exists(q => q.ImageLow.Equals(n.ImageLow)));
+                        Imagens[p].AddRange(data);
+                    }
+                        
+                    items.AddRange(data);
                 }
             }
             catch (Exception)
@@ -180,6 +209,20 @@ namespace InkApp.ViewModels
             }
         }
 
+        private void RemoveDuplicate(List<InstagramItem> data)
+        {
+            foreach(var d in data)
+            {
+                foreach (var x in items)
+                {
+                    if(x.ImageLow == d.ImageLow)
+                    {
+                        data.Remove(d);
+                        break;
+                    }
+                }
+            }            
+        }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
