@@ -8966,7 +8966,7 @@ namespace InkApp.Droid
 			public const int inkapp_splash = 2131165466;
 			
 			// aapt resource value: 0x7F07011B
-			public const int kloader = 2131165467;
+			public const int loading = 2131165467;
 			
 			// aapt resource value: 0x7F07011C
 			public const int loadmore = 2131165468;

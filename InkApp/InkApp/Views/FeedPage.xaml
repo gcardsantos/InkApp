@@ -89,7 +89,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
-                            <ff:CachedImage DownsampleToViewSize="True" BitmapOptimizations="True" Source="{Binding ImageLow}" CacheDuration="30"/>
+                            <ff:CachedImage DownsampleToViewSize="True" BitmapOptimizations="True" LoadingPlaceholder="loading.png" Source="{Binding ImageLow}" CacheType="Memory" CacheDuration="30"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -128,17 +128,17 @@ namespace InkApp.Services
                     using (HttpClient client = new HttpClient())
                     {
                         string s = @"https://www.instagram.com/graphql/query/?query_hash=472f257a40c653c64c666ce877d59d2b&variables={";
-                        string ss;
+                        
                         if (!String.IsNullOrEmpty(p.LastToken))
                         {
-                            ss = "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + ", \"after\":\"" + p.LastToken + "\"}";
+                            s += "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + ", \"after\":\"" + p.LastToken + "\"}";
                         }
                         else
                         {
-                            ss = "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + "}";
+                            s += "\"id\"" + ":\"" + p.IdInsta + "\",\"first\":" + "50" + "}";
                         }
 
-                        var response = await client.GetAsync(s + ss);
+                        var response = await client.GetAsync(s);
 
                         if (response.IsSuccessStatusCode)
                         {
@@ -169,7 +169,7 @@ namespace InkApp.Services
 
                                 InstagramItem i = new InstagramItem()
                                 {
-                                    ImageLow = x.SelectToken("node.thumbnail_src").Value<string>(),
+                                    ImageLow = x.SelectToken("node.thumbnail_resources[0].src").Value<string>(),
                                     ImageHigh = x.SelectToken("node.display_url").Value<string>(),
                                     Tags = t,
                                     People = p,

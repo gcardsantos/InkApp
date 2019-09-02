@@ -19,7 +19,7 @@ namespace InkApp.ViewModels
         public DelegateCommand TopCommand { get; private set; }
         public DelegateCommand LoadingCommand { get; set; }
 
-        private List<InstagramItem> items;
+        private List<InstagramItem> allItems;
 
         private ObservableCollection<InstagramItem> _feed;
         public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
@@ -46,6 +46,8 @@ namespace InkApp.ViewModels
         private int _position;
         public int Position { get { return _position; } set { SetProperty(ref _position, value); } }
 
+        public bool done;
+
         public string FilterSelected { get; set; }
 
         public List<Pessoa> PeopleAdded { get; set; }
@@ -56,17 +58,18 @@ namespace InkApp.ViewModels
             Imagens = new Dictionary<Pessoa, List<InstagramItem>>();
             Feed = new ObservableCollection<InstagramItem>();
             //TopList = new ObservableCollection<InstagramItem>();
-            items = new List<InstagramItem>();
+            allItems = new List<InstagramItem>();
             PeopleAdded = new List<Pessoa>();
             FilterCommand = new DelegateCommand<string>(FilterData);
             PhotoTappedCommand = new DelegateCommand(OpenPhotoAsync);
             LoadingCommand = new DelegateCommand(LoadMoreData);
             TopCommand = new DelegateCommand(CardOpenPhoto);
             FilterSelected = "All";
+            done = false;
             StartValueAsync();
         }
 
-        private async void CardOpenPhoto()
+        private void CardOpenPhoto()
         {
             //NavigationParameters np = new NavigationParameters
             //{
@@ -78,7 +81,7 @@ namespace InkApp.ViewModels
 
         private async void LoadMoreData()
         {
-            await GetMoreDataAsync();
+            await CollectionLoadingMore();
         }
 
         private void FilterData(string obj)
@@ -87,14 +90,14 @@ namespace InkApp.ViewModels
             Feed.Clear();
             if (obj != "All")
             {
-                foreach(var x in items.Where(n => n.Tags.Contains(FilterSelected)))
+                foreach(var x in allItems.Where(n => n.Tags.Contains(FilterSelected)))
                 {
                     Feed.Add(x);
                 }
             }
             else
             {
-                foreach (var x in items)
+                foreach (var x in allItems)
                 {
                     Feed.Add(x);
                 }
@@ -104,7 +107,30 @@ namespace InkApp.ViewModels
         private async void StartValueAsync()
         {
             CollectionVisible = false;
-            await GetMoreDataAsync();
+
+            //IsBusy se repetiu pelo fato da solicitação de novos items do CollectionView setar para false antes de concluir a busca por novas imagens
+            IsBusy = true;
+            var pessoas = await repository.GetShufflePessoas();
+            pessoas.ForEach(n => Imagens.Add(n, new List<InstagramItem>()));
+            IsBusy = true;
+            foreach (var p in pessoas)
+            {
+                
+                var t1 = App.Api.GetUserAsync(p);
+                
+                await Task.WhenAll(t1);
+                
+                var t2 = App.Api.GetMediaAsync(p, 49);
+                
+                await Task.WhenAll(t2);
+
+                var list = t2.Result;
+
+                foreach (var l in list)
+                    Imagens[p].Add(l);
+            }
+
+            await CollectionLoadingMore();
             CollectionVisible = true;
         }
 
@@ -127,48 +153,92 @@ namespace InkApp.ViewModels
             
         }
 
-        public async Task GetMoreDataAsync()
+        public async Task GetMoreData()
+        {
+            IsBusy = true;
+            foreach (var p in Imagens)
+            {
+                if (!String.IsNullOrWhiteSpace(p.Key.LastToken))
+                {
+                    var list = await App.Api.GetMediaAsync(p.Key, 49);
+
+                    foreach (var l in list)
+                        p.Value.Add(l);
+                }
+            }
+            IsBusy = false;
+        }
+
+        public async Task CollectionLoadingMore()
         {
             try
             {
                 IsBusy = true;
                 IsLoadMore = false;
-                var pessoas =  await repository.GetShufflePessoas();
-                pessoas = pessoas.Where(n => !PeopleAdded.Exists(e => e.Username.Equals(n.Username))).ToList();
-                pessoas.RemoveRange(pessoas.Count/2, pessoas.Count/2);
-                
-                foreach (Pessoa p in pessoas)
-                {
-                    var b = await App.Api.GetUserAsync(p);
 
-                    if (b)
-                    {
-                        await GetDataAsync(p);
-                        PeopleAdded.Add(p);
-                    }
-                }
+                Random r = new Random();
+                List<InstagramItem> items = new List<InstagramItem>();
 
-                var itemsShuffle = items.OrderBy(a => Guid.NewGuid());
+                int count = allItems.Count;
+                bool localAttempt = false;
 
-                if (FilterSelected.Equals("All"))
+                //'done' valida se ainda há dados para se buscar
+                //'localAttempt' tenta fazer uma nova requisição de dados para continuar o feed
+
+                if(done == false)
                 {
-                    foreach (var x in itemsShuffle)
+                    while (count == Feed.Count)
                     {
-                        Feed.Add(x);
-                    }
-                }else
-                {
-                    foreach (var x in itemsShuffle)
-                    {
-                        if (x.Tags.ToLower().Contains(FilterSelected.ToLower()))
+                        for (int i = 0; i < 3 && i < Imagens.Count - 1; i++)
                         {
-                            Feed.Add(x);
+                            var k = Imagens.Values.ToList()[r.Next(Imagens.Count - 1)];
+
+                            for (int j = 0; j < 3 && j < k.Count - 1; j++)
+                            {
+                                items.Add(k[j]);
+                                allItems.Add(k[j]);
+                                k.RemoveAt(j);                                
+                            }
                         }
+
+                        if (localAttempt && count == allItems.Count)
+                        {
+                            //done = true;
+                            break;
+                        }
+
+                        var itemsShuffle = items.OrderBy(a => Guid.NewGuid());
+
+                        if (FilterSelected.Equals("All"))
+                        {
+                            foreach (var x in itemsShuffle)
+                            {
+                                Feed.Add(x);
+                            }
+                        }
+                        else
+                        {
+                            foreach (var x in itemsShuffle)
+                            {
+                                if (x.Tags.ToLower().Contains(FilterSelected.ToLower()))
+                                {
+                                    Feed.Add(x);
+                                }
+                            }
+                        }
+
+                        if (count == allItems.Count)
+                        {
+                            await GetMoreData();
+                            localAttempt = true;
+                        }                       
+                            
                     }
                 }
+                
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string s = ex.Message;
                 await NavigationService.NavigateAsync("ErrorConectionPage");
@@ -181,55 +251,9 @@ namespace InkApp.ViewModels
         }
 
 
-        public async Task GetDataAsync(Pessoa p)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            try
-            {
-                var data = await App.Api.GetMediaAsync(p, 10);
             
-                if (data != null)
-                {
-                    if (!Imagens.ContainsKey(p))
-                    {
-                        Imagens.Add(p, data);
-                    }
-                    else
-                    {
-                        var d = Imagens[p];
-                        data.RemoveAll(n => d.Exists(q => q.ImageLow.Equals(n.ImageLow)));
-                        Imagens[p].AddRange(data);
-                    }
-                        
-                    items.AddRange(data);
-                }
-            }
-            catch (Exception)
-            {
-                await NavigationService.NavigateAsync("ErrorConectionPage");
-            }
-        }
-
-        private void RemoveDuplicate(List<InstagramItem> data)
-        {
-            foreach(var d in data)
-            {
-                foreach (var x in items)
-                {
-                    if(x.ImageLow == d.ImageLow)
-                    {
-                        data.Remove(d);
-                        break;
-                    }
-                }
-            }            
-        }
-
-        public override async void OnNavigatedTo(INavigationParameters parameters)
-        {
-            if (parameters.GetNavigationMode() == NavigationMode.New)
-            {     
-                await GetMoreDataAsync();
-            }
         }
     }
 }
