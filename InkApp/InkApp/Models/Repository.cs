@@ -55,7 +55,13 @@ namespace InkApp.Models
         public bool AddPessoa(Pessoa p)
         {
             var Service = new Services.AzureService<Pessoa>();
-            return Service.AddItem(p);
+            if (string.IsNullOrEmpty(p.Id))
+                return Service.AddItem(p);
+            else
+                Service.UpdateItemAsync(p.Id, p);
+
+            return true;
+
         }
     }
 }
