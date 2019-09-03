@@ -24,6 +24,7 @@ namespace InkApp.ViewModels
         private ObservableCollection<InstagramItem> _feed;
         public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
+        public object mutex;
 
         private ObservableCollection<InstagramItem> _toplist;
         public ObservableCollection<InstagramItem> TopList { get { return _toplist; } set { SetProperty(ref _toplist, value); } }
@@ -115,19 +116,22 @@ namespace InkApp.ViewModels
             IsBusy = true;
             foreach (var p in pessoas)
             {
-                
-                var t1 = App.Api.GetUserAsync(p);
-                
-                await Task.WhenAll(t1);
-                
-                var t2 = App.Api.GetMediaAsync(p, 49);
-                
-                await Task.WhenAll(t2);
+                await Task.Run(async () =>
+                {
+                    var t1 = App.Api.GetUserAsync(p);
 
-                var list = t2.Result;
+                    await Task.WhenAll(t1);
 
-                foreach (var l in list)
-                    Imagens[p].Add(l);
+                    var t2 = App.Api.GetMediaAsync(p, 49);
+
+                    await Task.WhenAll(t2);
+
+                    var list = t2.Result;
+
+                    foreach (var l in list)
+                        Imagens[p].Add(l);
+                });
+                
             }
 
             await CollectionLoadingMore();
@@ -189,15 +193,21 @@ namespace InkApp.ViewModels
                 {
                     while (count == Feed.Count)
                     {
-                        for (int i = 0; i < 3 && i < Imagens.Count - 1; i++)
+                        for (int i = 0; i < 4 && i < Imagens.Count - 1; i++)
                         {
                             var k = Imagens.Values.ToList()[r.Next(Imagens.Count - 1)];
+                            List<InstagramItem> l;
 
-                            for (int j = 0; j < 3 && j < k.Count - 1; j++)
+                            if (k.Count > 5)
+                                l = k.GetRange(0, 5);
+                            else
+                                l = k;
+
+                            foreach(InstagramItem item in l)
                             {
-                                items.Add(k[j]);
-                                allItems.Add(k[j]);
-                                k.RemoveAt(j);                                
+                                items.Add(item);
+                                allItems.Add(item);
+                                k.Remove(item);
                             }
                         }
 
@@ -213,6 +223,7 @@ namespace InkApp.ViewModels
                         {
                             foreach (var x in itemsShuffle)
                             {
+                                
                                 Feed.Add(x);
                             }
                         }
@@ -227,9 +238,10 @@ namespace InkApp.ViewModels
                             }
                         }
 
+                        await GetMoreData();
+
                         if (count == allItems.Count)
-                        {
-                            await GetMoreData();
+                        {    
                             localAttempt = true;
                         }                       
                             

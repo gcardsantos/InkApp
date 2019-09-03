@@ -225,9 +225,6 @@
     <AndroidResource Include="Resources\drawable\loadmore.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon_splash.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\inkapp_splash.png" />
   </ItemGroup>
   <ItemGroup>
