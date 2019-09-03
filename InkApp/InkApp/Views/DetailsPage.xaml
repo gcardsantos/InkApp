@@ -78,7 +78,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
-                            <ff:CachedImage Source="{Binding ImageLow}" CacheDuration="30"/>
+                            <ff:CachedImage Source="{Binding ImageLow}" CacheDuration="30" CacheType="Memory"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
