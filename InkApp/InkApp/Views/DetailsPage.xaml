@@ -12,17 +12,17 @@
              BackgroundColor="AntiqueWhite"
              Title="Perfil">
 
-    <ScrollView Padding="0" Orientation="Vertical">
-        <StackLayout Orientation="Vertical" Padding="3">
-            <Frame BorderColor="Black" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" Padding="10" Visual="Material">
-                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+    <ScrollView Padding="1" Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <StackLayout Orientation="Vertical">
+            <Frame BorderColor="Black" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" Padding="10" Visual="Default">
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="1">
                     <ff:CachedImage Source="{Binding ProfileImage}" Aspect="AspectFit" WidthRequest="100" HeightRequest="100">
                         <ff:CachedImage.Transformations>
                             <fftransformations:CircleTransformation/>
                         </ff:CachedImage.Transformations>
                     </ff:CachedImage>
-                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                        <Label Text="{Binding Title}" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" Padding="1">
+                        <Label Text="{Binding Nome}" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                             <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                                 <Label.GestureRecognizers>
@@ -59,14 +59,13 @@
                                 </DataTemplate>
                             </expandable:ExpandableView.SecondaryViewTemplate>
                         </expandable:ExpandableView>
-
                     </StackLayout>
                 </StackLayout>
             </Frame>
             <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}" FontSize="Large"/>
-            <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureAllItems"
+            <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureFirstItem"
                             SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepItemsInView"
-                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="20">
+                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="20" IsVisible="{Binding CollectionVisible}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="3" VerticalItemSpacing="3"/>
                 </CollectionView.ItemsLayout>
@@ -79,22 +78,14 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
-                            <ff:CachedImage DownsampleToViewSize="True" Source="{Binding ImageLow}" CacheDuration="30"/>
+                            <ff:CachedImage Source="{Binding ImageLow}" CacheDuration="30"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <CollectionView.FooterTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Vertical" Padding="10">
-                            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
-                                           Color="Black" VerticalOptions="Center" 
-                                           HorizontalOptions="Center"/>
-
-                            <ImageButton Scale="0.3" Source="loadmore.png" HeightRequest="50" BackgroundColor="Transparent" Command="{Binding LoadingCommand}" IsVisible="{Binding IsLoadMore}"/>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.FooterTemplate>
             </CollectionView>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                                           Color="Black" VerticalOptions="Center" 
+                                           HorizontalOptions="Center" Visual="Default"/>
             <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" HasUnevenRows="false" SeparatorColor="White"
 			        FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
                     FlowLoadingCommand="{Binding LoadingCommand}" FlowIsLoadingInfiniteEnabled="True" FlowIsLoadingInfinite="{Binding IsLoadingInfinite}">

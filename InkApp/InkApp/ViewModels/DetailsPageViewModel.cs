@@ -1,5 +1,5 @@
 ﻿
-using DLToolkit.Forms.Controls;
+
 using InkApp.Models;
 using Prism.Commands;
 using Prism.Navigation;
@@ -39,6 +39,9 @@ namespace InkApp.ViewModels
         private string _local;
         public string Local { get { return _local; } set { SetProperty(ref _local, value); } }
 
+        private string _nome;
+        public string Nome { get { return _nome; } set { SetProperty(ref _nome, value); } }
+
         //-------------
         private object _photo;
         public object Image { get { return _photo; } set { SetProperty(ref _photo, value); } }
@@ -57,6 +60,8 @@ namespace InkApp.ViewModels
         private bool _visible;
         public bool Visible { get { return _visible; } set { SetProperty(ref _visible, value); } }
 
+        private bool _isCollection;
+        public bool CollectionVisible { get { return _isCollection; } set { SetProperty(ref _isCollection, value); } }
 
         public DelegateCommand PhotoTappedCommand { get; private set; }
         public DelegateCommand BtnIg { get; private set; }
@@ -79,10 +84,15 @@ namespace InkApp.ViewModels
 
         private async void OpenPhotoAsync()
         {
-            var x = Feed.First(n => n.ImageLow.Equals(LastTappedItem.ImageLow));
-            NavigationParameters np = new NavigationParameters();
-            np.Add("photo", x);
-            await NavigationService.NavigateAsync("ImagePage", np);
+            if(LastTappedItem != null)
+            {
+                var x = Feed.First(n => n.ImageLow.Equals(LastTappedItem.ImageLow));
+                NavigationParameters np = new NavigationParameters
+                {
+                    { "photo", x }
+                };
+                await NavigationService.NavigateAsync("ImagePage", np);
+            }            
         }
 
         private async void LoadMoreDataAsync()
@@ -184,12 +194,14 @@ namespace InkApp.ViewModels
             if(parameters.GetNavigationMode() == NavigationMode.New)
             {
                 _pessoa = parameters["pessoa"] as Pessoa;
+                CollectionVisible = false;
                 _pessoa.NextPage = true;
+                Nome = _pessoa.Name;
                 ProfileImage = _pessoa.Image;
                 Local = _pessoa.Local;
                 Sobre = _pessoa.Sobre;
-                Title = _pessoa.Name;
                 await GetMediaAsync(_pessoa);
+                CollectionVisible = true;
             }            
         }
 

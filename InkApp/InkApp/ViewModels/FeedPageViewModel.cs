@@ -1,9 +1,10 @@
-﻿using DLToolkit.Forms.Controls;
+﻿
 using InkApp.Models;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,28 +14,32 @@ namespace InkApp.ViewModels
     {
         private Repository repository;
         public DelegateCommand<string> FilterCommand { get; private set; }
-        public DelegateCommand<object> PhotoTappedCommand { get; private set; }
+        public DelegateCommand PhotoTappedCommand { get; private set; }
 
         public DelegateCommand TopCommand { get; private set; }
         public DelegateCommand LoadingCommand { get; set; }
 
         private List<InstagramItem> items;
 
-        private FlowObservableCollection<InstagramItem> _feed;
-        public FlowObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
+        private ObservableCollection<InstagramItem> _feed;
+        public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
 
-        private FlowObservableCollection<InstagramItem> _toplist;
-        public FlowObservableCollection<InstagramItem> TopList { get { return _toplist; } set { SetProperty(ref _toplist, value); } }
+        private ObservableCollection<InstagramItem> _toplist;
+        public ObservableCollection<InstagramItem> TopList { get { return _toplist; } set { SetProperty(ref _toplist, value); } }
 
-        private object _lastItemTapped;
-        public object LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
+        private InstagramItem _lastItemTapped;
+        public InstagramItem LastTappedItem { get { return _lastItemTapped; } set { SetProperty(ref _lastItemTapped, value); } }
 
         private bool _busy;
         public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
 
         private bool _loadMore;
         public bool IsLoadMore { get { return _loadMore; } set { SetProperty(ref _loadMore, value); } }
+
+
+        private bool _isCollection;
+        public bool CollectionVisible { get { return _isCollection; } set { SetProperty(ref _isCollection, value); } }
 
         private int _position;
         public int Position { get { return _position; } set { SetProperty(ref _position, value); } }
@@ -44,12 +49,12 @@ namespace InkApp.ViewModels
         public FeedPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             repository = new Repository();
-            Feed = new FlowObservableCollection<InstagramItem>();
-            TopList = new FlowObservableCollection<InstagramItem>();
+            Feed = new ObservableCollection<InstagramItem>();
+            TopList = new ObservableCollection<InstagramItem>();
             items = new List<InstagramItem>();
             PeopleAdded = new List<Pessoa>();
             FilterCommand = new DelegateCommand<string>(FilterData);
-            PhotoTappedCommand = new DelegateCommand<object>(OpenPhotoAsync);
+            PhotoTappedCommand = new DelegateCommand(OpenPhotoAsync);
             LoadingCommand = new DelegateCommand(LoadMoreData);
             TopCommand = new DelegateCommand(CardOpenPhoto);
             StartValueAsync();
@@ -74,25 +79,44 @@ namespace InkApp.ViewModels
         {
             Feed.Clear();
             if (obj != "All")
-                Feed.AddRange(items.Where(n => n.Tags.Contains(obj)));
+            {
+                foreach(var x in items.Where(n => n.Tags.Contains(obj)))
+                {
+                    Feed.Add(x);
+                }
+            }
             else
-                Feed.AddRange(items);
+            {
+                foreach (var x in items)
+                {
+                    Feed.Add(x);
+                }
+            }
         }
 
         private async void StartValueAsync()
         {
+            CollectionVisible = false;
             await GetMoreDataAsync();
-            TopList.AddRange(items.GetRange(new Random ().Next(0, items.Count-1), 5));
+            foreach (var x in items.GetRange(new Random().Next(0, items.Count - 1), 5))
+            {
+                TopList.Add(x);
+            }
+            CollectionVisible = true;
         }
 
-        private async void OpenPhotoAsync(object obj)
+        private async void OpenPhotoAsync()
         {
-            var x = Feed.First(n => n.ImageLow.Equals((obj as InstagramItem).ImageLow));
-            NavigationParameters np = new NavigationParameters
+            if(LastTappedItem != null)
             {
-                { "photo", x }
-            };
-            await NavigationService.NavigateAsync("ImagePage", np);
+                var x = Feed.First(n => n.ImageLow.Equals(LastTappedItem.ImageLow));
+                NavigationParameters np = new NavigationParameters
+                {
+                    { "photo", x }
+                };
+                await NavigationService.NavigateAsync("ImagePage", np);
+            }
+            
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
@@ -120,7 +144,10 @@ namespace InkApp.ViewModels
                         PeopleAdded.Add(p);
                     }
                 }
-                Feed.AddRange(items.OrderBy(a => Guid.NewGuid()));
+                foreach (var x in items.OrderBy(a => Guid.NewGuid()))
+                {
+                    Feed.Add(x);
+                }
             }
             catch(Exception ex)
             {

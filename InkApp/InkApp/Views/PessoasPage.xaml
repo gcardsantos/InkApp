@@ -22,7 +22,7 @@
             <Label Text="Não foi possível conectar." IsVisible="{Binding Visible}"/>
             
             <Frame CornerRadius="10" BorderColor="WhiteSmoke" HasShadow="True" HorizontalOptions="FillAndExpand" Padding="10" Margin="3">
-                <SearchBar x:Name="searchBar"  SearchCommand="{Binding SearchBarCommand}" SearchCommandParameter="{Binding Path=Text, Source={x:Reference searchBar}}" Placeholder="Filtrar" BackgroundColor="White" HorizontalOptions="FillAndExpand" FontSize="13"/>
+                <SearchBar x:Name="searchBar" Text="{Binding SearchText}" Placeholder="Filtrar" BackgroundColor="White" HorizontalOptions="FillAndExpand" FontSize="13"/>
             </Frame>
             
             <ListView x:Name="ListViewPessoas" ItemsSource="{Binding PeopleVisible}" SelectedItem="{Binding Item}"

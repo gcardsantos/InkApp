@@ -11,7 +11,7 @@
              BackgroundColor="AntiqueWhite">
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" BackgroundColor="Transparent">
-            <StackLayout Orientation="Vertical" Padding="0" Margin="5" BackgroundColor="Transparent">
+            <StackLayout VerticalOptions="Center" Orientation="Vertical" Padding="0" Margin="5" BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding Heart}" FontFamily="{DynamicResource MaterialButton}" TextColor="{Binding Cor}" Margin="15, 15, 0, 0" Scale="2">
                         <Label.GestureRecognizers>
@@ -35,7 +35,7 @@
                         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                                                    Color="Black" VerticalOptions="Center" 
                                                    HorizontalOptions="Center"/>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, -3">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, -4">
                             <ff:CachedImage Source="{Binding Profile}" Aspect="AspectFit" CacheDuration="1" RetryCount="2">
                                 <ff:CachedImage.Transformations>
                                     <fftransformations:CircleTransformation/>
