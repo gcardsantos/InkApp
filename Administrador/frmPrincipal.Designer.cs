@@ -34,6 +34,7 @@
             this.btnSalvar = new System.Windows.Forms.Button();
             this.dgvPessoas = new System.Windows.Forms.DataGridView();
             this.btnExcluir = new System.Windows.Forms.Button();
+            this.btnAtt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPessoas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,11 +94,22 @@
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.BtnExcluir_Click);
             // 
+            // btnAtt
+            // 
+            this.btnAtt.Location = new System.Drawing.Point(1004, 455);
+            this.btnAtt.Name = "btnAtt";
+            this.btnAtt.Size = new System.Drawing.Size(75, 23);
+            this.btnAtt.TabIndex = 18;
+            this.btnAtt.Text = "Refresh";
+            this.btnAtt.UseVisualStyleBackColor = true;
+            this.btnAtt.Click += new System.EventHandler(this.BtnAtt_Click);
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1132, 476);
+            this.ClientSize = new System.Drawing.Size(1138, 490);
+            this.Controls.Add(this.btnAtt);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.dgvPessoas);
             this.Controls.Add(this.btnBuscar);
@@ -120,5 +132,6 @@
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.DataGridView dgvPessoas;
         private System.Windows.Forms.Button btnExcluir;
+        private System.Windows.Forms.Button btnAtt;
     }
 }
