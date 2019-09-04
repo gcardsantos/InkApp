@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,16 +53,52 @@ namespace InkApp.Models
             return Service.AddItem(solicitacao);
         }
 
+        public JObject PeopleToJObject(Pessoa p)
+        {
+            JObject jo = new JObject();
+            jo.Add("id", p.Id);
+            jo.Add("Username", p.Username);
+            jo.Add("Facebook", p.Facebook);
+            jo.Add("Numero", p.Numero);
+            jo.Add("Sobre", p.Sobre);
+            jo.Add("Local", p.Local);
+            jo.Add("Cidade", p.Cidade);
+            jo.Add("Estado", p.Estado);
+            return jo;
+        }
+
         public bool AddPessoa(Pessoa p)
         {
             var Service = new Services.AzureService<Pessoa>();
             if (string.IsNullOrEmpty(p.Id))
                 return Service.AddItem(p);
             else
-                Service.UpdateItemAsync(p.Id, p);
+                Service.UpdateItemAsync(p.Id, PeopleToJObject(p));
 
             return true;
 
+        }
+
+        public bool AddPessoas(List<Pessoa> pessoas)
+        {
+            var Service = new Services.AzureService<Pessoa>();
+
+            try
+            {
+                foreach (var p in pessoas)
+                {
+
+                    if (string.IsNullOrEmpty(p.Id))
+                        Service.AddItem(p);
+                    else
+                        Service.UpdateItemAsync(p.Id, PeopleToJObject(p));
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

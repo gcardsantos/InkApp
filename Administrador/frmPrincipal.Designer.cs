@@ -31,16 +31,15 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.lbPessoas = new System.Windows.Forms.ListBox();
             this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.dgvPessoas = new System.Windows.Forms.DataGridView();
+            this.btnExcluir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPessoas)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(287, 27);
+            this.btnBuscar.Location = new System.Drawing.Point(378, 27);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 13;
@@ -61,20 +60,12 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(85, 29);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 20);
+            this.textBox1.Size = new System.Drawing.Size(240, 20);
             this.textBox1.TabIndex = 11;
-            // 
-            // lbPessoas
-            // 
-            this.lbPessoas.FormattingEnabled = true;
-            this.lbPessoas.Location = new System.Drawing.Point(34, 76);
-            this.lbPessoas.Name = "lbPessoas";
-            this.lbPessoas.Size = new System.Drawing.Size(325, 355);
-            this.lbPessoas.TabIndex = 10;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(287, 443);
+            this.btnSalvar.Location = new System.Drawing.Point(982, 27);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
             this.btnSalvar.TabIndex = 14;
@@ -82,38 +73,39 @@
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.BtnSalvar_Click);
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(34, 443);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 15;
-            this.btnAdd.Text = "Adicionar";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
-            // 
             // dgvPessoas
             // 
+            this.dgvPessoas.AllowUserToDeleteRows = false;
             this.dgvPessoas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPessoas.Location = new System.Drawing.Point(433, 76);
+            this.dgvPessoas.Location = new System.Drawing.Point(37, 72);
             this.dgvPessoas.Name = "dgvPessoas";
-            this.dgvPessoas.Size = new System.Drawing.Size(622, 355);
+            this.dgvPessoas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgvPessoas.Size = new System.Drawing.Size(1042, 365);
             this.dgvPessoas.TabIndex = 16;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.Location = new System.Drawing.Point(648, 27);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
+            this.btnExcluir.TabIndex = 17;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.BtnExcluir_Click);
             // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1091, 487);
+            this.ClientSize = new System.Drawing.Size(1132, 476);
+            this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.dgvPessoas);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.lbPessoas);
             this.Controls.Add(this.btnSalvar);
             this.Name = "frmPrincipal";
-            this.Text = "frmPrincipal";
+            this.Text = "Editor InkApp";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPessoas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -125,9 +117,8 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListBox lbPessoas;
         private System.Windows.Forms.Button btnSalvar;
-        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DataGridView dgvPessoas;
+        private System.Windows.Forms.Button btnExcluir;
     }
 }

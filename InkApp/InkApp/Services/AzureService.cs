@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,12 +39,12 @@ namespace InkApp.Services
             
         }
 
-        public async void UpdateItemAsync(string id, T item)
+        public async void UpdateItemAsync(string id, JObject item)
         {
             try
             {
                 T target = await Table.LookupAsync(id);
-
+                
                 if (target != null)
                 {
                     await Table.UpdateAsync(item);
