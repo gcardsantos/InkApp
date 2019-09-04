@@ -56,6 +56,23 @@ namespace InkApp.Services
                 
             }
         }
-        
+
+        internal async Task DeleteItemAsync(Pessoa p, JObject item)
+        {
+            try
+            {
+                T target = await Table.LookupAsync(p.Id);
+
+                if (target != null)
+                {
+                    await Table.DeleteAsync(item);
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }

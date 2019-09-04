@@ -10,7 +10,7 @@
              Title="Tatuadores">
     <ScrollView Orientation="Vertical">
         <StackLayout Orientation="Vertical" Padding="0">
-            <ScrollView Orientation="Horizontal">
+            <!--<ScrollView Orientation="Horizontal">
                 <StackLayout Padding="10" Orientation="Horizontal" HeightRequest="30">
                     <Frame Padding="5" CornerRadius="10" BorderColor="Black">
                         <Label Text="Todos" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center">
@@ -62,7 +62,7 @@
                         </Label>
                     </Frame>
                 </StackLayout>
-            </ScrollView>
+            </ScrollView>-->
 
             <CollectionView x:Name="dataCollection" ItemsSource="{Binding Pessoas}" SelectedItem="{Binding People}" ItemSizingStrategy="MeasureFirstItem"
                             SelectionChangedCommand="{Binding OpenProfileCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepItemsInView" IsVisible="{Binding CollectionVisible}">

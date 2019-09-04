@@ -100,5 +100,23 @@ namespace InkApp.Models
                 return false;
             }
         }
+
+        public async void RemovePessoasAsync(List<Pessoa> rollback)
+        {
+            var Service = new Services.AzureService<Pessoa>();
+
+            try
+            {
+                foreach (var p in rollback)
+                {
+                    if (!string.IsNullOrEmpty(p.Id))
+                        await Service.DeleteItemAsync(p, PeopleToJObject(p));
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
+        }
     }
 }

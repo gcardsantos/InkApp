@@ -16,10 +16,7 @@ namespace Administrador
     {
         static List<Pessoa> Pessoas;
         static Repository repository;
-
-        static DataRow SelectPeople;
-
-        static List<DataGridViewRow> Rollback;
+        static List<Pessoa> Rollback;
 
         public frmPrincipal()
         {
@@ -30,7 +27,7 @@ namespace Administrador
         private async void StartValueAsync()
         {
             Pessoas = new List<Pessoa>();
-            Rollback = new List<DataGridViewRow>();
+            Rollback = new List<Pessoa>();
             repository = new Repository();
 
             DataTable table = new DataTable();
@@ -44,8 +41,6 @@ namespace Administrador
             table.Columns.Add("Cidade", typeof(string));
             table.Columns.Add("Estado", typeof(string));
             table.Columns.Add("Sobre", typeof(string));
-
-
             
             await Task.WhenAll(GetPeopleAsync());
             
@@ -89,12 +84,15 @@ namespace Administrador
                 pessoas.Add(RowToPeople(row as DataRow));
             }
 
-            Concluir(pessoas);
+
+            if (MessageBox.Show("Deseja salvar todas alterações ? ", "Excluir", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                Concluir(pessoas);
         }
 
         private void Concluir(List<Pessoa> pessoas)
         {
             repository.AddPessoas(pessoas);
+            repository.RemovePessoasAsync(Rollback);
         }
 
         private void BtnExcluir_Click(object sender, EventArgs e)
@@ -103,7 +101,8 @@ namespace Administrador
             {
                 if(MessageBox.Show("Deseja remover ? ", "Excluir", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    Rollback.Add(dgvPessoas.CurrentRow);
+                    DataRow row = ((DataRowView)dgvPessoas.SelectedRows[0].DataBoundItem).Row;
+                    Rollback.Add(RowToPeople(row));
                     dgvPessoas.Rows.Remove(dgvPessoas.CurrentRow);
                 }
                     

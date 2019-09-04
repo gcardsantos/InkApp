@@ -5,6 +5,7 @@ using InkApp.Models;
 using Xamarin.Forms;
 using InkApp.Views;
 using Prism;
+using System.Collections.ObjectModel;
 
 namespace InkApp.ViewModels
 {
@@ -29,6 +30,10 @@ namespace InkApp.ViewModels
         //bool para exibir botao sincronizar
         private bool _btnEnabled;
         public bool BtnEnabled { get { return _btnEnabled; } set { SetProperty(ref _btnEnabled, value); } }
+
+
+        private ObservableCollection<string> _cidades;
+        public ObservableCollection<string> Cidades { get { return _cidades; } set { SetProperty(ref _cidades, value); } }
 
         private object _city;
 
@@ -63,6 +68,8 @@ namespace InkApp.ViewModels
             NavigateToRequestPageCommand = new DelegateCommand(NavigateToRequestPage);
             NavigateToAboutPageCommand = new DelegateCommand(NavitageToAboutPageAsync);
 
+            Cidades = new ObservableCollection<string>();
+
             int attempt = 0;
             IsBusy = true;
             while(attempt != 1)
@@ -70,6 +77,14 @@ namespace InkApp.ViewModels
                 try
                 {
                     var x = await (new Repository().GetPessoas());
+
+                    foreach(var i in x)
+                    {
+                        string s = i.Estado + " / " + i.Cidade;
+                        if (!Cidades.Contains(s))
+                            Cidades.Add(s);
+                    }
+                    
                     attempt = 1;
                 }
                 catch (Exception)
