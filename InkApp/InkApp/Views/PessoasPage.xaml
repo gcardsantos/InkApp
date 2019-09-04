@@ -43,9 +43,9 @@
                                                     <fftransformations:CircleTransformation/>
                                                 </ff:CachedImage.Transformations>
                                             </ff:CachedImage>
-                                            <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="Start" Padding="10, -5, 0, 0"  Margin="10, 0, 0, 0">
-                                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
-                                                <Label  FontSize="18" TextColor="Black">
+                                            <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Start" Padding="10, -5, 0, 0"  Margin="10, 0, 0, 0">
+                                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" TextColor="Black" Margin="26, 0, 0, 0" LineBreakMode="TailTruncation"/>
+                                                <Label  FontSize="18" TextColor="Black" LineBreakMode="TailTruncation">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{StaticResource Location}" FontFamily="{DynamicResource MaterialButton}" FontSize="23"/>

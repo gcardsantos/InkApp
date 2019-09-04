@@ -102,15 +102,16 @@ namespace InkApp.ViewModels
 
         private void OpenLocal()
         {
+            string rua = _pessoa.Local + ", " + _pessoa.Cidade + " - " + _pessoa.Estado;
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
                     Device.OpenUri(
-                      new Uri(string.Format("http://maps.apple.com/?q={0}", WebUtility.UrlEncode(Local))));
+                      new Uri(string.Format("http://maps.apple.com/?q={0}", WebUtility.UrlEncode(rua))));
                     break;
                 case Device.Android:
                     Device.OpenUri(
-                      new Uri(string.Format("geo:0,0?q={0}", WebUtility.UrlEncode(Local))));
+                      new Uri(string.Format("geo:0,0?q={0}", WebUtility.UrlEncode(rua))));
                     break;
             }
         }
