@@ -38,7 +38,7 @@ namespace InkApp.Services
             
         }
 
-        public async Task<bool> UpdateItemAsync(int id, T item)
+        public async void UpdateItemAsync(string id, T item)
         {
             try
             {
@@ -47,14 +47,12 @@ namespace InkApp.Services
                 if (target != null)
                 {
                     await Table.UpdateAsync(item);
-                    return true;
                 }
 
-                return false;
             }
             catch (Exception)
             {
-                return false;
+                
             }
         }
         

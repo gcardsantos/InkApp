@@ -19,13 +19,13 @@ namespace InkApp.Views
 
         private void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
         {
-            lbAll.TextColor = Color.LightGray;
-            lbBlackGray.TextColor = Color.LightGray;
-            lbBlackWork.TextColor = Color.LightGray;
-            lbFineLine.TextColor = Color.LightGray;
-            lbGeometric.TextColor = Color.LightGray;
-            lbOldSchool.TextColor = Color.LightGray;
-            lbTribal.TextColor = Color.LightGray;
+            lbAll.TextColor = Color.Gray;
+            lbBlackGray.TextColor = Color.Gray;
+            lbBlackWork.TextColor = Color.Gray;
+            lbFineLine.TextColor = Color.Gray;
+            lbGeometric.TextColor = Color.Gray;
+            lbOldSchool.TextColor = Color.Gray;
+            lbTribal.TextColor = Color.Gray;
 
             frAll.BackgroundColor = Color.White;
             frBlackGray.BackgroundColor = Color.White;

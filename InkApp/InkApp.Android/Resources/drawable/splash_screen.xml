@@ -5,7 +5,7 @@
   </item>
   <item
     android:width="200dp"
-    android:height="90dp"
+    android:height="100dp"
     android:drawable="@drawable/inkapp"
     android:gravity="center"/>
 </layer-list>
