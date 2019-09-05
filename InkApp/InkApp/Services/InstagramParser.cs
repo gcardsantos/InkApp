@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace InkApp.Services
 {
@@ -191,13 +192,14 @@ namespace InkApp.Services
 
         }
 
+       
         public async System.Threading.Tasks.Task<List<InstagramItem>> GetAllMediaAsync(Pessoa p)
         {
             List<InstagramItem> items = new List<InstagramItem>();
             try
             {
 
-                while (items.Count < p.QtdPosts)
+                while (items.Count < p.QtdPosts && items.Count < 200)
                 {
                     using (HttpClient client = new HttpClient())
                     {

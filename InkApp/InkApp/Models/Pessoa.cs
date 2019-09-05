@@ -21,7 +21,10 @@ namespace InkApp
         public string IdInsta { get; set; }
         public string LastToken { get; set; }
         public string Estilos { get; set; }
+        public DateTime createdAt { get; set; }
+        public DateTime updatedAt { get; set; }
         public bool NextPage { get; set; }
         public int QtdPosts { get; set; }
     }
 }
+

@@ -17,7 +17,7 @@
                 </Label.FormattedText>
             </Label>
 
-            <Label Text="Informe seu contato que entraremos em contato." FontAttributes="Bold" FontSize="Large" HorizontalTextAlignment="Center"/>
+            <Label Text="Informe os dados abaixo para entrarmos em contato." FontAttributes="Bold" FontSize="Large" HorizontalTextAlignment="Center"/>
 
             <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10" Visual="Material">
                 <StackLayout Orientation="Horizontal" >

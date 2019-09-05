@@ -41,11 +41,14 @@ namespace Administrador
             table.Columns.Add("Cidade", typeof(string));
             table.Columns.Add("Estado", typeof(string));
             table.Columns.Add("Sobre", typeof(string));
-            
+            table.Columns.Add("Criado em", typeof(string));
+            table.Columns.Add("Editado em", typeof(string));
+            table.Columns.Add("         ", typeof(string));
+
             await Task.WhenAll(GetPeopleAsync());
             
             foreach(Pessoa p in Pessoas)
-                table.Rows.Add(p.Id, p.Name, p.Username, p.Numero, p.Facebook, p.Local, p.Cidade, p.Estado, p.Sobre);
+                table.Rows.Add(p.Id, p.Name, p.Username, p.Numero, p.Facebook, p.Local, p.Cidade, p.Estado, p.Sobre, p.createdAt.ToString(), p.updatedAt.ToString());
 
             dgvPessoas.DataSource = table;
         }

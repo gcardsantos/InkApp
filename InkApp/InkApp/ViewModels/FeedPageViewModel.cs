@@ -128,8 +128,7 @@ namespace InkApp.ViewModels
 
                     var list = t2.Result;
 
-                    foreach (var l in list)
-                        Imagens[p].Add(l);
+                    Imagens[p].AddRange(list);
                 });
                 
             }
@@ -157,19 +156,19 @@ namespace InkApp.ViewModels
             
         }
 
-        public async Task GetMoreData()
+        public void GetMoreDataAsync()
         {
             IsBusy = true;
-            foreach (var p in Imagens)
-            {
-                if (!String.IsNullOrWhiteSpace(p.Key.LastToken))
+            Task.Run(
+                () => Parallel.ForEach(Imagens, async p =>
                 {
-                    var list = await App.Api.GetMediaAsync(p.Key, 49);
-
-                    foreach (var l in list)
-                        p.Value.Add(l);
-                }
-            }
+                    if (!String.IsNullOrWhiteSpace(p.Key.LastToken))
+                    {
+                        var list = await App.Api.GetMediaAsync(p.Key, 49);
+                        p.Value.AddRange(list);
+                    }
+                })
+            ); 
             IsBusy = false;
         }
 
@@ -189,66 +188,69 @@ namespace InkApp.ViewModels
                 //'done' valida se ainda há dados para se buscar
                 //'localAttempt' tenta fazer uma nova requisição de dados para continuar o feed
 
-                if(done == false)
+                while (count == Feed.Count)
                 {
-                    while (count == Feed.Count)
+                    for (int i = 0; i < 4 && i < Imagens.Count - 1; i++)
                     {
-                        for (int i = 0; i < 4 && i < Imagens.Count - 1; i++)
+                        var pessoa = Imagens.ToList()[r.Next(Imagens.Count - 1)];
+                        var k = pessoa.Value;
+
+                        List<InstagramItem> l;
+
+                        if (k.Count > 5)
+                            l = k.GetRange(0, 5);
+                        else
+                            l = k;
+
+                        foreach(InstagramItem item in l)
                         {
-                            var k = Imagens.Values.ToList()[r.Next(Imagens.Count - 1)];
-                            List<InstagramItem> l;
-
-                            if (k.Count > 5)
-                                l = k.GetRange(0, 5);
-                            else
-                                l = k;
-
-                            foreach(InstagramItem item in l)
-                            {
-                                items.Add(item);
-                                allItems.Add(item);
-                                k.Remove(item);
-                            }
+                            items.Add(item);
+                            allItems.Add(item);
+                            k.Remove(item);
                         }
 
-                        if (localAttempt && count == allItems.Count)
+                        if (k.Count == 0)
+                            Imagens.Remove(pessoa.Key);
+                    }
+
+                    if (localAttempt && count == allItems.Count)
+                    {
+                        //done = true;
+                        break;
+                    }
+
+                    var itemsShuffle = items.OrderBy(a => Guid.NewGuid());
+
+                    if (FilterSelected.Equals("All"))
+                    {
+                        foreach (var x in itemsShuffle)
                         {
-                            //done = true;
-                            break;
+                            Feed.Add(x);
                         }
-
-                        var itemsShuffle = items.OrderBy(a => Guid.NewGuid());
-
-                        if (FilterSelected.Equals("All"))
+                    }
+                    else
+                    {
+                        foreach (var x in itemsShuffle)
                         {
-                            foreach (var x in itemsShuffle)
+                            if (x.Tags.ToLower().Contains(FilterSelected.ToLower()))
                             {
-                                
                                 Feed.Add(x);
                             }
                         }
-                        else
-                        {
-                            foreach (var x in itemsShuffle)
-                            {
-                                if (x.Tags.ToLower().Contains(FilterSelected.ToLower()))
-                                {
-                                    Feed.Add(x);
-                                }
-                            }
-                        }
-
-                        await GetMoreData();
-
-                        if (count == allItems.Count)
-                        {    
-                            localAttempt = true;
-                        }                       
-                            
                     }
-                }
-                
 
+                    await Task.Run(() => GetMoreDataAsync());
+
+                    if (count == allItems.Count)
+                    {    
+                        localAttempt = true;
+                    }                       
+                            
+                }
+            }
+            catch (InvalidOperationException r)
+            {
+                string s = r.Message;
             }
             catch (Exception ex)
             {

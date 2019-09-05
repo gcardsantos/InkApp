@@ -75,8 +75,8 @@
             </cards:CarouselView>-->
 
             <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureFirstItem"
-                            SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepItemsInView"
-                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="20" IsVisible="{Binding CollectionVisible}">
+                            SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepScrollOffset" 
+                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="50" IsVisible="{Binding CollectionVisible}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="2" VerticalItemSpacing="2"/>
                 </CollectionView.ItemsLayout>
