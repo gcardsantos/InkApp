@@ -76,7 +76,7 @@
 
             <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureFirstItem"
                             SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepScrollOffset" 
-                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="50" IsVisible="{Binding CollectionVisible}">
+                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="200" IsVisible="{Binding CollectionVisible}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="2" VerticalItemSpacing="2"/>
                 </CollectionView.ItemsLayout>
@@ -89,7 +89,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
-                            <ff:CachedImage DownsampleToViewSize="True" BitmapOptimizations="True" LoadingPlaceholder="loading.png" Source="{Binding ImageLow}" CacheDuration="30"/>
+                            <ff:CachedImage DownsampleToViewSize="True" LoadingPlaceholder="loading.png" Source="{Binding ImageLow}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
