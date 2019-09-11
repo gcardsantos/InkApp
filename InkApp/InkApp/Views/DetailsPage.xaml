@@ -21,24 +21,24 @@
                     </ff:CachedImage.Transformations>
                 </ff:CachedImage>
                 <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" Padding="1">
-                    <Label Text="{Binding Nome}" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                    <Label Text="{Binding Nome}" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="Center">
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Location}" HorizontalTextAlignment="Center" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BtnLocal}" NumberOfTapsRequired="1"/>
                             </Label.GestureRecognizers>
                         </Label>
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Instagram}" HorizontalTextAlignment="Center" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BtnIg}" NumberOfTapsRequired="1"/>
                             </Label.GestureRecognizers>
                         </Label>
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Whats}" HorizontalTextAlignment="Center" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BtnWhats}" NumberOfTapsRequired="1"/>
                             </Label.GestureRecognizers>
                         </Label>
-                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Facebook}" HorizontalTextAlignment="Center" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BtnFace}" NumberOfTapsRequired="1"/>
                             </Label.GestureRecognizers>

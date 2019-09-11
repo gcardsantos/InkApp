@@ -167,8 +167,10 @@ namespace InkApp.ViewModels
                         var list = await App.Api.GetMediaAsync(p.Key, 49);
                         p.Value.AddRange(list);
                     }
-                })
+                }
+                )
             ); 
+            
             IsBusy = false;
         }
 
