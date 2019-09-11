@@ -7,6 +7,7 @@
              x:Class="InkApp.Views.FeedPage"
              BackgroundColor="AntiqueWhite"
              Title="Novidades">
+
     <StackLayout Orientation="Vertical" Padding="0">
         <ScrollView Orientation="Horizontal" MinimumHeightRequest="60">
             <StackLayout Padding="10" Orientation="Horizontal" MinimumHeightRequest="50">
@@ -74,7 +75,7 @@
 
         <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureFirstItem"
                             SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepScrollOffset" 
-                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="200" IsVisible="{Binding CollectionVisible}">
+                            RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="1" IsVisible="{Binding CollectionVisible}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="2" VerticalItemSpacing="2"/>
             </CollectionView.ItemsLayout>
@@ -93,8 +94,8 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
-                                           Color="Black" VerticalOptions="Center" 
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" BackgroundColor="Transparent"
+                                           Color="Black" VerticalOptions="Center"
                                            HorizontalOptions="Center"/>
         <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
 			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}" HasUnevenRows="False" FlowUseAbsoluteLayoutInternally="True">

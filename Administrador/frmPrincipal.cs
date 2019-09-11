@@ -115,7 +115,9 @@ namespace Administrador
         private void BtnAtt_Click(object sender, EventArgs e)
         {
             DataTable table = dgvPessoas.DataSource as DataTable;
-            table.Clear();
+
+            if(table != null)
+                table.Clear();
 
             StartValueAsync();
         }
