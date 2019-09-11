@@ -5,59 +5,57 @@
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.FeedPage"
-             BackgroundColor="White"
+             BackgroundColor="AntiqueWhite"
              Title="Novidades">
+    <StackLayout Orientation="Vertical" Padding="0">
+        <ScrollView Orientation="Horizontal" MinimumHeightRequest="60">
+            <StackLayout Padding="10" Orientation="Horizontal" MinimumHeightRequest="50">
+                <Frame x:Name="frAll" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30" BackgroundColor="Black">
+                    <Label x:Name="lbAll" Text="Todas" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" TextColor="White"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="All"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame x:Name="frBlackWork" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30" >
+                    <Label x:Name="lbBlackWork" Text="BlackWork" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="blackwork"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame x:Name="frBlackGray" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
+                    <Label x:Name="lbBlackGray" Text="Black and Gray" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="blackandgray"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame x:Name="frFineLine" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
+                    <Label x:Name="lbFineLine" Text="Fine Line" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="fineline"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame  x:Name="frGeometric" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
+                    <Label x:Name="lbGeometric" Text="Geometric" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="geometric"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame x:Name="frOldSchool" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
+                    <Label x:Name="lbOldSchool" Text="Old School" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="oldschool"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame x:Name="frTribal" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
+                    <Label x:Name="lbTribal" Text="Tribal" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="tribal"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
 
-    <ScrollView Orientation="Vertical" BackgroundColor="AntiqueWhite">
-        <StackLayout Orientation="Vertical" Padding="0">
-            <ScrollView Orientation="Horizontal" MinimumHeightRequest="60">
-                <StackLayout Padding="10" Orientation="Horizontal" MinimumHeightRequest="50">
-                    <Frame x:Name="frAll" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30" BackgroundColor="Black">
-                        <Label x:Name="lbAll" Text="Todas" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" TextColor="White"/>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="All"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                    <Frame x:Name="frBlackWork" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30" >
-                        <Label x:Name="lbBlackWork" Text="BlackWork" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="blackwork"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                    <Frame x:Name="frBlackGray" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
-                        <Label x:Name="lbBlackGray" Text="Black and Gray" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="blackandgray"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                    <Frame x:Name="frFineLine" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
-                        <Label x:Name="lbFineLine" Text="Fine Line" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="fineline"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                    <Frame  x:Name="frGeometric" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
-                        <Label x:Name="lbGeometric" Text="Geometric" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="geometric"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                    <Frame x:Name="frOldSchool" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
-                        <Label x:Name="lbOldSchool" Text="Old School" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="oldschool"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                    <Frame x:Name="frTribal" Padding="5" CornerRadius="10" BorderColor="Black" MinimumHeightRequest="30">
-                        <Label x:Name="lbTribal" Text="Tribal" FontSize="Default" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding FilterCommand}" CommandParameter="tribal"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                </StackLayout>
-            </ScrollView>
-
-            <!--<cards:CarouselView 
+        <!--<cards:CarouselView 
                 ItemsSource="{Binding TopList}"
                 SelectedIndex="{Binding Position}" 
                 Padding="20" HorizontalOptions="Center">
@@ -74,31 +72,31 @@
                 <controls:IndicatorsControl/>
             </cards:CarouselView>-->
 
-            <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureFirstItem"
+        <CollectionView x:Name="dataCollection" ItemsSource="{Binding Feed}" SelectedItem="{Binding LastTappedItem}" ItemSizingStrategy="MeasureFirstItem"
                             SelectionChangedCommand="{Binding PhotoTappedCommand}" SelectionMode="Single" ItemsUpdatingScrollMode="KeepScrollOffset" 
                             RemainingItemsThresholdReachedCommand="{Binding LoadingCommand}" RemainingItemsThreshold="200" IsVisible="{Binding CollectionVisible}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="2" VerticalItemSpacing="2"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="150"/>
-                            </Grid.RowDefinitions>
-                            <ff:CachedImage DownsampleToViewSize="True" LoadingPlaceholder="loading.png" Source="{Binding ImageLow}"/>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="2" VerticalItemSpacing="2"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150"/>
+                        </Grid.RowDefinitions>
+                        <ff:CachedImage DownsampleToViewSize="True" LoadingPlaceholder="loading.png" Source="{Binding ImageLow}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
                                            Color="Black" VerticalOptions="Center" 
                                            HorizontalOptions="Center"/>
-            <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
+        <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
 			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}" HasUnevenRows="False" FlowUseAbsoluteLayoutInternally="True">
                 <fl:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
@@ -123,6 +121,5 @@
                     </StackLayout>
                 </fl:FlowListView.Footer>
             </fl:FlowListView>-->
-        </StackLayout>
-    </ScrollView>
+    </StackLayout>
 </ContentPage>
