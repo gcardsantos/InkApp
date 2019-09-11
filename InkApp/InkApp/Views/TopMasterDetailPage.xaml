@@ -25,10 +25,10 @@
                                 <Label Text="{Binding QuantTatuadores}" HorizontalOptions="Center" IsVisible="{Binding Visible}" FontAttributes="Bold"/>
                                 <Label Text="Tatuadores" TextColor="Black" FontAttributes="Bold"/>
                             </StackLayout>
-                            <StackLayout Orientation="Vertical" Margin="20,0">
+                            <!--<StackLayout Orientation="Vertical" Margin="20,0">
                                 <Label Text="~ 2000" HorizontalOptions="Center" IsVisible="{Binding Visible}" FontAttributes="Bold"/>
                                 <Label Text="Tatuagens" TextColor="Black" FontAttributes="Bold"/>
-                            </StackLayout>
+                            </StackLayout>-->
                         </StackLayout>
                     </StackLayout>
                     <TableView Intent="Menu" RowHeight="30" BackgroundColor="AntiqueWhite" HasUnevenRows="True" Margin="0, 30">
