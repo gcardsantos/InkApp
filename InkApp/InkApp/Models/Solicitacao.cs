@@ -10,14 +10,8 @@ namespace InkApp.Models
     {
         public string Id { get; set; }
         public string Nome { get; set; }
-        public string Username { get; set; }
-        public string Facebook { get; set; }
-        public string Telefone { get; set; }
-        public string Estilos { get; set; }
         public string Email { get; set; }
-        public string Rua { get; set; }
-        public string Cidade { get; set; }
-        public string Estado { get; set; }
-        public string Sobre { get; set; }
+        public DateTime createdAt { get; set; }
+        public DateTime updatedAt { get; set; }
     }
 }

@@ -57,6 +57,7 @@ namespace InkApp.Models
         {
             JObject jo = new JObject();
             jo.Add("id", p.Id);
+            jo.Add("Email", p.Email);
             jo.Add("Username", p.Username);
             jo.Add("Facebook", p.Facebook);
             jo.Add("Numero", p.Numero);
@@ -65,6 +66,14 @@ namespace InkApp.Models
             jo.Add("Cidade", p.Cidade);
             jo.Add("Estado", p.Estado);
             return jo;
+        }
+
+        public async Task<List<Solicitacao>> GetAllSolicitacao()
+        {
+            var Service = new Services.AzureService<Solicitacao>();
+            var Items = await Service.GetTable();
+
+            return Items.ToList();
         }
 
         public bool AddPessoa(Pessoa p)
@@ -87,7 +96,6 @@ namespace InkApp.Models
             {
                 foreach (var p in pessoas)
                 {
-
                     if (string.IsNullOrEmpty(p.Id))
                         Service.AddItem(p);
                     else
