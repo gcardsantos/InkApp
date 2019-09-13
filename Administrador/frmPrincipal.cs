@@ -137,10 +137,11 @@ namespace Administrador
 
         private void BtnAtt_Click(object sender, EventArgs e)
         {
-            DataTable table = dgvPessoas.DataSource as DataTable;
-
-            if(table != null)
-                table.Clear();
+            using (DataTable table = dgvPessoas.DataSource as DataTable)
+            {
+                if (table != null)
+                    table.Clear();
+            }
 
             StartValueAsync();
         }

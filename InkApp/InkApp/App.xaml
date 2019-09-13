@@ -17,8 +17,11 @@
             <On Platform="Android" Value="Lobster-Regular.ttf#Lobster-Regular" />
             <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
         </OnPlatform>
-        
-        
+
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarTextColor" Value="Black"/>
+        </Style>
+
         <x:String x:Key="Instagram">&#xF2FE;</x:String>
         <x:String x:Key="Whats">&#xF5A3;</x:String>
         <x:String x:Key="Facebook">&#xF20D;</x:String>

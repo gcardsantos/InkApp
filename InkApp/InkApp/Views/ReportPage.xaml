@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="InkApp.Views.ReportPage"
+             Title="Reportar">
+    <StackLayout Orientation="Vertical" HorizontalOptions="Fill" Padding="10" BackgroundColor="AntiqueWhite" BindingContext="{Binding Pessoa}">
+        <Label HorizontalOptions="Fill" TextColor="Black" Margin="30" HorizontalTextAlignment="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Você está reportando o tatuador " FontAttributes="Bold" FontSize="45"/>
+                    <Span Text="{Binding Name}" FontAttributes="Bold" FontSize="45"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label HorizontalOptions="Fill" TextColor="Black" Margin="30" HorizontalTextAlignment="Center" Text="Explique-nos o que aconteceu:" FontAttributes="Bold" FontSize="45"/>
+        <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10" Visual="Material">
+            <Entry Text="{Binding ReportText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
+        </Frame>
+        <Button Text="Enviar" Command="{Binding SendCommand}" BackgroundColor="Black" BorderWidth="2" CornerRadius="10" Visual="Material"/>
+    </StackLayout>
+</ContentPage>

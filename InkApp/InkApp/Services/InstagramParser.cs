@@ -65,12 +65,14 @@ namespace InkApp.Services
 
                         var o = JObject.Parse(json);
 
-                        Pessoa p = new Pessoa();
-                        p.Username = username;
-                        p.Image = o.SelectToken("graphql.user.profile_pic_url").Value<string>();
-                        p.IdInsta = o.SelectToken("graphql.user.id").Value<string>();
-                        p.QtdPosts = o.SelectToken("graphql.user.edge_owner_to_timeline_media.count").Value<int>();
-                        p.NextPage = true;
+                        Pessoa p = new Pessoa
+                        {
+                            Username = username,
+                            Image = o.SelectToken("graphql.user.profile_pic_url").Value<string>(),
+                            IdInsta = o.SelectToken("graphql.user.id").Value<string>(),
+                            QtdPosts = o.SelectToken("graphql.user.edge_owner_to_timeline_media.count").Value<int>(),
+                            NextPage = true
+                        };
                         return p;
                     }
                 }
@@ -149,7 +151,7 @@ namespace InkApp.Services
                             p.NextPage = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.has_next_page").Value<bool>();
                             p.LastToken = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.end_cursor").Value<string>();
                             var l = o.SelectToken("data.user.edge_owner_to_timeline_media.edges").Value<IEnumerable<JToken>>();
-                            var list = new List<JToken>(l).FindAll(n => n.ToString().Contains("GraphImage"));
+                            var list = new List<JToken>(l).FindAll(n => n.ToString().Contains("GraphImage") || n.ToString().Contains("GraphSidecar"));
                             if(list.Count > quant)
                             {
                                 list.RemoveRange(list.Count - quant - 1, quant);
@@ -166,8 +168,7 @@ namespace InkApp.Services
                                 {
                                     t = "";
                                 }
-
-
+                                
                                 InstagramItem i = new InstagramItem()
                                 {
                                     ImageLow = x.SelectToken("node.thumbnail_resources[0].src").Value<string>(),
@@ -224,7 +225,7 @@ namespace InkApp.Services
                             p.NextPage = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.has_next_page").Value<bool>();
                             p.LastToken = o.SelectToken("data.user.edge_owner_to_timeline_media.page_info.end_cursor").Value<string>();
                             var l = o.SelectToken("data.user.edge_owner_to_timeline_media.edges").Value<IEnumerable<JToken>>();
-                            var list = new List<JToken>(l).FindAll(n => n.ToString().Contains("GraphImage"));
+                            var list = new List<JToken>(l).FindAll(n => n.ToString().Contains("GraphImage") || n.ToString().Contains("GraphSidecar"));
                             p.QtdPosts -= (50 - list.Count);
 
                             foreach (var x in list)

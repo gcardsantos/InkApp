@@ -69,6 +69,7 @@ namespace InkApp.ViewModels
         public DelegateCommand BtnWhats { get; private set; }
         public DelegateCommand BtnFace { get; private set; }
         public DelegateCommand LoadingCommand { get; private set; }
+        public DelegateCommand ReportCommand { get; private set; }
 
         public DetailsPageViewModel(INavigationService navigationService):base(navigationService)
         {
@@ -77,9 +78,19 @@ namespace InkApp.ViewModels
             BtnIg = new DelegateCommand(OpenInstagram);
             BtnLocal = new DelegateCommand(OpenLocal);
             PhotoTappedCommand = new DelegateCommand(OpenPhotoAsync);
+            ReportCommand = new DelegateCommand(OpenReportPage);
             LoadingCommand = new DelegateCommand(LoadMoreDataAsync);
             Feed = new ObservableCollection<InstagramItem>();
             instagramItems = new List<InstagramItem>();
+        }
+
+        private async void OpenReportPage()
+        {
+            NavigationParameters np = new NavigationParameters
+            {
+                { "Pessoa", _pessoa }
+            };
+            await NavigationService.NavigateAsync("ReportPage", np);
         }
 
         private async void OpenPhotoAsync()

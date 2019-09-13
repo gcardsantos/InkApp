@@ -11,7 +11,9 @@
              BackgroundColor="AntiqueWhite"
              Title="Perfil">
 
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="warning.png" Command="{Binding ReportCommand}" Order="Primary"/>
+    </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical" Padding="1" VerticalOptions="FillAndExpand">
         <Frame BorderColor="Black" BackgroundColor="FloralWhite" HasShadow="True" CornerRadius="10" Padding="10" Visual="Default">
             <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="1">

@@ -61,6 +61,7 @@ namespace InkApp
             containerRegistry.RegisterForNavigation<FeedPage, FeedPageViewModel>();
             containerRegistry.RegisterForNavigation<ErrorConectionPage, ErrorConectionPageViewModel>();
             containerRegistry.RegisterForNavigation<BasePeoplePage, BasePeoplePageViewModel>();
+            containerRegistry.RegisterForNavigation<ReportPage, ReportPageViewModel>();
         }
 
         private async void CheckConnection()
