@@ -19,16 +19,10 @@
 
             <Label Text="Informe os dados abaixo para entrarmos em contato." FontAttributes="Bold" FontSize="Large" HorizontalTextAlignment="Center"/>
 
-            <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10" Visual="Material">
-                <StackLayout Orientation="Horizontal" >
-                    <Label Text="Nome: " FontSize="Default" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
-                    <Entry Text="{Binding NameText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
-                </StackLayout>
-            </Frame>
-            <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10" Visual="Material">
-                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
-                    <Label Text="Email: " FontSize="Default" VerticalOptions="CenterAndExpand" WidthRequest="120"/>
-                    <Entry Text="{Binding EmailText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
+            <Frame CornerRadius="10" BorderColor="FloralWhite" Padding="10" Visual="Material">
+                <StackLayout Orientation="Vertical" >
+                    <Entry Placeholder="Email:" Text="{Binding EmailText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent" Visual="Default"/>
+                    <Entry Placeholder="Nome:" Text="{Binding NameText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent" Visual="Default"/>
                 </StackLayout>
             </Frame>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, 10">

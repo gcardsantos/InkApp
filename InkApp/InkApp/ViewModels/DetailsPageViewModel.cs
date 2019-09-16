@@ -3,6 +3,7 @@
 using InkApp.Models;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -66,14 +67,18 @@ namespace InkApp.ViewModels
         public DelegateCommand PhotoTappedCommand { get; private set; }
         public DelegateCommand BtnIg { get; private set; }
         public DelegateCommand BtnLocal { get; private set; }
+
         public DelegateCommand BtnWhats { get; private set; }
         public DelegateCommand BtnFace { get; private set; }
         public DelegateCommand LoadingCommand { get; private set; }
         public DelegateCommand ReportCommand { get; private set; }
 
-        public DetailsPageViewModel(INavigationService navigationService):base(navigationService)
+        private readonly IPageDialogService PageDialogService;
+
+        public DetailsPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) :base(navigationService)
         {
-            BtnWhats = new DelegateCommand(OpenWhatsApp);
+            PageDialogService = pageDialogService;
+            BtnWhats = new DelegateCommand(OpenWhatsAppAsync);
             BtnFace = new DelegateCommand(OpenFace);
             BtnIg = new DelegateCommand(OpenInstagram);
             BtnLocal = new DelegateCommand(OpenLocal);
@@ -127,14 +132,20 @@ namespace InkApp.ViewModels
             }
         }
 
-        private void OpenFace()
+        private async void OpenFace()
         {
-            Device.OpenUri(new Uri("fb://" + _pessoa.Facebook));
+            if (!_pessoa.Facebook.Equals("nao"))
+                Device.OpenUri(new Uri("fb://" + _pessoa.Facebook));
+            else
+                await PageDialogService.DisplayAlertAsync("Facebook", "Tatuador não possui facebook.", "Ok");
         }
 
-        private void OpenWhatsApp()
+        private async void OpenWhatsAppAsync()
         {
-            Device.OpenUri(new Uri("https://wa.me/"+ _pessoa.Numero));
+            if(!_pessoa.Numero.Equals("nao"))
+                Device.OpenUri(new Uri("https://wa.me/"+ _pessoa.Numero));
+            else
+                await PageDialogService.DisplayAlertAsync("WhatsApp", "Tatuador não possui whatsapp.", "Ok");
         }
 
         private void OpenInstagram()

@@ -2,22 +2,40 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:behaviorPack="clr-namespace:Xamarin.Forms.BehaviorValidationPack;assembly=Xamarin.Forms.BehaviorValidationPack"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="InkApp.Views.ReportPage"
              Title="Reportar">
-    <StackLayout Orientation="Vertical" HorizontalOptions="Fill" Padding="10" BackgroundColor="AntiqueWhite" BindingContext="{Binding Pessoa}">
-        <Label HorizontalOptions="Fill" TextColor="Black" Margin="30" HorizontalTextAlignment="Center">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Você está reportando o tatuador " FontAttributes="Bold" FontSize="45"/>
-                    <Span Text="{Binding Name}" FontAttributes="Bold" FontSize="45"/>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Label HorizontalOptions="Fill" TextColor="Black" Margin="30" HorizontalTextAlignment="Center" Text="Explique-nos o que aconteceu:" FontAttributes="Bold" FontSize="45"/>
-        <Frame CornerRadius="10" BorderColor="WhiteSmoke" Padding="10" Visual="Material">
-            <Entry Text="{Binding ReportText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
-        </Frame>
-        <Button Text="Enviar" Command="{Binding SendCommand}" BackgroundColor="Black" BorderWidth="2" CornerRadius="10" Visual="Material"/>
-    </StackLayout>
+    <ScrollView>
+        <StackLayout Orientation="Vertical" HorizontalOptions="Fill" Padding="10" BackgroundColor="AntiqueWhite">
+            <Label HorizontalOptions="Fill" TextColor="Black" Margin="30" HorizontalTextAlignment="Center" Text="Você está reportando o tatuador:" FontSize="35"/>
+
+
+            <Label Text="{Binding Tatuador}" FontAttributes="Bold" FontSize="45" HorizontalOptions="Center" TextColor="Black" Margin="0, -15, 0, 15"/>
+
+
+            <Frame BackgroundColor="FloralWhite" CornerRadius="20">
+                <StackLayout Orientation="Vertical">
+                    <Entry Placeholder="Informe nome completo:" Text="{Binding Name}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
+
+                    <Entry Placeholder="CPF ou CNPJ:" Text="{Binding Cpf}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent">
+                        <Entry.Behaviors>
+                            <behaviorPack:CPFCNPJValidationBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+
+                    <Entry Placeholder="Informe seu email:" >
+                        <Entry.Behaviors>
+                            <behaviorPack:EmailValidationBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+
+                    <Entry Placeholder="Assunto:" Text="{Binding Titulo}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
+                    <Entry Placeholder="Explique-nos o que aconteceu:" Text="{Binding ReportText}" VerticalOptions="CenterAndExpand" WidthRequest="200" BackgroundColor="Transparent"/>
+                </StackLayout>
+            </Frame>
+        
+            <Button Margin="55, 0, 55, 0" Padding="1" Text="Enviar" Command="{Binding SendCommand}" BackgroundColor="Black" BorderWidth="2" CornerRadius="10" Visual="Material"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -93,10 +93,10 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" BackgroundColor="Transparent"
                                            Color="Black" VerticalOptions="Center"
                                            HorizontalOptions="Center"/>
+
         <!--<fl:FlowListView x:Name="flowListView" FlowColumnCount="3" FlowItemsSource="{Binding Feed}" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="White"
 			    FlowItemTappedCommand="{Binding PhotoTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}" HasUnevenRows="False" FlowUseAbsoluteLayoutInternally="True">
                 <fl:FlowListView.FlowColumnTemplate>

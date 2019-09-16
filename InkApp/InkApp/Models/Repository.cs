@@ -53,6 +53,20 @@ namespace InkApp.Models
             return Service.AddItem(solicitacao);
         }
 
+
+        public JObject ReportToJObject(Report p)
+        {
+            JObject jo = new JObject();
+            jo.Add("id", p.Id);
+            jo.Add("Name", p.Name);
+            jo.Add("Cpf", p.Cpf);
+            jo.Add("Tatuador", p.Tatuador);
+            jo.Add("Motivo", p.Motivo);
+            jo.Add("Titulo", p.Titulo);
+            return jo;
+        }
+
+
         public JObject PeopleToJObject(Pessoa p)
         {
             JObject jo = new JObject();
@@ -83,6 +97,18 @@ namespace InkApp.Models
                 return Service.AddItem(p);
             else
                 Service.UpdateItemAsync(p.Id, PeopleToJObject(p));
+
+            return true;
+
+        }
+
+        public bool AddReport(Report r)
+        {
+            var Service = new Services.AzureService<Report>();
+            if (string.IsNullOrEmpty(r.Id))
+                return Service.AddItem(r);
+            else
+                Service.UpdateItemAsync(r.Id, ReportToJObject(r));
 
             return true;
 
