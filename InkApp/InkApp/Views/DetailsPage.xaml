@@ -45,6 +45,11 @@
                                 <TapGestureRecognizer Command="{Binding BtnFace}" NumberOfTapsRequired="1"/>
                             </Label.GestureRecognizers>
                         </Label>
+                        <Label FontFamily="{DynamicResource MaterialButton}" Text="{StaticResource Email}" HorizontalTextAlignment="Center" TextColor="Black" Scale="1.5" Margin="15, 10" FontSize="Medium">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BtnEmail}" NumberOfTapsRequired="1"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                     </StackLayout>
                     <expandable:ExpandableView>
                         <expandable:ExpandableView.PrimaryView >

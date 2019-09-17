@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace InkApp.ViewModels
@@ -36,6 +37,9 @@ namespace InkApp.ViewModels
 
         private string _image;
         public string ProfileImage { get { return _image; } set { SetProperty(ref _image, value); } }
+
+        private string _email;
+        public string Email { get { return _email; } set { SetProperty(ref _email, value); } }
 
         private string _local;
         public string Local { get { return _local; } set { SetProperty(ref _local, value); } }
@@ -70,6 +74,7 @@ namespace InkApp.ViewModels
 
         public DelegateCommand BtnWhats { get; private set; }
         public DelegateCommand BtnFace { get; private set; }
+        public DelegateCommand BtnEmail { get; private set; }
         public DelegateCommand LoadingCommand { get; private set; }
         public DelegateCommand ReportCommand { get; private set; }
 
@@ -80,6 +85,7 @@ namespace InkApp.ViewModels
             PageDialogService = pageDialogService;
             BtnWhats = new DelegateCommand(OpenWhatsAppAsync);
             BtnFace = new DelegateCommand(OpenFace);
+            BtnEmail = new DelegateCommand(OpenEmail);
             BtnIg = new DelegateCommand(OpenInstagram);
             BtnLocal = new DelegateCommand(OpenLocal);
             PhotoTappedCommand = new DelegateCommand(OpenPhotoAsync);
@@ -87,6 +93,14 @@ namespace InkApp.ViewModels
             LoadingCommand = new DelegateCommand(LoadMoreDataAsync);
             Feed = new ObservableCollection<InstagramItem>();
             instagramItems = new List<InstagramItem>();
+        }
+
+        private async void OpenEmail()
+        {
+            if (!_pessoa.Email.Equals("nao"))
+                await Launcher.TryOpenAsync(new Uri("mailto:" + Email));
+            else
+                await PageDialogService.DisplayAlertAsync("Email", "Tatuador não possui contato via email.", "Ok");
         }
 
         private async void OpenReportPage()
@@ -116,17 +130,17 @@ namespace InkApp.ViewModels
             await GetMediaAsync(_pessoa);
         }
 
-        private void OpenLocal()
+        private async void OpenLocal()
         {
             string rua = _pessoa.Local + ", " + _pessoa.Cidade + " - " + _pessoa.Estado;
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
-                    Device.OpenUri(
+                    await Launcher.TryOpenAsync(
                       new Uri(string.Format("http://maps.apple.com/?q={0}", WebUtility.UrlEncode(rua))));
                     break;
                 case Device.Android:
-                    Device.OpenUri(
+                    await Launcher.TryOpenAsync(
                       new Uri(string.Format("geo:0,0?q={0}", WebUtility.UrlEncode(rua))));
                     break;
             }
@@ -135,7 +149,7 @@ namespace InkApp.ViewModels
         private async void OpenFace()
         {
             if (!_pessoa.Facebook.Equals("nao"))
-                Device.OpenUri(new Uri("fb://" + _pessoa.Facebook));
+                await Launcher.TryOpenAsync(new Uri("fb://" + _pessoa.Facebook));
             else
                 await PageDialogService.DisplayAlertAsync("Facebook", "Tatuador não possui facebook.", "Ok");
         }
@@ -143,14 +157,14 @@ namespace InkApp.ViewModels
         private async void OpenWhatsAppAsync()
         {
             if(!_pessoa.Numero.Equals("nao"))
-                Device.OpenUri(new Uri("https://wa.me/"+ _pessoa.Numero));
+                await Launcher.TryOpenAsync(new Uri("https://wa.me/"+ _pessoa.Numero));
             else
                 await PageDialogService.DisplayAlertAsync("WhatsApp", "Tatuador não possui whatsapp.", "Ok");
         }
 
-        private void OpenInstagram()
+        private async void OpenInstagram()
         {
-            Device.OpenUri(new Uri("https://www.instagram.com/" + _pessoa.Username));
+            await Launcher.TryOpenAsync(new Uri("https://www.instagram.com/" + _pessoa.Username));
         }
 
 
@@ -206,7 +220,7 @@ namespace InkApp.ViewModels
 
         public override void OnNavigatedFromAsync(INavigationParameters parameters)
         {
-            if(parameters.GetNavigationMode() == NavigationMode.Back)
+            if(parameters.GetNavigationMode() == Prism.Navigation.NavigationMode.Back)
             {
                 App.Api.CloseUser(_pessoa);
             }
@@ -214,7 +228,7 @@ namespace InkApp.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
-            if(parameters.GetNavigationMode() == NavigationMode.New)
+            if(parameters.GetNavigationMode() == Prism.Navigation.NavigationMode.New)
             {
                 _pessoa = parameters["pessoa"] as Pessoa;
                 CollectionVisible = false;
@@ -222,6 +236,7 @@ namespace InkApp.ViewModels
                 Nome = _pessoa.Name;
                 ProfileImage = _pessoa.Image;
                 Local = _pessoa.Local;
+                Email = _pessoa.Email;
                 Sobre = _pessoa.Sobre;
                 await GetMediaAsync(_pessoa);
                 CollectionVisible = true;

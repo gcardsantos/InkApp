@@ -17,7 +17,6 @@ namespace InkApp.ViewModels
         private Repository repository;
         public DelegateCommand<string> FilterCommand { get; private set; }
         public DelegateCommand PhotoTappedCommand { get; private set; }
-
         public DelegateCommand TopCommand { get; private set; }
         public DelegateCommand LoadingCommand { get; set; }
 
@@ -26,12 +25,11 @@ namespace InkApp.ViewModels
         private ObservableCollection<InstagramItem> _feed;
         public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
 
-        public object mutex;
+        public ConcurrentQueue<KeyValuePair<Pessoa, List<InstagramItem>>> Imagens;
 
-        private ObservableCollection<InstagramItem> _toplist;
-        public ObservableCollection<InstagramItem> TopList { get { return _toplist; } set { SetProperty(ref _toplist, value); } }
+        //private ObservableCollection<InstagramItem> _toplist;
+        //public ObservableCollection<InstagramItem> TopList { get { return _toplist; } set { SetProperty(ref _toplist, value); } }
 
-        public Queue<KeyValuePair<Pessoa, List<InstagramItem>>> Imagens;
         //public Dictionary<Pessoa, List<InstagramItem>> Imagens;
 
         private InstagramItem _lastItemTapped;
@@ -40,17 +38,9 @@ namespace InkApp.ViewModels
         private bool _busy;
         public bool IsBusy { get { return _busy; } set { SetProperty(ref _busy, value); } }
 
-        private bool _loadMore;
-        public bool IsLoadMore { get { return _loadMore; } set { SetProperty(ref _loadMore, value); } }
-
-
         private bool _isCollection;
         public bool CollectionVisible { get { return _isCollection; } set { SetProperty(ref _isCollection, value); } }
 
-        private int _position;
-        public int Position { get { return _position; } set { SetProperty(ref _position, value); } }
-
-        public bool done;
 
         public string FilterSelected { get; set; }
 
@@ -61,7 +51,7 @@ namespace InkApp.ViewModels
         public FeedPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             repository = new Repository();
-            Imagens = new Queue<KeyValuePair<Pessoa, List<InstagramItem>>>();
+            Imagens = new ConcurrentQueue<KeyValuePair<Pessoa, List<InstagramItem>>>();
             Feed = new ObservableCollection<InstagramItem>();
             //TopList = new ObservableCollection<InstagramItem>();
             allItems = new List<InstagramItem>();
@@ -71,7 +61,6 @@ namespace InkApp.ViewModels
             LoadingCommand = new DelegateCommand(LoadMoreData);
             TopCommand = new DelegateCommand(CardOpenPhoto);
             FilterSelected = "All";
-            done = false;
             StartValueAsync();
         }
 
@@ -110,6 +99,32 @@ namespace InkApp.ViewModels
             }
         }
 
+        public async Task GetData(List<Pessoa> pessoas)
+        {
+            await Task.Run(() =>
+            {
+                Parallel.ForEach(pessoas, async p =>
+                {
+                    await Task.Factory.StartNew(async () =>
+                    {
+                        var t1 = App.Api.GetUserAsync(p);
+
+                        await Task.WhenAll(t1);
+
+                        var t2 = App.Api.GetMediaAsync(p, 49);
+
+                        await Task.WhenAll(t2);
+
+                        var list = t2.Result;
+
+                        //Imagens.Enqueue(new KeyValuePair<Pessoa, List<InstagramItem>>(p, list));
+                        var pair = Imagens.First(n => n.Key.Username.Equals(p.Username));
+                        pair.Value.AddRange(list);
+                    }).ConfigureAwait(false);
+                });
+            });
+        }
+
         private async void StartValueAsync()
         {
             CollectionVisible = false;
@@ -119,26 +134,8 @@ namespace InkApp.ViewModels
             var pessoas = await repository.GetShufflePessoas();
             pessoas.ForEach(n => Imagens.Enqueue(new KeyValuePair<Pessoa, List<InstagramItem>>(n, new List<InstagramItem>())));
             IsBusy = true;
-            foreach (var p in pessoas)
-            {
-                await Task.Run(async () =>
-                {
-                    var t1 = App.Api.GetUserAsync(p);
 
-                    await Task.WhenAll(t1);
-
-                    var t2 = App.Api.GetMediaAsync(p, 49);
-
-                    await Task.WhenAll(t2);
-
-                    var list = t2.Result;
-
-                    var pair = Imagens.First(n => n.Key.Username.Equals(p.Username));
-                    pair.Value.AddRange(list);
-                });
-                
-            }
-
+            await Task.WhenAll(GetData(pessoas));
             await CollectionLoadingMore();
             CollectionVisible = true;
         }
@@ -180,53 +177,61 @@ namespace InkApp.ViewModels
             IsBusy = false;
         }
 
+
+        public void CircleQueue(KeyValuePair<Pessoa, List<InstagramItem>> pessoa, List<InstagramItem> itemsShuffle)
+        {
+            var k = pessoa.Value;
+
+            List<InstagramItem> l;
+
+            if (k.Count > 5)
+                l = k.GetRange(0, 5);
+            else
+                l = k;
+
+            l.ForEach(n =>
+            {
+                itemsShuffle.Add(n);
+                allItems.Add(n);
+                k.Remove(n);
+            });    
+        }
+
         public async Task CollectionLoadingMore()
         {
             try
             {
                 IsBusy = true;
-                IsLoadMore = false;
-
-                List<InstagramItem> items = new List<InstagramItem>();
-
-                int count = allItems.Count;
-                bool localAttempt = false;
-
-                //'done' valida se ainda há dados para se buscar
-                //'localAttempt' tenta fazer uma nova requisição de dados para continuar o feed
-
-                while (count == Feed.Count && Imagens.Count != 0)
+                var itemsShuffle = new List<InstagramItem>();
+                for (int i = 0; i < 4; i++)
                 {
-                    for (int i = 0; i < 4 && i < Imagens.Count; i++)
+                    KeyValuePair<Pessoa, List<InstagramItem>> saida = new KeyValuePair<Pessoa, List<InstagramItem>>();
+
+                    if(Imagens.TryDequeue(out saida))
                     {
-                        var pessoa = Imagens.Dequeue();
-                        var k = pessoa.Value;
-
-                        List<InstagramItem> l;
-
-                        if (k.Count > 5)
-                            l = k.GetRange(0, 5);
-                        else
-                            l = k;
-
-                        l.ForEach(n =>
+                        if (Imagens.Count > 1)
                         {
-                            items.Add(n);
-                            allItems.Add(n);
-                            k.Remove(n);
-                        });
-
-                        if (k.Count > 0)
-                            Imagens.Enqueue(pessoa);
+                            if (saida.Value.Count > 0)
+                            {
+                                CircleQueue(saida, itemsShuffle);
+                            }
+                        }
+                        else
+                        {
+                            await Task.Delay(500);
+                        }
+                        
+                        Imagens.Enqueue(saida);
                     }
-
-                    if (localAttempt && count == allItems.Count)
+                    else
                     {
-                        //done = true;
-                        break;
+                        await Task.Delay(1000);
                     }
+                }
 
-                    var itemsShuffle = items.OrderBy(a => Guid.NewGuid());
+                if(itemsShuffle.Count > 0)
+                {
+                    itemsShuffle = itemsShuffle.OrderBy(a => Guid.NewGuid()).ToList();
 
                     if (FilterSelected.Equals("All"))
                     {
@@ -245,16 +250,7 @@ namespace InkApp.ViewModels
                             }
                         }
                     }
-
-                    //Thread t = new Thread(GetMoreDataAsync);
-                    //t.Start();
-
-                    if (count == allItems.Count)
-                    {    
-                        localAttempt = true;
-                    }                       
-                            
-                }
+                }                
             }
             catch (InvalidOperationException r)
             {
@@ -268,7 +264,6 @@ namespace InkApp.ViewModels
             finally
             {
                 IsBusy = false;
-                IsLoadMore = true;
             }
         }
 

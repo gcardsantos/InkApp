@@ -34,6 +34,7 @@
         <x:String x:Key="HeartWhite">&#xf2d1;</x:String>
         <x:String x:Key="Account">&#xf00f;</x:String>
         <x:String x:Key="Pen">&#xf3ea;</x:String>
+        <x:String x:Key="Email">&#xf1f0;</x:String>
 
     </Application.Resources>
 </prism:PrismApplication>
