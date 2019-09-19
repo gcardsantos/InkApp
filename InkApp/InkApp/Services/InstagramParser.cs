@@ -18,7 +18,8 @@ namespace InkApp.Services
 
         public async System.Threading.Tasks.Task<bool> GetUserAsync(List<Pessoa> pessoas)
         {
-            foreach(var p in pessoas)
+            List<Pessoa> erros = new List<Pessoa>();
+            foreach (var p in pessoas)
             {
                 string url = @"https://www.instagram.com/" + p.Username + "/?__a=1";
                 try
@@ -37,7 +38,11 @@ namespace InkApp.Services
                             p.IdInsta = o.SelectToken("graphql.user.id").Value<string>();
                             p.QtdPosts = o.SelectToken("graphql.user.edge_owner_to_timeline_media.count").Value<int>();
                             p.NextPage = true;
-                            
+
+                        }
+                        else
+                        {
+                            erros.Add(p);
                         }
                     }
                 }
@@ -46,6 +51,8 @@ namespace InkApp.Services
                     return false;
                 }
             }
+
+            erros.ForEach(n => pessoas.Remove(n));
 
             return true;
         }
@@ -75,6 +82,11 @@ namespace InkApp.Services
                         };
                         return p;
                     }
+                    else
+                    {
+                        return null;
+                    }
+
                 }
 
 
@@ -108,6 +120,10 @@ namespace InkApp.Services
                         p.QtdPosts = o.SelectToken("graphql.user.edge_owner_to_timeline_media.count").Value<int>();
                         p.NextPage = true;
                         return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
 

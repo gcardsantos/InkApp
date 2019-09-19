@@ -111,17 +111,25 @@ namespace InkApp.ViewModels
 
                         await Task.WhenAll(t1);
 
-                        var t2 = App.Api.GetMediaAsync(p, 49);
+                        if (t1.Result)
+                        {
+                            var t2 = App.Api.GetMediaAsync(p, 49);
 
-                        await Task.WhenAll(t2);
+                            await Task.WhenAll(t2);
+                            if (t2.Result.Count > 0)
+                            {
+                                var list = t2.Result;
 
-                        var list = t2.Result;
+                                Imagens.Enqueue(new KeyValuePair<Pessoa, List<InstagramItem>>(p, list));
+                                //var pair = Imagens.First(n => n.Key.Username.Equals(p.Username));
+                                //pair.Value.AddRange(list);
+                            }
 
-                        //Imagens.Enqueue(new KeyValuePair<Pessoa, List<InstagramItem>>(p, list));
-                        var pair = Imagens.First(n => n.Key.Username.Equals(p.Username));
-                        pair.Value.AddRange(list);
+                        }
                     }).ConfigureAwait(false);
                 });
+
+                //erros.ForEach(n => Imagens.ToList().Remove);
             });
         }
 
@@ -132,10 +140,11 @@ namespace InkApp.ViewModels
             //IsBusy se repetiu pelo fato da solicitação de novos items do CollectionView setar para false antes de concluir a busca por novas imagens
             IsBusy = true;
             var pessoas = await repository.GetShufflePessoas();
-            pessoas.ForEach(n => Imagens.Enqueue(new KeyValuePair<Pessoa, List<InstagramItem>>(n, new List<InstagramItem>())));
+            //pessoas.ForEach(n => Imagens.Enqueue(new KeyValuePair<Pessoa, List<InstagramItem>>(n, new List<InstagramItem>())));
             IsBusy = true;
 
             await Task.WhenAll(GetData(pessoas));
+            await Task.Delay(1000);
             await CollectionLoadingMore();
             CollectionVisible = true;
         }
@@ -184,8 +193,8 @@ namespace InkApp.ViewModels
 
             List<InstagramItem> l;
 
-            if (k.Count > 5)
-                l = k.GetRange(0, 5);
+            if (k.Count > 10)
+                l = k.GetRange(0, 10);
             else
                 l = k;
 
@@ -209,7 +218,7 @@ namespace InkApp.ViewModels
 
                     if(Imagens.TryDequeue(out saida))
                     {
-                        if (Imagens.Count > 1)
+                        if (Imagens.Count > 2)
                         {
                             if (saida.Value.Count > 0)
                             {
@@ -218,14 +227,14 @@ namespace InkApp.ViewModels
                         }
                         else
                         {
-                            await Task.Delay(500);
+                            await Task.Delay(1000);
                         }
                         
                         Imagens.Enqueue(saida);
                     }
                     else
                     {
-                        await Task.Delay(1000);
+                        await Task.Delay(2000);
                     }
                 }
 
