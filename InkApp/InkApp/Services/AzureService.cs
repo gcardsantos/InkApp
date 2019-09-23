@@ -9,8 +9,8 @@ namespace InkApp.Services
 {
     public class AzureService<T>
     {
-        IMobileServiceClient Client;
-        IMobileServiceTable<T> Table;
+        public IMobileServiceClient Client;
+        public IMobileServiceTable<T> Table;
 
         public AzureService()
         {
@@ -19,9 +19,9 @@ namespace InkApp.Services
             Table = Client.GetTable<T>();
         }
 
-        public Task<IEnumerable<T>> GetTable()
+        public Task<List<T>> GetTable()
         {
-            return Table.ToEnumerableAsync();
+            return Table.ToListAsync();
         }
 
         public bool AddItem(T item)

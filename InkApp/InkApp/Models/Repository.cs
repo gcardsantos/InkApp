@@ -27,7 +27,6 @@ namespace InkApp.Models
         {
             var Service = new Services.AzureService<Pessoa>();
             var Items = await Service.GetTable();
-
             return Items.ToList();
         }
 

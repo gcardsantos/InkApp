@@ -37,7 +37,6 @@ namespace InkApp
         protected override async void OnInitialized()
         {
             CheckConnection();
-            AdMaiora.RealXaml.Client.AppManager.Init(this);
             InitializeComponent();
             Api = new InstagramParser();
             Repository = new Repository();

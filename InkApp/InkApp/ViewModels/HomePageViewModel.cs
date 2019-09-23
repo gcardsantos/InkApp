@@ -59,17 +59,15 @@ namespace InkApp.ViewModels
         public HomePageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
+            NavigateToPessoasPageCommand = new DelegateCommand(NavigateToPessoasPage);
+            NavigateToRequestPageCommand = new DelegateCommand(NavigateToRequestPage);
+            NavigateToAboutPageCommand = new DelegateCommand(NavitageToAboutPageAsync);
+            Cidades = new ObservableCollection<string>();
             StartValues();
         }
 
         public async void StartValues()
         {
-            NavigateToPessoasPageCommand = new DelegateCommand(NavigateToPessoasPage);
-            NavigateToRequestPageCommand = new DelegateCommand(NavigateToRequestPage);
-            NavigateToAboutPageCommand = new DelegateCommand(NavitageToAboutPageAsync);
-
-            Cidades = new ObservableCollection<string>();
-
             int attempt = 0;
             IsBusy = true;
             while(attempt != 1)
@@ -87,9 +85,9 @@ namespace InkApp.ViewModels
                     
                     attempt = 1;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    
+                    string s = e.Message;
                 }
             }
 
