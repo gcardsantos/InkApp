@@ -14,13 +14,13 @@ namespace InkApp.ViewModels
 {
     public class FeedPageViewModel : ViewModelBase
     {
-        private Repository repository;
+        private readonly Repository repository;
         public DelegateCommand<string> FilterCommand { get; private set; }
         public DelegateCommand PhotoTappedCommand { get; private set; }
         public DelegateCommand TopCommand { get; private set; }
         public DelegateCommand LoadingCommand { get; set; }
 
-        private List<InstagramItem> allItems;
+        private readonly List<InstagramItem> allItems;
 
         private ObservableCollection<InstagramItem> _feed;
         public ObservableCollection<InstagramItem> Feed { get { return _feed; } set { SetProperty(ref _feed, value); } }
@@ -45,8 +45,6 @@ namespace InkApp.ViewModels
         public string FilterSelected { get; set; }
 
         public List<Pessoa> PeopleAdded { get; set; }
-
-        static Random random = new Random();
 
         public FeedPageViewModel(INavigationService navigationService) : base(navigationService)
         {

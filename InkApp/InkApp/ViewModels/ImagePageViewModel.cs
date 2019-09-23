@@ -16,7 +16,6 @@ namespace InkApp.ViewModels
         public IPageDialogService PageDialogService { get; }
         public DelegateCommand PhotoCommand { get; set; }
         public DelegateCommand ProfileCommand { get; set; }
-
         public DelegateCommand DeleteCommand { get; }
 
         public InstagramItem item;

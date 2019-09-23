@@ -2,23 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.627</Version>
-    <FileVersion>1.0.1.627</FileVersion>
-    <AssemblyVersion>1.0.1.627</AssemblyVersion>
+    <Version>1.0.637</Version>
+    <FileVersion>1.0.1.637</FileVersion>
+    <AssemblyVersion>1.0.1.637</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AdMaiora.RealXaml.Client" Version="1.0.0" />
     <PackageReference Include="ExpandableView" Version="1.0.9" />
     <PackageReference Include="Microsoft.Azure.Mobile.Client" Version="4.1.2-prerelease.481290" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
-    <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta1" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
+    <PackageReference Include="Xam.Plugin.Connectivity" Version="4.0.0.190-beta" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.778476-pre1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.819712-pre2" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1367" />
     <PackageReference Include="Xamarin.Forms.BehaviorValidationPack" Version="1.1.0" />
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.1.0.709244" />

@@ -98,7 +98,10 @@ namespace InkApp.ViewModels
         private async void OpenEmail()
         {
             if (!_pessoa.Email.Equals("nao"))
-                await Launcher.TryOpenAsync(new Uri("mailto:" + Email));
+                if(await Launcher.TryOpenAsync(new Uri("mailto:" + Email)))
+                    await Launcher.OpenAsync(new Uri("mailto:" + Email));
+                else
+                    await PageDialogService.DisplayAlertAsync("Email", "Não foi possível abrir o aplicativo de email.", "Ok");
             else
                 await PageDialogService.DisplayAlertAsync("Email", "Tatuador não possui contato via email.", "Ok");
         }
@@ -136,11 +139,11 @@ namespace InkApp.ViewModels
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
-                    await Launcher.TryOpenAsync(
+                    await Launcher.OpenAsync(
                       new Uri(string.Format("http://maps.apple.com/?q={0}", WebUtility.UrlEncode(rua))));
                     break;
                 case Device.Android:
-                    await Launcher.TryOpenAsync(
+                    await Launcher.OpenAsync(
                       new Uri(string.Format("geo:0,0?q={0}", WebUtility.UrlEncode(rua))));
                     break;
             }
@@ -149,7 +152,12 @@ namespace InkApp.ViewModels
         private async void OpenFace()
         {
             if (!_pessoa.Facebook.Equals("nao"))
-                await Launcher.TryOpenAsync(new Uri("fb://" + _pessoa.Facebook));
+            {
+                if (await Launcher.TryOpenAsync(new Uri("fb://" + _pessoa.Facebook)))
+                    await Launcher.OpenAsync(new Uri("fb://" + _pessoa.Facebook));
+                else
+                    await PageDialogService.DisplayAlertAsync("Facebook", "Não foi possível abrir o aplicativo do Facebook.", "Ok");
+            }
             else
                 await PageDialogService.DisplayAlertAsync("Facebook", "Tatuador não possui facebook.", "Ok");
         }
@@ -157,14 +165,20 @@ namespace InkApp.ViewModels
         private async void OpenWhatsAppAsync()
         {
             if(!_pessoa.Numero.Equals("nao"))
-                await Launcher.TryOpenAsync(new Uri("https://wa.me/"+ _pessoa.Numero));
+                if(await Launcher.TryOpenAsync(new Uri("https://wa.me/" + _pessoa.Numero)))
+                    await Launcher.OpenAsync(new Uri("https://wa.me/"+ _pessoa.Numero));
+                else
+                    await PageDialogService.DisplayAlertAsync("WhatsApp", "Não foi possível abrir o aplicativo do WhatsApp.", "Ok");
             else
                 await PageDialogService.DisplayAlertAsync("WhatsApp", "Tatuador não possui whatsapp.", "Ok");
         }
 
         private async void OpenInstagram()
         {
-            await Launcher.TryOpenAsync(new Uri("https://www.instagram.com/" + _pessoa.Username));
+            if(await Launcher.TryOpenAsync(new Uri("https://www.instagram.com/" + _pessoa.Username)))
+                await Launcher.OpenAsync(new Uri("https://www.instagram.com/" + _pessoa.Username));
+            else
+                await PageDialogService.DisplayAlertAsync("Instagram", "Não foi possível abrir o aplicativo do Instagram", "Ok");
         }
 
 
